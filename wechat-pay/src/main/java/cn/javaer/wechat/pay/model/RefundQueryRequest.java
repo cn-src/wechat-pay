@@ -15,7 +15,6 @@ package cn.javaer.wechat.pay.model;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -56,7 +55,7 @@ public class RefundQueryRequest extends BasePayRequest {
      *
      * @return RefundQueryRequest
      */
-    public static RefundQueryRequest createWithOutTradeNo(@NotNull final String outTradeNo) {
+    public static RefundQueryRequest createWithOutTradeNo(final String outTradeNo) {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.outTradeNo = outTradeNo;
         request.configureAndSign();
@@ -73,7 +72,7 @@ public class RefundQueryRequest extends BasePayRequest {
      * @return RefundQueryRequest
      */
     public static RefundQueryRequest createWithOutTradeNo(
-            @NotNull final String outTradeNo, @NotNull final Integer offset) {
+            final String outTradeNo, final Integer offset) {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.outTradeNo = outTradeNo;
         request.offset = offset;
