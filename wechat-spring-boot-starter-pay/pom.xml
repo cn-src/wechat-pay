@@ -11,6 +11,35 @@
 
     <artifactId>wechat-spring-boot-starter-pay</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>cn.javaer</groupId>
+            <artifactId>wechat-pay</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
     <name>wechat-spring-boot-starter-pay</name>
     <description>WeChat pay spring boot starter</description>
     <url>https://github.com/cn-src/wechat-pay</url>
