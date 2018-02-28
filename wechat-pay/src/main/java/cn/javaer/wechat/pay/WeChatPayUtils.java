@@ -63,6 +63,23 @@ public class WeChatPayUtils {
     }
 
     /**
+     * 拼接多个 path.
+     *
+     * @param firstPath firstPath
+     * @param secondPath secondPath
+     *
+     * @return 拼接后的 path.
+     */
+    public static String joinPath(final String firstPath, final String secondPath) {
+        Validate.notEmpty(firstPath);
+        Validate.notEmpty(secondPath);
+
+        final String tmp1 = firstPath.endsWith("/") ? firstPath.substring(0, firstPath.length() - 1) : firstPath;
+        final String tmp2 = secondPath.startsWith("/") ? (tmp1 + secondPath) : (tmp1 + "/" + secondPath);
+        return tmp2.endsWith("/") ? tmp2.substring(0, tmp2.length() - 1) : tmp2;
+    }
+
+    /**
      * 微信支付-生成签名.
      *
      * @param request 要签名的数据对象.
