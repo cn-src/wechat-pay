@@ -18,7 +18,6 @@ import cn.javaer.wechat.pay.support.SignIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -88,7 +87,7 @@ public class RefundQueryResponse extends BasePayResponse {
         }
     }
 
-    @NotNull
+
     private Map<String, BiConsumer<String, Coupon>> createCouponMapping(final String key) {
         final Map<String, BiConsumer<String, Coupon>> couponMapping = new HashMap<>(3);
         couponMapping.put("coupon_type_" + key + "_",
@@ -98,7 +97,7 @@ public class RefundQueryResponse extends BasePayResponse {
         return couponMapping;
     }
 
-    @NotNull
+
     private Map<String, BiConsumer<String, Refund>> createRefundMapping() {
         final Map<String, BiConsumer<String, Refund>> refundMapping = new HashMap<>(11);
         refundMapping.put("out_refund_no_", (val, coupon) -> coupon.setOutRefundNo(val));

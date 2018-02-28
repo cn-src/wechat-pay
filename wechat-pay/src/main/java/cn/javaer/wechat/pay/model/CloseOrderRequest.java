@@ -15,7 +15,6 @@ package cn.javaer.wechat.pay.model;
 
 import lombok.Getter;
 import lombok.ToString;
-import org.jetbrains.annotations.NotNull;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -33,10 +32,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class CloseOrderRequest extends BasePayRequest {
 
-    private CloseOrderRequest() {}
-
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
+
+    private CloseOrderRequest() {}
 
     /**
      * create CloseOrderRequest.
@@ -45,7 +44,7 @@ public class CloseOrderRequest extends BasePayRequest {
      *
      * @return CloseOrderRequest
      */
-    public static CloseOrderRequest create(@NotNull final String outTradeNo) {
+    public static CloseOrderRequest create(final String outTradeNo) {
         final CloseOrderRequest request = new CloseOrderRequest();
         request.outTradeNo = outTradeNo;
         request.configureAndSign();
