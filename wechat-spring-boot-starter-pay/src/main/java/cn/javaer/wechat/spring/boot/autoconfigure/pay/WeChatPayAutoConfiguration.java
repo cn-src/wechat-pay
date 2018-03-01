@@ -33,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
  * @author zhangpeng
  */
 @Configuration
-@ConditionalOnClass(name = "cn.javaer.wechat.spring.boot.starter.pay.ConditionalOnClassTrigger")
+@ConditionalOnClass(WeChatPayClient.class)
 @ConditionalOnWebApplication
 @AutoConfigureAfter({WebClientAutoConfiguration.class})
 @EnableConfigurationProperties(WeChatPayProperties.class)
@@ -54,7 +54,6 @@ public class WeChatPayAutoConfiguration {
     @Bean
     @ConditionalOnMissingBean
     public WeChatPayClient weChatPayClient(
-            @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
             @Autowired(required = false) RestTemplate restTemplate) {
         if (null == restTemplate) {
             restTemplate = new RestTemplate();
