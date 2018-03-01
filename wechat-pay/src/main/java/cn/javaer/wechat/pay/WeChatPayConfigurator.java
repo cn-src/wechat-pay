@@ -30,14 +30,29 @@ public class WeChatPayConfigurator {
      */
     public static final WeChatPayConfigurator DEFAULT = new WeChatPayConfigurator();
 
+    /**
+     * 公众号 ID
+     */
     private String appid;
 
+    /**
+     * 商户号 ID
+     */
     private String mchId;
 
+    /**
+     * 商户号 key
+     */
     private String mchKey;
 
+    /**
+     * 支付结果通知 url
+     */
     private String notifyUrl;
 
+    /**
+     * 客户端 ip
+     */
     private String spbillCreateIp;
 
     private WeChatPayConfigurator() {}
