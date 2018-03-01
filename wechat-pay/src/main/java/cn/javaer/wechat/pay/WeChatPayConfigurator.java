@@ -55,6 +55,11 @@ public class WeChatPayConfigurator {
      */
     private String spbillCreateIp;
 
+    /**
+     * 微信支付 api base path
+     */
+    private String apiBasePath;
+
     private WeChatPayConfigurator() {}
 
 }

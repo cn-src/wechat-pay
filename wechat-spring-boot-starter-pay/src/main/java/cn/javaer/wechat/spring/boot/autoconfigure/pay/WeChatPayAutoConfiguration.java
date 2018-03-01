@@ -14,6 +14,7 @@
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.pay.WeChatPayClient;
+import cn.javaer.wechat.pay.WeChatPayRestTemplateClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -58,7 +59,7 @@ public class WeChatPayAutoConfiguration {
         if (null == restTemplate) {
             restTemplate = new RestTemplate();
         }
-        return new WeChatPayRestTemplateClient(restTemplate, this.weChatPayProperties);
+        return new WeChatPayRestTemplateClient(restTemplate);
     }
 
     @Bean

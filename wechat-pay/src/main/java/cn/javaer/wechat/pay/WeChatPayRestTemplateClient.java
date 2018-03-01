@@ -11,11 +11,8 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.spring.boot.autoconfigure.pay;
+package cn.javaer.wechat.pay;
 
-import cn.javaer.wechat.pay.WeChatPayClient;
-import cn.javaer.wechat.pay.WeChatPayException;
-import cn.javaer.wechat.pay.WeChatPayUtils;
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
@@ -43,21 +40,16 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
 
     private final RestTemplate restTemplate;
 
-    private final WeChatPayProperties weChatPayProperties;
-
     /**
      * Instantiates a new WeChatPayRestTemplateClient.
      *
      * @param restTemplate RestTemplate
-     * @param weChatPayProperties WeChatPayProperties
      */
     public WeChatPayRestTemplateClient(
-            final RestTemplate restTemplate, final WeChatPayProperties weChatPayProperties) {
+            final RestTemplate restTemplate) {
         Objects.requireNonNull(restTemplate);
-        Objects.requireNonNull(weChatPayProperties);
 
         this.restTemplate = restTemplate;
-        this.weChatPayProperties = weChatPayProperties;
     }
 
     @Override
@@ -127,7 +119,7 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
         headers.setContentType(MediaType.TEXT_XML);
         final HttpEntity<Q> httpEntity = new HttpEntity<>(request, headers);
         return this.restTemplate.postForEntity(
-                WeChatPayUtils.joinPath(this.weChatPayProperties.getApiBasePath(), apiPath),
+                WeChatPayUtils.joinPath(WeChatPayConfigurator.DEFAULT.getApiBasePath(), apiPath),
                 httpEntity,
                 responseClass);
     }
