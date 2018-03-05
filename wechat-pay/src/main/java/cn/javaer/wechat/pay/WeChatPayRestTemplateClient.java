@@ -26,7 +26,6 @@ import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Objects;
@@ -53,74 +52,41 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
     }
 
     @Override
-    public UnifiedOrderResponse unifiedOrder(
-            final UnifiedOrderRequest request) throws WeChatPayException {
+    public UnifiedOrderResponse unifiedOrder(final UnifiedOrderRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
-
-        return postForEntity(
-                WeChatPayClient.UNIFIED_ORDER_PATH,
-                request,
-                UnifiedOrderResponse.class)
-                .getBody();
+        return postForEntity(WeChatPayClient.UNIFIED_ORDER_PATH, request, UnifiedOrderResponse.class);
     }
 
     @Override
-    public OrderQueryResponse orderQuery(
-            final OrderQueryRequest request) throws WeChatPayException {
+    public OrderQueryResponse orderQuery(final OrderQueryRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
-
-        return postForEntity(
-                WeChatPayClient.ORDER_QUERY_PATH,
-                request,
-                OrderQueryResponse.class)
-                .getBody();
+        return postForEntity(WeChatPayClient.ORDER_QUERY_PATH, request, OrderQueryResponse.class);
     }
 
     @Override
-    public CloseOrderResponse closeOrder(
-            final CloseOrderRequest request) throws WeChatPayException {
+    public CloseOrderResponse closeOrder(final CloseOrderRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
-
-        return postForEntity(
-                WeChatPayClient.CLOSE_ORDER_PATH,
-                request,
-                CloseOrderResponse.class)
-                .getBody();
+        return postForEntity(WeChatPayClient.CLOSE_ORDER_PATH, request, CloseOrderResponse.class);
     }
 
     @Override
-    public RefundResponse refund(
-            final RefundRequest request) throws WeChatPayException {
+    public RefundResponse refund(final RefundRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
 
-        return postForEntity(
-                WeChatPayClient.REFUND_PATH,
-                request,
-                RefundResponse.class)
-                .getBody();
+        return postForEntity(WeChatPayClient.REFUND_PATH, request, RefundResponse.class);
     }
 
     @Override
-    public RefundQueryResponse refundQuery(
-            final RefundQueryRequest request) throws WeChatPayException {
+    public RefundQueryResponse refundQuery(final RefundQueryRequest request) throws WeChatPayException {
         Objects.requireNonNull(request);
-
-        return postForEntity(
-                WeChatPayClient.REFUND_QUERY_PATH,
-                request,
-                RefundQueryResponse.class)
-                .getBody();
+        return postForEntity(WeChatPayClient.REFUND_QUERY_PATH, request, RefundQueryResponse.class);
     }
 
-    private <Q, S> ResponseEntity<S> postForEntity(
-            final String apiPath, final Q request, final Class<S> responseClass) {
-
+    private <Q, S> S postForEntity(final String apiPath, final Q request, final Class<S> responseClass) {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_XML);
         final HttpEntity<Q> httpEntity = new HttpEntity<>(request, headers);
-        return this.restTemplate.postForEntity(
-                WeChatPayUtils.joinPath(WeChatPayConfigurator.DEFAULT.getApiBasePath(), apiPath),
-                httpEntity,
-                responseClass);
+        final String url = WeChatPayUtils.joinPath(WeChatPayConfigurator.DEFAULT.getApiBasePath(), apiPath);
+        return this.restTemplate.postForEntity(url, httpEntity, responseClass).getBody();
     }
 }
