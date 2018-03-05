@@ -1,0 +1,13 @@
+{
+  "request": {
+    "urlPath": "/public/wechat/pay/notify_result",
+    "method": "POST"
+  },
+  "response": {
+    "status": 200,
+    "body": "<xml><return_code>SUCCESS</return_code><return_msg>OK</return_msg></xml>",
+    "headers": {
+      "Content-Type": "text/xml"
+    }
+  }
+}
