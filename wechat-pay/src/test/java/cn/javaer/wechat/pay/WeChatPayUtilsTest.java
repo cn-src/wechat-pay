@@ -13,8 +13,14 @@
 
 package cn.javaer.wechat.pay;
 
+import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 /**
@@ -30,5 +36,44 @@ public class WeChatPayUtilsTest {
         assertEquals("http://demo.com/demo", WeChatPayUtils.joinPath("http://demo.com/", "/demo"));
         assertEquals("http://demo.com/demo", WeChatPayUtils.joinPath("http://demo.com/", "/demo/"));
         assertEquals("http://demo.com/demo", WeChatPayUtils.joinPath("http://demo.com/", "demo/"));
+    }
+
+    @Test
+    public void sign() {
+        final UnifiedOrderResponse response = new UnifiedOrderResponse();
+        response.setReturnCode("SUCCESS");
+        response.setReturnMsg("OK");
+        response.setAppid("wx2421b1c4370ec43b");
+        response.setMchId("10000100");
+        response.setNonceStr("IITRi8Iabbblz1Jc");
+        response.setResultCode("SUCCESS");
+        response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
+        response.setTradeType("JSAPI");
+
+        response.beforeSign();
+
+        assertEquals("BC884153761883FE608EA956BD05A6F5", WeChatPayUtils.generateSign(response, "key"));
+    }
+
+    @Test
+    public void sign4Cache() throws Exception {
+        final UnifiedOrderResponse response = new UnifiedOrderResponse();
+        response.setReturnCode("SUCCESS");
+        response.setReturnMsg("OK");
+        response.setAppid("wx2421b1c4370ec43b");
+        response.setMchId("10000100");
+        response.setNonceStr("IITRi8Iabbblz1Jc");
+        response.setResultCode("SUCCESS");
+        response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
+        response.setTradeType("JSAPI");
+
+        // 2次调用测试缓存
+        WeChatPayUtils.generateSign(response, "key");
+
+        assertEquals("BC884153761883FE608EA956BD05A6F5", WeChatPayUtils.generateSign(response, "key"));
+        final Field field = WeChatPayUtils.class.getDeclaredField("CACHE_FOR_SIGN");
+        field.setAccessible(true);
+        final Map<Class, List<Field>> cache = (Map<Class, List<Field>>) field.get(null);
+        assertThat(cache).hasSize(1);
     }
 }
