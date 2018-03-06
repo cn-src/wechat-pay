@@ -19,7 +19,7 @@ import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 /**
  * @author zhangpeng
  */
-public class WeChatPayRestTemplateClientDemo {
+public class UnifiedOrder {
     public static void main(final String[] args) {
         final UnifiedOrderRequest unifiedOrderRequest = UnifiedOrderRequest.createWithNative("test", "TEST01", 1);
         final UnifiedOrderResponse unifiedOrderResponse = WeChatPayClientFactory.client().unifiedOrder(unifiedOrderRequest);
