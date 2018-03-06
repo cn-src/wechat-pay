@@ -14,6 +14,7 @@
 package cn.javaer.wechat.pay;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 /**
@@ -33,21 +34,25 @@ public class WeChatPayConfigurator {
     /**
      * 公众号 ID
      */
+    @NonNull
     private String appid;
 
     /**
      * 商户号 ID
      */
+    @NonNull
     private String mchId;
 
     /**
      * 商户号 key
      */
+    @NonNull
     private String mchKey;
 
     /**
      * 支付结果通知 url
      */
+    @NonNull
     private String notifyUrl;
 
     /**
