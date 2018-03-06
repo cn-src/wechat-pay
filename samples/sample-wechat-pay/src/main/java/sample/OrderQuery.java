@@ -20,8 +20,9 @@ import cn.javaer.wechat.pay.model.OrderQueryResponse;
  * @author zhangpeng
  */
 public class OrderQuery {
-    public static void main(String[] args) {
-        OrderQueryRequest request = OrderQueryRequest.create("TEST01");
+    public static void main(final String[] args) {
+        WeChatPayClientFactory.init();
+        final OrderQueryRequest request = OrderQueryRequest.create("TEST01");
         final OrderQueryResponse response = WeChatPayClientFactory.client().orderQuery(request);
         System.out.println(response);
     }

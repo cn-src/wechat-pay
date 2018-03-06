@@ -25,7 +25,7 @@ import org.springframework.web.client.RestTemplate;
 public class WeChatPayClientFactory {
     private static WeChatPayClient weChatPayClient;
 
-    static {
+    public static void init() {
         WeChatPayConfigurator.DEFAULT.setAppid(System.getenv("wechat.pay.appid"));
         WeChatPayConfigurator.DEFAULT.setMchId(System.getenv("wechat.pay.mchId"));
         WeChatPayConfigurator.DEFAULT.setMchKey(System.getenv("wechat.pay.mchKey"));
