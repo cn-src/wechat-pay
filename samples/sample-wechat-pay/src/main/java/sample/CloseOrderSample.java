@@ -13,17 +13,19 @@
 
 package sample;
 
-import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
-import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
+import cn.javaer.wechat.pay.model.CloseOrderRequest;
+import cn.javaer.wechat.pay.model.CloseOrderResponse;
 
 /**
  * @author zhangpeng
  */
-public class UnifiedOrder {
-    public static void main(final String[] args) {
+public class CloseOrderSample {
+    public static void main(final String[] args) throws Exception {
+        UnifiedOrderSample.main(args);
+        Thread.sleep(3000);
         WeChatPayClientFactory.init();
-        final UnifiedOrderRequest request = UnifiedOrderRequest.createWithNative("test", WeChatPayClientFactory.OUT_TRADE_NO, 1);
-        final UnifiedOrderResponse response = WeChatPayClientFactory.client().unifiedOrder(request);
+        final CloseOrderRequest request = CloseOrderRequest.create(WeChatPayClientFactory.OUT_TRADE_NO);
+        final CloseOrderResponse response = WeChatPayClientFactory.client().closeOrder(request);
         System.out.println(response);
     }
 }

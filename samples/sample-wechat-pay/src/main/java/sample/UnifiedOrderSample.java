@@ -13,17 +13,17 @@
 
 package sample;
 
-import cn.javaer.wechat.pay.model.OrderQueryRequest;
-import cn.javaer.wechat.pay.model.OrderQueryResponse;
+import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
+import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 
 /**
  * @author zhangpeng
  */
-public class OrderQuery {
+public class UnifiedOrderSample {
     public static void main(final String[] args) {
         WeChatPayClientFactory.init();
-        final OrderQueryRequest request = OrderQueryRequest.create(WeChatPayClientFactory.OUT_TRADE_NO);
-        final OrderQueryResponse response = WeChatPayClientFactory.client().orderQuery(request);
+        final UnifiedOrderRequest request = UnifiedOrderRequest.createWithNative("test", WeChatPayClientFactory.OUT_TRADE_NO, 1);
+        final UnifiedOrderResponse response = WeChatPayClientFactory.client().unifiedOrder(request);
         System.out.println(response);
     }
 }
