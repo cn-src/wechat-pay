@@ -13,29 +13,16 @@
 
 package sample;
 
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
-import cn.javaer.wechat.pay.WeChatPayRestTemplateClient;
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
-import cn.javaer.wechat.pay.support.WeChatPayJaxb2RootElementHttpMessageConverter;
-import org.springframework.web.client.RestTemplate;
 
 /**
  * @author zhangpeng
  */
 public class WeChatPayRestTemplateClientDemo {
     public static void main(final String[] args) {
-        WeChatPayConfigurator.DEFAULT.setAppid(System.getenv("wechat.pay.appid"));
-        WeChatPayConfigurator.DEFAULT.setMchId(System.getenv("wechat.pay.mchId"));
-        WeChatPayConfigurator.DEFAULT.setMchKey(System.getenv("wechat.pay.mchKey"));
-        WeChatPayConfigurator.DEFAULT.setNotifyUrl(System.getenv("wechat.pay.notifyUrl"));
-        WeChatPayConfigurator.DEFAULT.setApiBasePath("https://api.mch.weixin.qq.com");
-        WeChatPayConfigurator.DEFAULT.setSpbillCreateIp("127.0.0.1");
-
-        final RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new WeChatPayJaxb2RootElementHttpMessageConverter());
-        final WeChatPayRestTemplateClient client = new WeChatPayRestTemplateClient(restTemplate);
-        final UnifiedOrderResponse unifiedOrderResponse = client.unifiedOrder(UnifiedOrderRequest.createWithNative("test", "TEST01", 1));
+        final UnifiedOrderRequest unifiedOrderRequest = UnifiedOrderRequest.createWithNative("test", "TEST01", 1);
+        final UnifiedOrderResponse unifiedOrderResponse = WeChatPayClientFactory.client().unifiedOrder(unifiedOrderRequest);
         System.out.println(unifiedOrderResponse);
     }
 }
