@@ -17,7 +17,17 @@ import cn.javaer.wechat.pay.WeChatPayClient;
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayRestTemplateClient;
 import cn.javaer.wechat.pay.support.WeChatPayJaxb2RootElementHttpMessageConverter;
+import org.apache.http.conn.ssl.DefaultHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.ssl.SSLContexts;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
+
+import javax.net.ssl.SSLContext;
+import java.io.FileInputStream;
+import java.security.KeyStore;
 
 /**
  * @author zhangpeng
@@ -34,7 +44,30 @@ public class WeChatPayClientFactory {
         WeChatPayConfigurator.DEFAULT.setApiBasePath("https://api.mch.weixin.qq.com");
         WeChatPayConfigurator.DEFAULT.setSpbillCreateIp("127.0.0.1");
 
-        final RestTemplate restTemplate = new RestTemplate();
+        final HttpComponentsClientHttpRequestFactory clientHttpRequestFactory;
+        try {
+
+            // 配置证书
+            final KeyStore keystore = KeyStore.getInstance("PKCS12");
+            final char[] partnerId2charArray = WeChatPayConfigurator.DEFAULT.getMchId().toCharArray();
+            keystore.load(new FileInputStream(System.getenv("wechat.pay.certificatePath")), partnerId2charArray);
+
+            // ssl
+            final SSLContext sslContext = SSLContexts.custom()
+                    .loadKeyMaterial(keystore, partnerId2charArray).build();
+            final SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext,
+                    new String[]{"TLSv1"}, null, new DefaultHostnameVerifier());
+
+            // httpclient
+            final CloseableHttpClient httpclient = HttpClients.custom()
+                    .setSSLSocketFactory(sslsf)
+                    .build();
+
+            clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpclient);
+        } catch (final Exception e) {
+            throw new RuntimeException(e);
+        }
+        final RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
         restTemplate.getMessageConverters().add(new WeChatPayJaxb2RootElementHttpMessageConverter());
         weChatPayClient = new WeChatPayRestTemplateClient(restTemplate);
     }
