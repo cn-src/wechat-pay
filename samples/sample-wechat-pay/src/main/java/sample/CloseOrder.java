@@ -13,17 +13,11 @@
 
 package sample;
 
-import cn.javaer.wechat.pay.model.OrderQueryRequest;
-import cn.javaer.wechat.pay.model.OrderQueryResponse;
-
 /**
  * @author zhangpeng
  */
-public class OrderQuery {
+public class CloseOrder {
     public static void main(final String[] args) {
-        WeChatPayClientFactory.init();
-        final OrderQueryRequest request = OrderQueryRequest.create(WeChatPayClientFactory.OUT_TRADE_NO);
-        final OrderQueryResponse response = WeChatPayClientFactory.client().orderQuery(request);
-        System.out.println(response);
+
     }
 }

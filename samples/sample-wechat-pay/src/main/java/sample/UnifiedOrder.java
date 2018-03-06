@@ -22,7 +22,7 @@ import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 public class UnifiedOrder {
     public static void main(final String[] args) {
         WeChatPayClientFactory.init();
-        final UnifiedOrderRequest request = UnifiedOrderRequest.createWithNative("test", "TEST01", 1);
+        final UnifiedOrderRequest request = UnifiedOrderRequest.createWithNative("test", WeChatPayClientFactory.OUT_TRADE_NO, 1);
         final UnifiedOrderResponse response = WeChatPayClientFactory.client().unifiedOrder(request);
         System.out.println(response);
     }

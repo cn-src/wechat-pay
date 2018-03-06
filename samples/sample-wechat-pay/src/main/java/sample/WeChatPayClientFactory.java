@@ -23,6 +23,7 @@ import org.springframework.web.client.RestTemplate;
  * @author zhangpeng
  */
 public class WeChatPayClientFactory {
+    public static final String OUT_TRADE_NO = "TEST02";
     private static WeChatPayClient weChatPayClient;
 
     public static void init() {
