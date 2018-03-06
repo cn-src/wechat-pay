@@ -13,11 +13,19 @@
 
 package sample;
 
+import cn.javaer.wechat.pay.model.CloseOrderRequest;
+import cn.javaer.wechat.pay.model.CloseOrderResponse;
+
 /**
  * @author zhangpeng
  */
 public class CloseOrder {
-    public static void main(final String[] args) {
-
+    public static void main(final String[] args) throws Exception {
+        UnifiedOrder.main(args);
+        Thread.sleep(3000);
+        WeChatPayClientFactory.init();
+        final CloseOrderRequest request = CloseOrderRequest.create(WeChatPayClientFactory.OUT_TRADE_NO);
+        final CloseOrderResponse response = WeChatPayClientFactory.client().closeOrder(request);
+        System.out.println(response);
     }
 }
