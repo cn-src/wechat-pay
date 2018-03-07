@@ -195,7 +195,7 @@ public class WeChatPayUtils {
      *
      * @return 解压后的数据
      */
-    public static byte[] uncompress(final byte[] data) {
+    public static byte[] unCompress(final byte[] data) {
         if (data == null || data.length == 0) {
             return data;
         }

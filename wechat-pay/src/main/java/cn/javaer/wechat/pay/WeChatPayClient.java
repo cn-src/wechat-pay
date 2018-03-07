@@ -15,6 +15,7 @@ package cn.javaer.wechat.pay;
 
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
+import cn.javaer.wechat.pay.model.DownloadBillRequest;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.pay.model.RefundQueryRequest;
@@ -120,4 +121,13 @@ public interface WeChatPayClient {
      * @return RefundQueryResponse
      */
     RefundQueryResponse refundQuery(RefundQueryRequest request);
+
+    /**
+     * 下载对账单.
+     *
+     * @param request DownloadBillRequest
+     *
+     * @return 字节数据
+     */
+    byte[] downloadBill(DownloadBillRequest request);
 }

@@ -16,6 +16,7 @@ package cn.javaer.wechat.pay;
 import cn.javaer.wechat.pay.model.BasePayResponse;
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
+import cn.javaer.wechat.pay.model.DownloadBillRequest;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.pay.model.RefundQueryRequest;
@@ -83,11 +84,21 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
         return postForEntity(WeChatPayClient.REFUND_QUERY_PATH, request, RefundQueryResponse.class);
     }
 
+    @Override
+    public byte[] downloadBill(final DownloadBillRequest request) {
+        final String url = WeChatPayUtils.fullApiUrl(WeChatPayClient.DOWNLOAD_BILL_PATH);
+        final byte[] data = this.restTemplate.postForObject(url, request, byte[].class);
+        if ("GZIP".equals(request.getTarType())) {
+            return WeChatPayUtils.unCompress(data);
+        }
+        return data;
+    }
+
     private <Q, S extends BasePayResponse> S postForEntity(final String apiPath, final Q request, final Class<S> responseClass) {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_XML);
         final HttpEntity<Q> httpEntity = new HttpEntity<>(request, headers);
-        final String url = WeChatPayUtils.joinPath(WeChatPayConfigurator.DEFAULT.getApiBasePath(), apiPath);
+        final String url = WeChatPayUtils.fullApiUrl(apiPath);
         final S response = this.restTemplate.postForEntity(url, httpEntity, responseClass).getBody();
         response.checkSignAndSuccessful();
         return response;
