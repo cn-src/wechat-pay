@@ -56,12 +56,6 @@ public class WeChatPayConfigurator {
     private String payNotifyUrl;
 
     /**
-     * 退款结果通知 url
-     */
-    @NonNull
-    private String refundNotifyUrl;
-
-    /**
      * 客户端 ip
      */
     private String spbillCreateIp;
