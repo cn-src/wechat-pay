@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay;
 
+import cn.javaer.wechat.pay.model.BasePayResponse;
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
@@ -82,11 +83,13 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
         return postForEntity(WeChatPayClient.REFUND_QUERY_PATH, request, RefundQueryResponse.class);
     }
 
-    private <Q, S> S postForEntity(final String apiPath, final Q request, final Class<S> responseClass) {
+    private <Q, S extends BasePayResponse> S postForEntity(final String apiPath, final Q request, final Class<S> responseClass) {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_XML);
         final HttpEntity<Q> httpEntity = new HttpEntity<>(request, headers);
         final String url = WeChatPayUtils.joinPath(WeChatPayConfigurator.DEFAULT.getApiBasePath(), apiPath);
-        return this.restTemplate.postForEntity(url, httpEntity, responseClass).getBody();
+        final S response = this.restTemplate.postForEntity(url, httpEntity, responseClass).getBody();
+        response.checkSignAndSuccessful();
+        return response;
     }
 }
