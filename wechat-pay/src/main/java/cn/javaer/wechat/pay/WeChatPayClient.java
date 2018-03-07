@@ -110,7 +110,7 @@ public interface WeChatPayClient {
     CloseOrderResponse closeOrder(CloseOrderRequest request) throws WeChatPayException;
 
     /**
-     * 申请退款.
+     * 申请退款, 需要 api 证书.
      *
      * @param request RefundRequest
      *
