@@ -26,6 +26,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * 微信支付-退款结果通知.
+ * <p>
+ * 使用该功能需要在商户平台-交易中心-退款配置中配置notify_url
+ * </p>
  *
  * @author zhangpeng
  */
