@@ -98,6 +98,6 @@ public class WeChatPayProperties implements EnvironmentAware, InitializingBean {
         WeChatPayConfigurator.DEFAULT.setMchId(this.mchId);
         WeChatPayConfigurator.DEFAULT.setMchKey(this.mchKey);
         WeChatPayConfigurator.DEFAULT.setSpbillCreateIp(this.clientIp);
-        WeChatPayConfigurator.DEFAULT.setNotifyUrl(WeChatPayUtils.joinPath(this.notifyAddress, this.notifyResultPath));
+        WeChatPayConfigurator.DEFAULT.setPayNotifyUrl(WeChatPayUtils.joinPath(this.notifyAddress, this.notifyResultPath));
     }
 }
