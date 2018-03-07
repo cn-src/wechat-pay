@@ -22,6 +22,11 @@
             <artifactId>commons-codec</artifactId>
         </dependency>
         <dependency>
+            <!--【申请退款】等需要使用 api 证书时需要的依赖-->
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+        <dependency>
             <!--【退款结果通知】解密需要的依赖-->
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
