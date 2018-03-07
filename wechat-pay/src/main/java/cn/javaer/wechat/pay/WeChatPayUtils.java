@@ -22,10 +22,22 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.tuple.Pair;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.annotation.XmlElement;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
+import java.security.Security;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -47,6 +59,10 @@ import java.util.stream.Collectors;
 public class WeChatPayUtils {
 
     private static final Map<Class, List<Field>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
+
+    static {
+        Security.addProvider(new BouncyCastleProvider());
+    }
 
     /**
      * 生成长度为 32 的 uuid.
@@ -132,6 +148,37 @@ public class WeChatPayUtils {
         }
         sb.append("key").append('=').append(mchKey);
         return DigestUtils.md5Hex(sb.toString()).toUpperCase(Locale.ENGLISH);
+    }
+
+    /**
+     * 解密.
+     *
+     * <p>解密步骤如下：
+     * <ul>
+     * <li>（1）对加密串A做base64解码，得到加密串B</li>
+     * <li>（2）对商户mckKey做md5，得到32位小写key</li>
+     * <li>（3）用key对加密串B做AES-256-ECB解密（PKCS7Padding）</li>
+     * </ul>
+     *
+     * @param str 待解密的密文
+     *
+     * @return 解密后的明文
+     */
+    public static String decrypt(final String str) {
+        final byte[] decode = Base64.getDecoder().decode(str);
+        final String keyStr = DigestUtils.md5Hex(WeChatPayConfigurator.DEFAULT.getMchKey());
+
+        try {
+            final Key key = new SecretKeySpec(keyStr.getBytes(), "AES");
+            final Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding");
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            final byte[] bytes = cipher.doFinal(decode);
+            return new String(bytes, "UTF-8");
+        } catch (final NoSuchAlgorithmException | InvalidKeyException
+                | BadPaddingException | NoSuchPaddingException
+                | IllegalBlockSizeException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
