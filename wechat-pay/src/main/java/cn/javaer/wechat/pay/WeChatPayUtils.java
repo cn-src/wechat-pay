@@ -151,7 +151,7 @@ public class WeChatPayUtils {
     }
 
     /**
-     * 解密.
+     * 解密，如：解密【退款结果通知】中的加密信息 req_info 字段.
      *
      * <p>解密步骤如下：
      * <ul>
