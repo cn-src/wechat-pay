@@ -35,8 +35,6 @@ import java.time.format.DateTimeFormatter;
 @XmlRootElement(name = "xml")
 public class DownloadBillRequest extends BasePayRequest {
 
-    private DownloadBillRequest() {}
-
     /**
      * 对账单日期.
      *
@@ -44,14 +42,12 @@ public class DownloadBillRequest extends BasePayRequest {
      */
     @XmlElement(name = "bill_date")
     private String billDate;
-
     /**
      * 账单类型.
      */
     @NonNull
     @XmlElement(name = "bill_type")
     private String billType;
-
     /**
      * 压缩账单.
      *
@@ -60,6 +56,7 @@ public class DownloadBillRequest extends BasePayRequest {
     @XmlElement(name = "tar_type")
     private String tarType;
 
+    private DownloadBillRequest() {}
 
     /**
      * Create new DownloadBillRequest.
@@ -100,22 +97,22 @@ public class DownloadBillRequest extends BasePayRequest {
     public enum BillType {
 
         /**
-         * 返回当日所有订单信息，默认值.
+         * 返回指定日期的所有订单信息，默认值.
          */
         ALL,
 
         /**
-         * 返回当日成功支付的订单.
+         * 返回指定日期的成功支付的订单.
          */
         SUCCESS,
 
         /**
-         * 返回当日退款订单.
+         * 返回指定日期的退款订单.
          */
         REFUND,
 
         /**
-         * 返回当日充值退款订单（相比其他对账单多一栏“返还手续费”）.
+         * 返回指定日期的充值退款订单（相比其他对账单多一栏“返还手续费”）.
          */
         RECHARGE_REFUND
     }
