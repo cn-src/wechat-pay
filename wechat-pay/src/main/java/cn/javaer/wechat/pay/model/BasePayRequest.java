@@ -20,6 +20,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import javax.xml.bind.annotation.XmlElement;
+import java.util.Objects;
 
 /**
  * 微信支付-基本请求信息.
@@ -67,8 +68,8 @@ public abstract class BasePayRequest {
 
         final WeChatPayConfigurator configurator = WeChatPayConfigurator.DEFAULT;
 
-        this.appid = configurator.getAppid();
-        this.mchId = configurator.getMchId();
+        this.appid = Objects.requireNonNull(configurator.getAppid(), "'appid' must be not null");
+        this.mchId = Objects.requireNonNull(configurator.getMchId(), "'mchId' must be not null");
 
         this.nonceStr = WeChatPayUtils.uuid32();
 
