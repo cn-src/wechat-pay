@@ -29,7 +29,11 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
+import java.io.StringReader;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.security.InvalidKeyException;
@@ -177,6 +181,18 @@ public class WeChatPayUtils {
         } catch (final NoSuchAlgorithmException | InvalidKeyException
                 | BadPaddingException | NoSuchPaddingException
                 | IllegalBlockSizeException | UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T unmarshal(final String xmlStr, final Class<T> clazz) {
+        try {
+            final JAXBContext context = JAXBContext.newInstance(clazz);
+            final Unmarshaller unmarshaller = context.createUnmarshaller();
+            final StringReader reader = new StringReader(xmlStr);
+            return (T) unmarshaller.unmarshal(reader);
+        } catch (final JAXBException e) {
             throw new RuntimeException(e);
         }
     }

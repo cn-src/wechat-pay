@@ -16,9 +16,7 @@ package util;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.IOException;
-import java.io.StringReader;
 import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -27,18 +25,6 @@ import java.nio.file.Paths;
  * @author zhangpeng
  */
 public class TestUtils {
-
-    @SuppressWarnings("unchecked")
-    public static <T> T jaxbUnmarshal(final String xmlStr, final Class<T> clazz) {
-        try {
-            final JAXBContext context = JAXBContext.newInstance(clazz);
-            final Unmarshaller unmarshaller = context.createUnmarshaller();
-            final StringReader reader = new StringReader(xmlStr);
-            return (T) unmarshaller.unmarshal(reader);
-        } catch (final JAXBException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     public static String jaxbMarshal(final Object obj) {
         try {

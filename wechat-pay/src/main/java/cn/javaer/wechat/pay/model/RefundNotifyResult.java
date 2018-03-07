@@ -49,7 +49,7 @@ public class RefundNotifyResult extends BasePayResponse {
     @Override
     public void beforeSign() {
         // 解密字段
-        this.reqInfo = WeChatPayUtils.jaxbUnmarshal(WeChatPayUtils.decrypt(this.reqInfoStr), ReqInfo.class);
+        this.reqInfo = WeChatPayUtils.unmarshal(WeChatPayUtils.decrypt(this.reqInfoStr), ReqInfo.class);
     }
 
     @Getter
