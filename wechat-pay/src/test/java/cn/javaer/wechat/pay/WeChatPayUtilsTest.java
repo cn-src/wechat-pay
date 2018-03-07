@@ -29,13 +29,16 @@ import static org.junit.Assert.assertEquals;
 public class WeChatPayUtilsTest {
 
     @Test
-    public void joinPath() {
-        assertEquals("http://demo.com/demo", WeChatPayUtils.joinPath("http://demo.com", "/demo"));
-        assertEquals("http://demo.com/demo", WeChatPayUtils.joinPath("http://demo.com", "/demo/"));
-        assertEquals("http://demo.com/demo", WeChatPayUtils.joinPath("http://demo.com", "demo/"));
-        assertEquals("http://demo.com/demo", WeChatPayUtils.joinPath("http://demo.com/", "/demo"));
-        assertEquals("http://demo.com/demo", WeChatPayUtils.joinPath("http://demo.com/", "/demo/"));
-        assertEquals("http://demo.com/demo", WeChatPayUtils.joinPath("http://demo.com/", "demo/"));
+    public void fullApiUrl() {
+        WeChatPayConfigurator.DEFAULT.setApiBasePath("http://demo.com");
+        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("/demo"));
+        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("/demo/"));
+        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("demo/"));
+
+        WeChatPayConfigurator.DEFAULT.setApiBasePath("http://demo.com/");
+        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("/demo"));
+        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("/demo/"));
+        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("demo/"));
     }
 
     @Test

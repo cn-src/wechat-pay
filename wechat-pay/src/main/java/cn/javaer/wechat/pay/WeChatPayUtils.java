@@ -83,19 +83,17 @@ public class WeChatPayUtils {
     }
 
     /**
-     * 拼接多个 path.
+     * 获取完整的 api url.
      *
-     * @param firstPath firstPath
-     * @param secondPath secondPath
+     * @param apiPath 微信 api path
      *
-     * @return 拼接后的 path.
+     * @return 拼接后的 url.
      */
-    public static String joinPath(final String firstPath, final String secondPath) {
-        Validate.notEmpty(firstPath);
-        Validate.notEmpty(secondPath);
-
+    public static String fullApiUrl(final String apiPath) {
+        Validate.notEmpty(apiPath);
+        final String firstPath = WeChatPayConfigurator.DEFAULT.getApiBasePath();
         final String tmp1 = firstPath.endsWith("/") ? firstPath.substring(0, firstPath.length() - 1) : firstPath;
-        final String tmp2 = secondPath.startsWith("/") ? (tmp1 + secondPath) : (tmp1 + "/" + secondPath);
+        final String tmp2 = apiPath.startsWith("/") ? (tmp1 + apiPath) : (tmp1 + "/" + apiPath);
         return tmp2.endsWith("/") ? tmp2.substring(0, tmp2.length() - 1) : tmp2;
     }
 
