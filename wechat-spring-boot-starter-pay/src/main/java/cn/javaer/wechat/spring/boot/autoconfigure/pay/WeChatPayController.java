@@ -13,8 +13,8 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
-import cn.javaer.wechat.pay.model.PayNotifyResult;
 import cn.javaer.wechat.pay.model.NotifyResultResponse;
+import cn.javaer.wechat.pay.model.PayNotifyResult;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayNotifyResultEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
