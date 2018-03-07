@@ -82,10 +82,8 @@ public interface WeChatPayClient {
      * @param request UnifiedOrderRequest
      *
      * @return UnifiedOrderResponse
-     *
-     * @throws WeChatPayException WeChatPayException
      */
-    UnifiedOrderResponse unifiedOrder(UnifiedOrderRequest request) throws WeChatPayException;
+    UnifiedOrderResponse unifiedOrder(UnifiedOrderRequest request);
 
     /**
      * 查询订单.
@@ -93,10 +91,8 @@ public interface WeChatPayClient {
      * @param request OrderQueryRequest
      *
      * @return OrderQueryResponse
-     *
-     * @throws WeChatPayException WeChatPayException
      */
-    OrderQueryResponse orderQuery(OrderQueryRequest request) throws WeChatPayException;
+    OrderQueryResponse orderQuery(OrderQueryRequest request);
 
     /**
      * 关闭订单.
@@ -104,10 +100,8 @@ public interface WeChatPayClient {
      * @param request CloseOrderRequest
      *
      * @return CloseOrderResponse
-     *
-     * @throws WeChatPayException WeChatPayException
      */
-    CloseOrderResponse closeOrder(CloseOrderRequest request) throws WeChatPayException;
+    CloseOrderResponse closeOrder(CloseOrderRequest request);
 
     /**
      * 申请退款, 需要 api 证书.
@@ -115,10 +109,8 @@ public interface WeChatPayClient {
      * @param request RefundRequest
      *
      * @return RefundResponse
-     *
-     * @throws WeChatPayException WeChatPayException
      */
-    RefundResponse refund(RefundRequest request) throws WeChatPayException;
+    RefundResponse refund(RefundRequest request);
 
     /**
      * 查询退款.
@@ -126,8 +118,6 @@ public interface WeChatPayClient {
      * @param request RefundQueryRequest
      *
      * @return RefundQueryResponse
-     *
-     * @throws WeChatPayException WeChatPayException
      */
-    RefundQueryResponse refundQuery(RefundQueryRequest request) throws WeChatPayException;
+    RefundQueryResponse refundQuery(RefundQueryRequest request);
 }

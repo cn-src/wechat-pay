@@ -53,32 +53,32 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
     }
 
     @Override
-    public UnifiedOrderResponse unifiedOrder(final UnifiedOrderRequest request) throws WeChatPayException {
+    public UnifiedOrderResponse unifiedOrder(final UnifiedOrderRequest request) {
         Objects.requireNonNull(request);
         return postForEntity(WeChatPayClient.UNIFIED_ORDER_PATH, request, UnifiedOrderResponse.class);
     }
 
     @Override
-    public OrderQueryResponse orderQuery(final OrderQueryRequest request) throws WeChatPayException {
+    public OrderQueryResponse orderQuery(final OrderQueryRequest request) {
         Objects.requireNonNull(request);
         return postForEntity(WeChatPayClient.ORDER_QUERY_PATH, request, OrderQueryResponse.class);
     }
 
     @Override
-    public CloseOrderResponse closeOrder(final CloseOrderRequest request) throws WeChatPayException {
+    public CloseOrderResponse closeOrder(final CloseOrderRequest request) {
         Objects.requireNonNull(request);
         return postForEntity(WeChatPayClient.CLOSE_ORDER_PATH, request, CloseOrderResponse.class);
     }
 
     @Override
-    public RefundResponse refund(final RefundRequest request) throws WeChatPayException {
+    public RefundResponse refund(final RefundRequest request) {
         Objects.requireNonNull(request);
 
         return postForEntity(WeChatPayClient.REFUND_PATH, request, RefundResponse.class);
     }
 
     @Override
-    public RefundQueryResponse refundQuery(final RefundQueryRequest request) throws WeChatPayException {
+    public RefundQueryResponse refundQuery(final RefundQueryRequest request) {
         Objects.requireNonNull(request);
         return postForEntity(WeChatPayClient.REFUND_QUERY_PATH, request, RefundQueryResponse.class);
     }
