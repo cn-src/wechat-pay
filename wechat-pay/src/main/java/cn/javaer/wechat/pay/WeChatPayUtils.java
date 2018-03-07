@@ -33,7 +33,11 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.StringReader;
+import java.io.UncheckedIOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.security.InvalidKeyException;
@@ -54,6 +58,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BinaryOperator;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.zip.GZIPInputStream;
 
 /**
  * 微信支付工具类.
@@ -183,6 +188,41 @@ public class WeChatPayUtils {
         }
     }
 
+    /**
+     * Gzip解压数据.
+     *
+     * @param data the data
+     *
+     * @return 解压后的数据
+     */
+    public static byte[] uncompress(final byte[] data) {
+        if (data == null || data.length == 0) {
+            return data;
+        }
+        try (final ByteArrayOutputStream out = new ByteArrayOutputStream();
+             final ByteArrayInputStream in = new ByteArrayInputStream(data);
+             final GZIPInputStream gzip = new GZIPInputStream(in)) {
+
+            final byte[] buffer = new byte[256];
+            int n;
+            while ((n = gzip.read(buffer)) >= 0) {
+                out.write(buffer, 0, n);
+            }
+            return out.toByteArray();
+        } catch (final IOException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+
+    /**
+     * jaxb xml 转 pojo.
+     *
+     * @param <T> the pojo type
+     * @param xmlStr the xml str
+     * @param clazz the clazz
+     *
+     * @return the pojo
+     */
     @SuppressWarnings("unchecked")
     public static <T> T unmarshal(final String xmlStr, final Class<T> clazz) {
         try {
