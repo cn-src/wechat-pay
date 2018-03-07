@@ -13,7 +13,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
-import cn.javaer.wechat.pay.model.NotifyResult;
+import cn.javaer.wechat.pay.model.PayNotifyResult;
 import cn.javaer.wechat.pay.model.NotifyResultResponse;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayNotifyResultEvent;
 import org.springframework.context.ApplicationEventPublisher;
@@ -40,8 +40,8 @@ public class WeChatPayController {
      */
     @RequestMapping(path = "${wechat.pay.notifyResultPath:" + WeChatPayProperties.NOTIFY_RESULT_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
-    public NotifyResultResponse notifyResult(@RequestBody final NotifyResult notifyResult) {
-        this.publisher.publishEvent(new WeChatPayNotifyResultEvent(notifyResult));
+    public NotifyResultResponse notifyResult(@RequestBody final PayNotifyResult payNotifyResult) {
+        this.publisher.publishEvent(new WeChatPayNotifyResultEvent(payNotifyResult));
         return NotifyResultResponse.SUCCESS;
     }
 }
