@@ -15,13 +15,12 @@ package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Objects;
 
 /**
  * 微信支付-查询订单-请求.
@@ -29,7 +28,7 @@ import java.util.Objects;
  * @author zhangpeng
  */
 @Getter
-@ToString(callSuper = true)
+@Setter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class OrderQueryRequest extends BasePayRequest {
@@ -38,22 +37,4 @@ public class OrderQueryRequest extends BasePayRequest {
     private String transactionId;
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
-
-    private OrderQueryRequest() {}
-
-    /**
-     * 根据商户订单号查询订单.
-     *
-     * @param outTradeNo 商户订单号
-     *
-     * @return OrderQueryRequest
-     */
-    public static OrderQueryRequest create(final String outTradeNo) {
-        Objects.requireNonNull(outTradeNo);
-
-        final OrderQueryRequest request = new OrderQueryRequest();
-        request.outTradeNo = outTradeNo;
-        request.configureAndSign();
-        return request;
-    }
 }

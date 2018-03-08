@@ -13,6 +13,10 @@
 
 package cn.javaer.wechat.pay;
 
+import cn.javaer.wechat.pay.model.CloseOrderRequest;
+import cn.javaer.wechat.pay.model.CloseOrderResponse;
+import cn.javaer.wechat.pay.model.OrderQueryRequest;
+import cn.javaer.wechat.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
@@ -77,6 +81,32 @@ public class WeChatPayService {
         request.setOpenid(openid);
         final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
         return JsParams.create(response.getPrepayId());
+    }
+
+    /**
+     * 根据商户订单号查询订单.
+     *
+     * @param outTradeNo 商户订单号
+     *
+     * @return OrderQueryRequest
+     */
+    public OrderQueryResponse orderQueryWithOutTradeNo(final String outTradeNo) {
+        final OrderQueryRequest request = new OrderQueryRequest();
+        request.setOutTradeNo(outTradeNo);
+        return call(this.client::orderQuery, request);
+    }
+
+    /**
+     * create CloseOrderRequest.
+     *
+     * @param outTradeNo 商户订单号
+     *
+     * @return CloseOrderRequest
+     */
+    public CloseOrderResponse closeOrder(final String outTradeNo) {
+        final CloseOrderRequest request = new CloseOrderRequest();
+        request.setOutTradeNo(outTradeNo);
+        return call(this.client::closeOrder, request);
     }
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(final Function<T, R> fun, final T request) {
