@@ -52,6 +52,7 @@ public class RefundNotifyResult extends BasePayResponse {
     @Override
     public void beforeSign() {
         // 解密字段
+        // TODO
 //        this.reqInfo = WeChatPayUtils.unmarshal(WeChatPayUtils.decrypt(this.ciphertext), ReqInfo.class);
     }
 

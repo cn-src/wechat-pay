@@ -13,7 +13,6 @@
 
 package cn.javaer.wechat.pay.support;
 
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayUtils;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 import org.junit.Test;
@@ -26,7 +25,8 @@ public class AnyElementsDomHandlerTest {
 
     @Test
     public void elementsToMap() {
-        WeChatPayConfigurator.DEFAULT.setMchKey("key");
+        // TODO
+//        WeChatPayConfigurator.DEFAULT.setMchKey("key");
 
         final OrderQueryResponse response = WeChatPayUtils.unmarshal(
                 "<xml><sign>d</sign><nonce_str>nonce_str_value</nonce_str><coupon_type_0>CASH</coupon_type_0></xml>",
