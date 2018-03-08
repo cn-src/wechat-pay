@@ -24,12 +24,13 @@ import cn.javaer.wechat.pay.model.notify.PayNotifyResult;
 public class WeChatPayNotifyResultEvent {
 
     private final PayNotifyResult payNotifyResult;
-    private final boolean successful;
+    private boolean successful;
 
 
     public WeChatPayNotifyResultEvent(final PayNotifyResult payNotifyResult) {
         this.payNotifyResult = payNotifyResult;
-        this.successful = payNotifyResult.isSuccessful();
+        // TODO
+//        this.successful = payNotifyResult.isSuccessful();
     }
 
     /**

@@ -61,13 +61,13 @@ public class WeChatPayAutoConfiguration {
         }
         return new WeChatPayRestTemplateClient(restTemplate);
     }
-
-    @Bean
-    @ConditionalOnMissingBean
-    public WeChatPayService weChatPayService(
-            final WeChatPayClient weChatPayClient, final ApplicationEventPublisher publisher) {
-        return new WeChatPayDefaultService(weChatPayClient, publisher);
-    }
+    // TODO
+//    @Bean
+//    @ConditionalOnMissingBean
+//    public WeChatPayService weChatPayService(
+//            final WeChatPayClient weChatPayClient, final ApplicationEventPublisher publisher) {
+//        return new WeChatPayDefaultService(weChatPayClient, publisher);
+//    }
 
     @Bean
     @ConditionalOnMissingBean

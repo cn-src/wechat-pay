@@ -13,7 +13,6 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.InitializingBean;
@@ -42,11 +41,12 @@ public class WeChatPayProperties implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
-        WeChatPayConfigurator.DEFAULT.setAppid(this.appid);
-        WeChatPayConfigurator.DEFAULT.setMchId(this.mchId);
-        WeChatPayConfigurator.DEFAULT.setMchKey(this.mchKey);
-        WeChatPayConfigurator.DEFAULT.setNotifyUrl(this.notifyUrl);
-        WeChatPayConfigurator.DEFAULT.setSpbillCreateIp(this.spbillCreateIp);
-        WeChatPayConfigurator.DEFAULT.setBasePath(this.basePath);
+        // TODO 
+//        WeChatPayConfigurator.DEFAULT.setAppid(this.appid);
+//        WeChatPayConfigurator.DEFAULT.setMchId(this.mchId);
+//        WeChatPayConfigurator.DEFAULT.setMchKey(this.mchKey);
+//        WeChatPayConfigurator.DEFAULT.setNotifyUrl(this.notifyUrl);
+//        WeChatPayConfigurator.DEFAULT.setSpbillCreateIp(this.spbillCreateIp);
+//        WeChatPayConfigurator.DEFAULT.setBasePath(this.basePath);
     }
 }
