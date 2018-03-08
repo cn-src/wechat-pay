@@ -16,8 +16,8 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.core.env.Environment;
 
 /**
  * 微信支付-配置.
@@ -27,14 +27,26 @@ import org.springframework.core.env.Environment;
 @Setter
 @Getter
 @ConfigurationProperties(prefix = "wechat.pay")
-public class WeChatPayProperties {
+public class WeChatPayProperties implements InitializingBean {
     public static final String NOTIFY_RESULT_PATH = "/public/wechat/pay/notify_result";
-    private Environment environment;
-    private WeChatPayConfigurator pay = WeChatPayConfigurator.DEFAULT;
-
+    private String appid;
+    private String mchId;
+    private String mchKey;
+    private String notifyUrl;
+    private String spbillCreateIp;
+    private String basePath;
     /**
      * 接收支付结果通知 Controller 的 path.
      */
     private String notifyResultPath = NOTIFY_RESULT_PATH;
 
+    @Override
+    public void afterPropertiesSet() {
+        WeChatPayConfigurator.DEFAULT.setAppid(this.appid);
+        WeChatPayConfigurator.DEFAULT.setMchId(this.mchId);
+        WeChatPayConfigurator.DEFAULT.setMchKey(this.mchKey);
+        WeChatPayConfigurator.DEFAULT.setNotifyUrl(this.notifyUrl);
+        WeChatPayConfigurator.DEFAULT.setSpbillCreateIp(this.spbillCreateIp);
+        WeChatPayConfigurator.DEFAULT.setBasePath(this.basePath);
+    }
 }

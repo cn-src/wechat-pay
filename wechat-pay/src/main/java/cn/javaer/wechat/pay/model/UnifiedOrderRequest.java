@@ -147,7 +147,7 @@ public class UnifiedOrderRequest extends BasePayRequest {
         request.productId = WeChatPayUtils.uuid32();
         request.tradeType = TRADE_TYPE_NATIVE;
 
-        request.notifyUrl = configurator.getPayNotifyUrl();
+        request.notifyUrl = configurator.getNotifyUrl();
         request.spbillCreateIp = configurator.getSpbillCreateIp();
 
         request.body = body;
@@ -180,7 +180,7 @@ public class UnifiedOrderRequest extends BasePayRequest {
 
         request.tradeType = TRADE_TYPE_JSAPI;
 
-        request.notifyUrl = configurator.getPayNotifyUrl();
+        request.notifyUrl = configurator.getNotifyUrl();
         request.spbillCreateIp = configurator.getSpbillCreateIp();
 
         request.openid = openid;

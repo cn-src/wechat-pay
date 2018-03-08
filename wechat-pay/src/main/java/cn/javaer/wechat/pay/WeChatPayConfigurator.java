@@ -53,7 +53,7 @@ public class WeChatPayConfigurator {
      * 支付结果通知 url
      */
     @NonNull
-    private String payNotifyUrl;
+    private String notifyUrl;
 
     /**
      * 客户端 ip
