@@ -129,11 +129,11 @@ public class WeChatPayService {
      *
      * @return RefundRequest
      */
-    RefundResponse refund(final String outTradeNo,
-                          final String outRefundNo,
-                          final int totalFee,
-                          final int refundFee,
-                          final String refundDesc) {
+    public RefundResponse refund(final String outTradeNo,
+                                 final String outRefundNo,
+                                 final int totalFee,
+                                 final int refundFee,
+                                 final String refundDesc) {
         Validate.inclusiveBetween(1, 10_0000_00, totalFee);
         Validate.inclusiveBetween(1, totalFee, refundFee);
 
@@ -153,7 +153,7 @@ public class WeChatPayService {
      *
      * @return RefundQueryResponse
      */
-    RefundQueryResponse refundQueryWithOutTradeNo(final String outTradeNo) {
+    public RefundQueryResponse refundQueryWithOutTradeNo(final String outTradeNo) {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.setOutTradeNo(outTradeNo);
         return call(this.client::refundQuery, request);
@@ -168,7 +168,7 @@ public class WeChatPayService {
      *
      * @return RefundQueryResponse
      */
-    RefundQueryResponse refundQueryWithOutTradeNo(final String outTradeNo, final int offset) {
+    public RefundQueryResponse refundQueryWithOutTradeNo(final String outTradeNo, final int offset) {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.setOutTradeNo(outTradeNo);
         request.setOffset(offset);
@@ -182,7 +182,7 @@ public class WeChatPayService {
      *
      * @return RefundQueryResponse
      */
-    RefundQueryResponse refundQueryWithOutRefundNo(final String outRefundNo) {
+    public RefundQueryResponse refundQueryWithOutRefundNo(final String outRefundNo) {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.setOutRefundNo(outRefundNo);
         return call(this.client::refundQuery, request);
@@ -193,7 +193,7 @@ public class WeChatPayService {
      *
      * @return 字节数据
      */
-    byte[] downloadBill(final LocalDate queryDate, final BillType billType) {
+    public byte[] downloadBill(final LocalDate queryDate, final BillType billType) {
         final DownloadBillRequest request = new DownloadBillRequest();
         request.setBillDate(queryDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         request.setBillType(billType);

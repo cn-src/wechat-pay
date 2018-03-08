@@ -13,7 +13,7 @@
 
 package sample;
 
-import cn.javaer.wechat.pay.model.DownloadBillRequest;
+import cn.javaer.wechat.pay.model.base.BillType;
 
 import java.time.LocalDate;
 
@@ -23,8 +23,7 @@ import java.time.LocalDate;
 public class DownloadBillSample {
     public static void main(final String[] args) throws Exception {
         WeChatPayClientFactory.init();
-        final DownloadBillRequest request = DownloadBillRequest.create(LocalDate.now().minusDays(1), DownloadBillRequest.BillType.ALL);
-        final byte[] response = WeChatPayClientFactory.client().downloadBill(request);
+        final byte[] response = WeChatPayClientFactory.weChatPayService().downloadBill(LocalDate.now().minusDays(1), BillType.ALL);
         System.out.println(new String(response, "UTF-8"));
     }
 }
