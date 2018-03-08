@@ -13,7 +13,6 @@
 
 package sample;
 
-import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 
 /**
@@ -24,8 +23,7 @@ public class CloseOrderSample {
         UnifiedOrderSample.main(args);
         Thread.sleep(3000);
         WeChatPayClientFactory.init();
-        final CloseOrderRequest request = CloseOrderRequest.create(WeChatPayClientFactory.OUT_TRADE_NO);
-        final CloseOrderResponse response = WeChatPayClientFactory.client().closeOrder(request);
+        final CloseOrderResponse response = WeChatPayClientFactory.weChatPayService().closeOrder("TEST01");
         System.out.println(response);
     }
 }

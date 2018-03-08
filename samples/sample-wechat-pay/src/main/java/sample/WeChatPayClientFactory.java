@@ -16,6 +16,7 @@ package sample;
 import cn.javaer.wechat.pay.WeChatPayClient;
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayRestTemplateClient;
+import cn.javaer.wechat.pay.WeChatPayService;
 import cn.javaer.wechat.pay.support.JaxbTextPlainHttpMessageConverter;
 import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -34,22 +35,23 @@ import java.security.KeyStore;
  */
 public class WeChatPayClientFactory {
     public static final String OUT_TRADE_NO = "TEST02";
-    private static WeChatPayClient weChatPayClient;
+    private static WeChatPayService weChatPayService;
 
     public static void init() {
-        WeChatPayConfigurator.DEFAULT.setAppid(System.getenv("wechat.pay.appid"));
-        WeChatPayConfigurator.DEFAULT.setMchId(System.getenv("wechat.pay.mchId"));
-        WeChatPayConfigurator.DEFAULT.setMchKey(System.getenv("wechat.pay.mchKey"));
-        WeChatPayConfigurator.DEFAULT.setNotifyUrl(System.getenv("wechat.pay.notifyUrl"));
-        WeChatPayConfigurator.DEFAULT.setBasePath("https://api.mch.weixin.qq.com");
-        WeChatPayConfigurator.DEFAULT.setSpbillCreateIp("127.0.0.1");
+        final WeChatPayConfigurator configurator = new WeChatPayConfigurator();
+        configurator.setAppid(System.getenv("wechat.pay.appid"));
+        configurator.setMchId(System.getenv("wechat.pay.mchId"));
+        configurator.setMchKey(System.getenv("wechat.pay.mchKey"));
+        configurator.setNotifyUrl(System.getenv("wechat.pay.notifyUrl"));
+        configurator.setBasePath("https://api.mch.weixin.qq.com");
+//        configurator.setSpbillCreateIp("127.0.0.1");
 
         final HttpComponentsClientHttpRequestFactory clientHttpRequestFactory;
         try {
 
             // 配置证书
             final KeyStore keystore = KeyStore.getInstance("PKCS12");
-            final char[] partnerId2charArray = WeChatPayConfigurator.DEFAULT.getMchId().toCharArray();
+            final char[] partnerId2charArray = configurator.getMchId().toCharArray();
             keystore.load(new FileInputStream(System.getenv("wechat.pay.certificatePath")), partnerId2charArray);
 
             // ssl
@@ -69,10 +71,11 @@ public class WeChatPayClientFactory {
         }
         final RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
         restTemplate.getMessageConverters().add(new JaxbTextPlainHttpMessageConverter());
-        weChatPayClient = new WeChatPayRestTemplateClient(restTemplate);
+        final WeChatPayClient weChatPayClient = new WeChatPayRestTemplateClient(restTemplate);
+        weChatPayService = new WeChatPayService(weChatPayClient, configurator);
     }
 
-    public static WeChatPayClient client() {
-        return weChatPayClient;
+    public static WeChatPayService weChatPayService() {
+        return weChatPayService;
     }
 }
