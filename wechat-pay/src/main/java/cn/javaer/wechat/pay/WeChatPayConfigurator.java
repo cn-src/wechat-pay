@@ -27,11 +27,6 @@ import lombok.Setter;
 public class WeChatPayConfigurator {
 
     /**
-     * 默认的全局配置实例.
-     */
-    public static final WeChatPayConfigurator DEFAULT = new WeChatPayConfigurator();
-
-    /**
      * 公众号 ID
      */
     @NonNull
@@ -56,15 +51,8 @@ public class WeChatPayConfigurator {
     private String notifyUrl;
 
     /**
-     * 客户端 ip
-     */
-    private String spbillCreateIp;
-
-    /**
      * 微信支付 api base path
      */
     private String basePath;
-
-    private WeChatPayConfigurator() {}
 
 }
