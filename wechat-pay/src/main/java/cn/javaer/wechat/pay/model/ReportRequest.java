@@ -16,7 +16,6 @@ package cn.javaer.wechat.pay.model;
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import lombok.Getter;
 import lombok.ToString;
-import org.apache.commons.lang3.Validate;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -100,33 +99,4 @@ public class ReportRequest extends BasePayRequest {
     @XmlElement(name = "time")
     private String time;
 
-    /**
-     * Create new ReportRequest.
-     *
-     * @param interfaceUrl the interface url
-     * @param returnCode the return code
-     * @param resultCode the result code
-     * @param userIp the user ip
-     * @param executeTime the execute time
-     *
-     * @return the ReportRequest
-     */
-    @lombok.Builder(builderClassName = "Builder")
-    public static ReportRequest create(
-            final String interfaceUrl,
-            final String returnCode,
-            final String resultCode,
-            final String userIp,
-            final int executeTime) {
-
-        Validate.isTrue(executeTime > 1, "'executeTime' must be more than 1");
-
-        final ReportRequest request = new ReportRequest();
-        request.interfaceUrl = interfaceUrl;
-        request.returnCode = returnCode;
-        request.resultCode = resultCode;
-        request.userIp = userIp;
-        request.configureAndSign();
-        return request;
-    }
 }
