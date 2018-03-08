@@ -13,14 +13,13 @@
 
 package cn.javaer.wechat.pay.model.base;
 
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
-import cn.javaer.wechat.pay.WeChatPayUtils;
 import cn.javaer.wechat.pay.support.AnyElementsDomHandler;
 import cn.javaer.wechat.pay.support.SignIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -35,7 +34,6 @@ import java.util.SortedMap;
  */
 @Getter
 @Setter
-@ToString
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BasePayResponse {
     public static final String SUCCESS = "SUCCESS";
@@ -74,21 +72,8 @@ public abstract class BasePayResponse {
      */
     public void beforeSign() {}
 
-    /**
-     * 校验 this 的签名是否正确, 以及 returnCode, resultCode 是否为 'SUCCESS'.
-     */
-    public void checkSignAndSuccessful() {
-        this.beforeSign();
-        WeChatPayUtils.checkSign(this, WeChatPayConfigurator.DEFAULT.getMchKey());
-        WeChatPayUtils.checkSuccessful(this);
-    }
-
-    /**
-     * 判断 this 的签名是否正确, 以及 returnCode, resultCode 是否为 'SUCCESS'.
-     *
-     * @return 签名正确以及状态都为 'SUCCESS' 时返回 true.
-     */
-    public boolean isSuccessful() {
-        return WeChatPayUtils.isSuccessful(this, WeChatPayConfigurator.DEFAULT.getMchKey());
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
     }
 }

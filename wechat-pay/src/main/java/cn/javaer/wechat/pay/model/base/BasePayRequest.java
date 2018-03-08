@@ -13,14 +13,13 @@
 
 package cn.javaer.wechat.pay.model.base;
 
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
-import cn.javaer.wechat.pay.WeChatPayUtils;
 import cn.javaer.wechat.pay.support.SignIgnore;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.Setter;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.Objects;
 
 /**
  * 微信支付-基本请求信息.
@@ -28,7 +27,7 @@ import java.util.Objects;
  * @author zhangpeng
  */
 @Getter
-@ToString
+@Setter
 public abstract class BasePayRequest {
     /**
      * 公众账号ID.
@@ -61,18 +60,8 @@ public abstract class BasePayRequest {
     @XmlElement(name = "sign_type")
     private String signType;
 
-    /**
-     * 赋值配置信息并生成签名, 在其它字段赋值后调用以确保签名正确.
-     */
-    protected void configureAndSign() {
-
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.DEFAULT;
-
-        this.appid = Objects.requireNonNull(configurator.getAppid(), "'appid' must be not null");
-        this.mchId = Objects.requireNonNull(configurator.getMchId(), "'mchId' must be not null");
-
-        this.nonceStr = WeChatPayUtils.uuid32();
-
-        this.sign = WeChatPayUtils.generateSign(this, configurator.getMchKey());
+    @Override
+    public String toString() {
+        return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
     }
 }

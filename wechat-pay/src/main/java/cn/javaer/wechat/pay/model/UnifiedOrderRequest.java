@@ -13,12 +13,10 @@
 
 package cn.javaer.wechat.pay.model;
 
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
-import cn.javaer.wechat.pay.WeChatPayUtils;
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
-import lombok.Getter;
-import lombok.ToString;
-import org.apache.commons.lang3.Validate;
+import cn.javaer.wechat.pay.model.base.TradeType;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -30,15 +28,11 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
-@Getter
-@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
+@Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class UnifiedOrderRequest extends BasePayRequest {
-
-    public static final String TRADE_TYPE_JSAPI = "JSAPI";
-    public static final String TRADE_TYPE_NATIVE = "NATIVE";
-    public static final String TRADE_TYPE_APP = "APP";
     /**
      * 设备号.
      */
@@ -103,7 +97,7 @@ public class UnifiedOrderRequest extends BasePayRequest {
      * 交易类型.
      */
     @XmlElement(name = "trade_type")
-    private String tradeType;
+    private TradeType tradeType;
     /**
      * 商品ID.
      */
@@ -124,72 +118,4 @@ public class UnifiedOrderRequest extends BasePayRequest {
      */
     @XmlElement(name = "scene_info")
     private String sceneInfo;
-
-    private UnifiedOrderRequest() {}
-
-    /**
-     * 微信支付-统一下单-NATIVE 类型.
-     *
-     * @param body 商品简述
-     * @param outTradeNo 商户订单号
-     * @param totalFee 待支付的金额
-     *
-     * @return UnifiedOrderRequest
-     */
-    public static UnifiedOrderRequest createWithNative(
-            final String body,
-            final String outTradeNo,
-            final int totalFee) {
-        Validate.inclusiveBetween(1, 10_0000_00, totalFee);
-
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.DEFAULT;
-        final UnifiedOrderRequest request = new UnifiedOrderRequest();
-
-        request.productId = WeChatPayUtils.uuid32();
-        request.tradeType = TRADE_TYPE_NATIVE;
-
-        request.notifyUrl = configurator.getNotifyUrl();
-        request.spbillCreateIp = configurator.getSpbillCreateIp();
-
-        request.body = body;
-        request.outTradeNo = outTradeNo;
-        request.totalFee = totalFee;
-
-        request.configureAndSign();
-        return request;
-    }
-
-    /**
-     * 微信支付-统一下单-JSAPI 类型.
-     *
-     * @param openid openid
-     * @param body 商品简述
-     * @param outTradeNo 商户订单号
-     * @param totalFee 待支付的金额
-     *
-     * @return UnifiedOrderRequest
-     */
-    public static UnifiedOrderRequest createWithJsApi(
-            final String openid,
-            final String body,
-            final String outTradeNo,
-            final int totalFee) {
-        Validate.inclusiveBetween(1, 10_0000_00, totalFee);
-
-        final WeChatPayConfigurator configurator = WeChatPayConfigurator.DEFAULT;
-        final UnifiedOrderRequest request = new UnifiedOrderRequest();
-
-        request.tradeType = TRADE_TYPE_JSAPI;
-
-        request.notifyUrl = configurator.getNotifyUrl();
-        request.spbillCreateIp = configurator.getSpbillCreateIp();
-
-        request.openid = openid;
-        request.body = body;
-        request.outTradeNo = outTradeNo;
-        request.totalFee = totalFee;
-
-        request.configureAndSign();
-        return request;
-    }
 }

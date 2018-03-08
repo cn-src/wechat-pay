@@ -99,8 +99,6 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
         headers.setContentType(MediaType.TEXT_XML);
         final HttpEntity<Q> httpEntity = new HttpEntity<>(request, headers);
         final String url = WeChatPayUtils.fullApiUrl(apiPath);
-        final S response = this.restTemplate.postForEntity(url, httpEntity, responseClass).getBody();
-        response.checkSignAndSuccessful();
-        return response;
+        return this.restTemplate.postForEntity(url, httpEntity, responseClass).getBody();
     }
 }
