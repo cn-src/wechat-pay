@@ -15,7 +15,7 @@ package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author zhangpeng
  */
 @Getter
-@ToString(callSuper = true)
+@Setter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class RefundQueryRequest extends BasePayRequest {
@@ -47,51 +47,4 @@ public class RefundQueryRequest extends BasePayRequest {
     @XmlElement(name = "offset")
     private Integer offset;
 
-    private RefundQueryRequest() {}
-
-    /**
-     * create RefundQueryRequest.
-     *
-     * @param outTradeNo 商户订单号
-     *
-     * @return RefundQueryRequest
-     */
-    public static RefundQueryRequest createWithOutTradeNo(final String outTradeNo) {
-        final RefundQueryRequest request = new RefundQueryRequest();
-        request.outTradeNo = outTradeNo;
-        request.configureAndSign();
-        return request;
-    }
-
-    /**
-     * create RefundQueryRequest.
-     *
-     * @param outTradeNo 商户订单号
-     * @param offset 分页查询的偏移量,
-     *         举例：当商户想查询第25笔时，可传入订单号及offset=24，微信支付平台会返回第25笔到第35笔的退款单信息.
-     *
-     * @return RefundQueryRequest
-     */
-    public static RefundQueryRequest createWithOutTradeNo(
-            final String outTradeNo, final Integer offset) {
-        final RefundQueryRequest request = new RefundQueryRequest();
-        request.outTradeNo = outTradeNo;
-        request.offset = offset;
-        request.configureAndSign();
-        return request;
-    }
-
-    /**
-     * create RefundQueryRequest.
-     *
-     * @param outRefundNo 商户退款单号
-     *
-     * @return RefundQueryRequest
-     */
-    public static RefundQueryRequest createWithOutRefundNo(final String outRefundNo) {
-        final RefundQueryRequest request = new RefundQueryRequest();
-        request.outRefundNo = outRefundNo;
-        request.configureAndSign();
-        return request;
-    }
 }

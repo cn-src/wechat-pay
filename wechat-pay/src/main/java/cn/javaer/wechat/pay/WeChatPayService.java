@@ -17,6 +17,8 @@ import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
+import cn.javaer.wechat.pay.model.RefundQueryRequest;
+import cn.javaer.wechat.pay.model.RefundQueryResponse;
 import cn.javaer.wechat.pay.model.RefundRequest;
 import cn.javaer.wechat.pay.model.RefundResponse;
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
@@ -138,6 +140,48 @@ public class WeChatPayService {
         request.setRefundFee(refundFee);
         request.setRefundDesc(refundDesc);
         return call(this.client::refund, request);
+    }
+
+    /**
+     * 查询退款.
+     *
+     * @param outTradeNo 商户订单号
+     *
+     * @return RefundQueryResponse
+     */
+    RefundQueryResponse refundQueryWithOutTradeNo(final String outTradeNo) {
+        final RefundQueryRequest request = new RefundQueryRequest();
+        request.setOutTradeNo(outTradeNo);
+        return call(this.client::refundQuery, request);
+    }
+
+    /**
+     * 查询退款.
+     *
+     * @param outTradeNo 商户订单号
+     * @param offset 分页查询的偏移量,
+     *         举例：当商户想查询第25笔时，可传入订单号及offset=24，微信支付平台会返回第25笔到第35笔的退款单信息.
+     *
+     * @return RefundQueryResponse
+     */
+    RefundQueryResponse refundQueryWithOutTradeNo(final String outTradeNo, final int offset) {
+        final RefundQueryRequest request = new RefundQueryRequest();
+        request.setOutTradeNo(outTradeNo);
+        request.setOffset(offset);
+        return call(this.client::refundQuery, request);
+    }
+
+    /**
+     * 查询退款.
+     *
+     * @param outRefundNo 商户退款单号
+     *
+     * @return RefundQueryResponse
+     */
+    RefundQueryResponse refundQueryWithOutRefundNo(final String outRefundNo) {
+        final RefundQueryRequest request = new RefundQueryRequest();
+        request.setOutRefundNo(outRefundNo);
+        return call(this.client::refundQuery, request);
     }
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(final Function<T, R> fun, final T request) {
