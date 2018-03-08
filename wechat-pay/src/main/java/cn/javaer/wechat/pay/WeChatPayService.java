@@ -17,12 +17,15 @@ import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
+import cn.javaer.wechat.pay.model.RefundRequest;
+import cn.javaer.wechat.pay.model.RefundResponse;
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.JsParams;
 import cn.javaer.wechat.pay.model.base.TradeType;
+import org.apache.commons.lang3.Validate;
 
 import java.util.function.Function;
 
@@ -107,6 +110,34 @@ public class WeChatPayService {
         final CloseOrderRequest request = new CloseOrderRequest();
         request.setOutTradeNo(outTradeNo);
         return call(this.client::closeOrder, request);
+    }
+
+    /**
+     * create RefundRequest.
+     *
+     * @param outTradeNo 商户订单号
+     * @param outRefundNo 商户退款单号, 同一退款单号多次请求只退一笔
+     * @param totalFee 订单总金额
+     * @param refundFee 退款金额
+     * @param refundDesc 退款原因, 发给用户的退款消息中体现退款原因
+     *
+     * @return RefundRequest
+     */
+    RefundResponse refund(final String outTradeNo,
+                          final String outRefundNo,
+                          final int totalFee,
+                          final int refundFee,
+                          final String refundDesc) {
+        Validate.inclusiveBetween(1, 10_0000_00, totalFee);
+        Validate.inclusiveBetween(1, totalFee, refundFee);
+
+        final RefundRequest request = new RefundRequest();
+        request.setOutTradeNo(outTradeNo);
+        request.setOutRefundNo(outRefundNo);
+        request.setTotalFee(totalFee);
+        request.setRefundFee(refundFee);
+        request.setRefundDesc(refundDesc);
+        return call(this.client::refund, request);
     }
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(final Function<T, R> fun, final T request) {

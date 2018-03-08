@@ -15,8 +15,7 @@ package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import lombok.Getter;
-import lombok.ToString;
-import org.apache.commons.lang3.Validate;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -29,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author zhangpeng
  */
 @Getter
-@ToString(callSuper = true)
+@Setter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class RefundRequest extends BasePayRequest {
@@ -66,67 +65,4 @@ public class RefundRequest extends BasePayRequest {
     @XmlElement(name = "refund_account")
     private String refundAccount;
 
-    private RefundRequest() {}
-
-    /**
-     * create RefundRequest.
-     *
-     * @param outTradeNo 商户订单号
-     * @param outRefundNo 商户退款单号, 同一退款单号多次请求只退一笔
-     * @param totalFee 订单总金额
-     * @param refundFee 退款金额
-     *
-     * @return RefundRequest
-     */
-    public static RefundRequest create(
-            final String outTradeNo,
-            final String outRefundNo,
-            final int totalFee,
-            final int refundFee) {
-        Validate.inclusiveBetween(1, 10_0000_00, totalFee);
-        Validate.inclusiveBetween(1, totalFee, refundFee);
-
-        final RefundRequest request = new RefundRequest();
-
-        request.outTradeNo = outTradeNo;
-        request.outRefundNo = outRefundNo;
-        request.totalFee = totalFee;
-        request.refundFee = refundFee;
-
-        request.configureAndSign();
-        return request;
-    }
-
-    /**
-     * create RefundRequest.
-     *
-     * @param outTradeNo 商户订单号
-     * @param outRefundNo 商户退款单号, 同一退款单号多次请求只退一笔
-     * @param totalFee 订单总金额
-     * @param refundFee 退款金额
-     * @param refundDesc 退款原因, 发给用户的退款消息中体现退款原因
-     *
-     * @return RefundRequest
-     */
-    public static RefundRequest create(
-            final String outTradeNo,
-            final String outRefundNo,
-            final int totalFee,
-            final int refundFee,
-            final String refundDesc) {
-
-        Validate.inclusiveBetween(1, 100000, totalFee);
-        Validate.inclusiveBetween(1, totalFee, refundFee);
-
-        final RefundRequest request = new RefundRequest();
-
-        request.outTradeNo = outTradeNo;
-        request.outRefundNo = outRefundNo;
-        request.totalFee = totalFee;
-        request.refundFee = refundFee;
-        request.refundDesc = refundDesc;
-
-        request.configureAndSign();
-        return request;
-    }
 }
