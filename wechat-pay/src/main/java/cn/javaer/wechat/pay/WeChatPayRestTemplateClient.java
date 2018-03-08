@@ -86,7 +86,7 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
 
     @Override
     public byte[] downloadBill(final DownloadBillRequest request) {
-        final String url = WeChatPayUtils.fullApiUrl(WeChatPayClient.DOWNLOAD_BILL_PATH);
+        final String url = WeChatPayUtils.fullApiUrl(WeChatPayClient.BASE_PATH, WeChatPayClient.DOWNLOAD_BILL_PATH);
         final byte[] data = this.restTemplate.postForObject(url, request, byte[].class);
         if ("GZIP".equals(request.getTarType())) {
             return WeChatPayUtils.unCompress(data);
@@ -98,7 +98,7 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.TEXT_XML);
         final HttpEntity<Q> httpEntity = new HttpEntity<>(request, headers);
-        final String url = WeChatPayUtils.fullApiUrl(apiPath);
+        final String url = WeChatPayUtils.fullApiUrl(WeChatPayClient.BASE_PATH, apiPath);
         return this.restTemplate.postForEntity(url, httpEntity, responseClass).getBody();
     }
 }
