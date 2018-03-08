@@ -33,8 +33,7 @@ import java.security.KeyStore;
 /**
  * @author zhangpeng
  */
-public class WeChatPayClientFactory {
-    public static final String OUT_TRADE_NO = "TEST02";
+public class WeChatPayServiceFactory {
     private static WeChatPayService weChatPayService;
 
     public static void init() {

@@ -20,8 +20,8 @@ import cn.javaer.wechat.pay.model.OrderQueryResponse;
  */
 public class OrderQuerySample {
     public static void main(final String[] args) {
-        WeChatPayClientFactory.init();
-        final OrderQueryResponse response = WeChatPayClientFactory.weChatPayService().orderQueryWithOutTradeNo("TEST01");
+        WeChatPayServiceFactory.init();
+        final OrderQueryResponse response = WeChatPayServiceFactory.weChatPayService().orderQueryWithOutTradeNo("TEST01");
         System.out.println(response);
     }
 }

@@ -18,8 +18,8 @@ package sample;
  */
 public class UnifiedOrderSample {
     public static void main(final String[] args) {
-        WeChatPayClientFactory.init();
-        final String response = WeChatPayClientFactory.weChatPayService().unifiedOrderWithNative("test", "TEST01", 1, "127.0.0.1");
+        WeChatPayServiceFactory.init();
+        final String response = WeChatPayServiceFactory.weChatPayService().unifiedOrderWithNative("test", "TEST01", 1, "127.0.0.1");
         System.out.println(response);
     }
 }

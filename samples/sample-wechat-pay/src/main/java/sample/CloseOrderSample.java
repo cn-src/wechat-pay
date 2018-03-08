@@ -22,8 +22,8 @@ public class CloseOrderSample {
     public static void main(final String[] args) throws Exception {
         UnifiedOrderSample.main(args);
         Thread.sleep(3000);
-        WeChatPayClientFactory.init();
-        final CloseOrderResponse response = WeChatPayClientFactory.weChatPayService().closeOrder("TEST01");
+        WeChatPayServiceFactory.init();
+        final CloseOrderResponse response = WeChatPayServiceFactory.weChatPayService().closeOrder("TEST01");
         System.out.println(response);
     }
 }

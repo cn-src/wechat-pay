@@ -22,8 +22,8 @@ import java.time.LocalDate;
  */
 public class DownloadBillSample {
     public static void main(final String[] args) throws Exception {
-        WeChatPayClientFactory.init();
-        final byte[] response = WeChatPayClientFactory.weChatPayService().downloadBill(LocalDate.now().minusDays(1), BillType.ALL);
+        WeChatPayServiceFactory.init();
+        final byte[] response = WeChatPayServiceFactory.weChatPayService().downloadBill(LocalDate.now().minusDays(1), BillType.ALL);
         System.out.println(new String(response, "UTF-8"));
     }
 }

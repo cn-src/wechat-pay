@@ -20,8 +20,8 @@ import cn.javaer.wechat.pay.model.RefundQueryResponse;
  */
 public class RefundQuerySample {
     public static void main(final String[] args) {
-        WeChatPayClientFactory.init();
-        final RefundQueryResponse response = WeChatPayClientFactory.weChatPayService().refundQueryWithOutTradeNo("TEST03");
+        WeChatPayServiceFactory.init();
+        final RefundQueryResponse response = WeChatPayServiceFactory.weChatPayService().refundQueryWithOutTradeNo("TEST03");
         System.out.println(response);
     }
 }
