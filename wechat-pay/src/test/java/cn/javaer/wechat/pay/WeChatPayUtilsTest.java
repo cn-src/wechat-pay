@@ -30,12 +30,12 @@ public class WeChatPayUtilsTest {
 
     @Test
     public void fullApiUrl() {
-        WeChatPayConfigurator.DEFAULT.setApiBasePath("http://demo.com");
+        WeChatPayConfigurator.DEFAULT.setBasePath("http://demo.com");
         assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("/demo"));
         assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("/demo/"));
         assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("demo/"));
 
-        WeChatPayConfigurator.DEFAULT.setApiBasePath("http://demo.com/");
+        WeChatPayConfigurator.DEFAULT.setBasePath("http://demo.com/");
         assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("/demo"));
         assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("/demo/"));
         assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("demo/"));

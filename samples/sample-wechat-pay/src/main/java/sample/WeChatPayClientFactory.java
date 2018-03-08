@@ -41,7 +41,7 @@ public class WeChatPayClientFactory {
         WeChatPayConfigurator.DEFAULT.setMchId(System.getenv("wechat.pay.mchId"));
         WeChatPayConfigurator.DEFAULT.setMchKey(System.getenv("wechat.pay.mchKey"));
         WeChatPayConfigurator.DEFAULT.setPayNotifyUrl(System.getenv("wechat.pay.payNotifyUrl"));
-        WeChatPayConfigurator.DEFAULT.setApiBasePath("https://api.mch.weixin.qq.com");
+        WeChatPayConfigurator.DEFAULT.setBasePath("https://api.mch.weixin.qq.com");
         WeChatPayConfigurator.DEFAULT.setSpbillCreateIp("127.0.0.1");
 
         final HttpComponentsClientHttpRequestFactory clientHttpRequestFactory;

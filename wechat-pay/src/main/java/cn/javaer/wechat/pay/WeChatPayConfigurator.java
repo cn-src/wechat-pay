@@ -63,7 +63,7 @@ public class WeChatPayConfigurator {
     /**
      * 微信支付 api base path
      */
-    private String apiBasePath;
+    private String basePath;
 
     private WeChatPayConfigurator() {}
 
