@@ -13,7 +13,6 @@
 
 package cn.javaer.wechat.pay.model.notify;
 
-import cn.javaer.wechat.pay.WeChatPayUtils;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import lombok.Getter;
 import lombok.Setter;
@@ -53,7 +52,7 @@ public class RefundNotifyResult extends BasePayResponse {
     @Override
     public void beforeSign() {
         // 解密字段
-        this.reqInfo = WeChatPayUtils.unmarshal(WeChatPayUtils.decrypt(this.ciphertext), ReqInfo.class);
+//        this.reqInfo = WeChatPayUtils.unmarshal(WeChatPayUtils.decrypt(this.ciphertext), ReqInfo.class);
     }
 
     @Getter
