@@ -94,10 +94,10 @@ public class WeChatPayUtils {
      *
      * @return 拼接后的 url.
      */
-    public static String fullApiUrl(final String apiPath) {
+    public static String fullApiUrl(final String basePath, final String apiPath) {
+        Validate.notEmpty(basePath);
         Validate.notEmpty(apiPath);
-        final String firstPath = WeChatPayConfigurator.DEFAULT.getBasePath();
-        final String tmp1 = firstPath.endsWith("/") ? firstPath.substring(0, firstPath.length() - 1) : firstPath;
+        final String tmp1 = basePath.endsWith("/") ? basePath.substring(0, basePath.length() - 1) : basePath;
         final String tmp2 = apiPath.startsWith("/") ? (tmp1 + apiPath) : (tmp1 + "/" + apiPath);
         return tmp2.endsWith("/") ? tmp2.substring(0, tmp2.length() - 1) : tmp2;
     }
@@ -171,9 +171,9 @@ public class WeChatPayUtils {
      *
      * @return 解密后的明文
      */
-    public static String decrypt(final String str) {
+    public static String decrypt(final String str, final String mchKey) {
         final byte[] decode = Base64.getDecoder().decode(str);
-        final String keyStr = DigestUtils.md5Hex(WeChatPayConfigurator.DEFAULT.getMchKey());
+        final String keyStr = DigestUtils.md5Hex(mchKey);
 
         try {
             final Key key = new SecretKeySpec(keyStr.getBytes(), "AES");

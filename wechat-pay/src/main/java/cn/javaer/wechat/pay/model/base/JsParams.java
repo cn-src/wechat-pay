@@ -13,7 +13,6 @@
 
 package cn.javaer.wechat.pay.model.base;
 
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -37,7 +36,7 @@ public class JsParams {
 
     public static JsParams create(final String prepayId) {
         final JsParams params = new JsParams();
-        params.appId = WeChatPayConfigurator.DEFAULT.getAppid();
+//        params.appId = WeChatPayConfigurator.DEFAULT.getAppid();
         params.timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
         params.nonceStr = WeChatPayUtils.uuid32();
         params.packageStr = "prepay_id=" + prepayId;
