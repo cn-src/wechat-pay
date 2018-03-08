@@ -15,6 +15,7 @@ package cn.javaer.wechat.pay;
 
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
+import cn.javaer.wechat.pay.model.DownloadBillRequest;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.pay.model.RefundQueryRequest;
@@ -25,10 +26,13 @@ import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
+import cn.javaer.wechat.pay.model.base.BillType;
 import cn.javaer.wechat.pay.model.base.JsParams;
 import cn.javaer.wechat.pay.model.base.TradeType;
 import org.apache.commons.lang3.Validate;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
 /**
@@ -182,6 +186,18 @@ public class WeChatPayService {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.setOutRefundNo(outRefundNo);
         return call(this.client::refundQuery, request);
+    }
+
+    /**
+     * 下载对账单.
+     *
+     * @return 字节数据
+     */
+    byte[] downloadBill(final LocalDate queryDate, final BillType billType) {
+        final DownloadBillRequest request = new DownloadBillRequest();
+        request.setBillDate(queryDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        request.setBillType(billType);
+        return this.client.downloadBill(request);
     }
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(final Function<T, R> fun, final T request) {

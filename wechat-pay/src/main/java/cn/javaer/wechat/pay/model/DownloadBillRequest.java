@@ -14,16 +14,15 @@
 package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
+import cn.javaer.wechat.pay.model.base.BillType;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.ToString;
+import lombok.Setter;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * 微信支付-下载对账单-请求.
@@ -31,7 +30,7 @@ import java.time.format.DateTimeFormatter;
  * @author zhangpeng
  */
 @Getter
-@ToString(callSuper = true)
+@Setter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class DownloadBillRequest extends BasePayRequest {
@@ -48,7 +47,7 @@ public class DownloadBillRequest extends BasePayRequest {
      */
     @NonNull
     @XmlElement(name = "bill_type")
-    private String billType;
+    private BillType billType;
     /**
      * 压缩账单.
      *
@@ -57,64 +56,4 @@ public class DownloadBillRequest extends BasePayRequest {
     @XmlElement(name = "tar_type")
     private String tarType;
 
-    private DownloadBillRequest() {}
-
-    /**
-     * Create new DownloadBillRequest.
-     *
-     * @param queryDate the query date
-     * @param billType the bill type
-     *
-     * @return the DownloadBillRequest
-     */
-    public static DownloadBillRequest create(final LocalDate queryDate, final BillType billType) {
-        final DownloadBillRequest request = new DownloadBillRequest();
-        request.billDate = queryDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        request.billType = billType.toString();
-        request.configureAndSign();
-        return request;
-    }
-
-    /**
-     * Create new DownloadBillRequest.
-     *
-     * @param queryDate the query date
-     * @param billType the bill type
-     *
-     * @return the DownloadBillRequest
-     */
-    public static DownloadBillRequest createWithGzip(final LocalDate queryDate, final BillType billType) {
-        final DownloadBillRequest request = new DownloadBillRequest();
-        request.billDate = queryDate.format(DateTimeFormatter.ofPattern("yyyyMMdd"));
-        request.billType = billType.toString();
-        request.tarType = "GZIP";
-        request.configureAndSign();
-        return request;
-    }
-
-    /**
-     * 账单类型.
-     */
-    public enum BillType {
-
-        /**
-         * 返回指定日期的所有订单信息，默认值.
-         */
-        ALL,
-
-        /**
-         * 返回指定日期的成功支付的订单.
-         */
-        SUCCESS,
-
-        /**
-         * 返回指定日期的退款订单.
-         */
-        REFUND,
-
-        /**
-         * 返回指定日期的充值退款订单（相比其他对账单多一栏“返还手续费”）.
-         */
-        RECHARGE_REFUND
-    }
 }
