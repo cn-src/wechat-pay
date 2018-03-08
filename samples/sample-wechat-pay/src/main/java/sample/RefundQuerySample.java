@@ -13,7 +13,6 @@
 
 package sample;
 
-import cn.javaer.wechat.pay.model.RefundQueryRequest;
 import cn.javaer.wechat.pay.model.RefundQueryResponse;
 
 /**
@@ -22,8 +21,7 @@ import cn.javaer.wechat.pay.model.RefundQueryResponse;
 public class RefundQuerySample {
     public static void main(final String[] args) {
         WeChatPayClientFactory.init();
-        final RefundQueryRequest request = RefundQueryRequest.createWithOutTradeNo("TEST03");
-        final RefundQueryResponse response = WeChatPayClientFactory.client().refundQuery(request);
+        final RefundQueryResponse response = WeChatPayClientFactory.weChatPayService().refundQueryWithOutTradeNo("TEST03");
         System.out.println(response);
     }
 }

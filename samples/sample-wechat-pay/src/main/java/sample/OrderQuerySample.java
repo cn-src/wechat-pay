@@ -13,7 +13,6 @@
 
 package sample;
 
-import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 
 /**
@@ -22,8 +21,7 @@ import cn.javaer.wechat.pay.model.OrderQueryResponse;
 public class OrderQuerySample {
     public static void main(final String[] args) {
         WeChatPayClientFactory.init();
-        final OrderQueryRequest request = OrderQueryRequest.create(WeChatPayClientFactory.OUT_TRADE_NO);
-        final OrderQueryResponse response = WeChatPayClientFactory.client().orderQuery(request);
+        final OrderQueryResponse response = WeChatPayClientFactory.weChatPayService().orderQueryWithOutTradeNo("TEST01");
         System.out.println(response);
     }
 }
