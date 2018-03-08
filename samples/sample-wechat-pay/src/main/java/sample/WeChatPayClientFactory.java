@@ -16,7 +16,7 @@ package sample;
 import cn.javaer.wechat.pay.WeChatPayClient;
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayRestTemplateClient;
-import cn.javaer.wechat.pay.support.WeChatPayJaxbHttpMessageConverter;
+import cn.javaer.wechat.pay.support.JaxbTextPlainHttpMessageConverter;
 import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -68,7 +68,7 @@ public class WeChatPayClientFactory {
             throw new RuntimeException(e);
         }
         final RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-        restTemplate.getMessageConverters().add(new WeChatPayJaxbHttpMessageConverter());
+        restTemplate.getMessageConverters().add(new JaxbTextPlainHttpMessageConverter());
         weChatPayClient = new WeChatPayRestTemplateClient(restTemplate);
     }
 

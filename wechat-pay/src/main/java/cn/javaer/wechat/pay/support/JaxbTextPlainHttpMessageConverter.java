@@ -25,8 +25,8 @@ import java.util.List;
  *
  * @author zhangpeng
  */
-public class WeChatPayJaxbHttpMessageConverter extends Jaxb2RootElementHttpMessageConverter {
-    public WeChatPayJaxbHttpMessageConverter() {
+public class JaxbTextPlainHttpMessageConverter extends Jaxb2RootElementHttpMessageConverter {
+    public JaxbTextPlainHttpMessageConverter() {
         final List<MediaType> mediaTypes = new ArrayList<>();
         mediaTypes.add(MediaType.TEXT_PLAIN);
         setSupportedMediaTypes(Collections.unmodifiableList(mediaTypes));
