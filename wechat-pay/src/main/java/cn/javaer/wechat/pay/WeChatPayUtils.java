@@ -13,9 +13,9 @@
 
 package cn.javaer.wechat.pay;
 
-import cn.javaer.wechat.pay.model.BasePayRequest;
-import cn.javaer.wechat.pay.model.BasePayResponse;
-import cn.javaer.wechat.pay.model.Coupon;
+import cn.javaer.wechat.pay.model.base.BasePayRequest;
+import cn.javaer.wechat.pay.model.base.BasePayResponse;
+import cn.javaer.wechat.pay.model.base.Coupon;
 import cn.javaer.wechat.pay.support.SignIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;

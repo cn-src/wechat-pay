@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.model;
 
+import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -33,13 +34,12 @@ import java.util.Objects;
 @XmlRootElement(name = "xml")
 public class OrderQueryRequest extends BasePayRequest {
 
-    private OrderQueryRequest() {}
-
     @XmlElement(name = "transaction_id")
     private String transactionId;
-
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
+
+    private OrderQueryRequest() {}
 
     /**
      * 根据商户订单号查询订单.

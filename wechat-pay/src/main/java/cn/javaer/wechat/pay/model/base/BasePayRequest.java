@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay.model;
+package cn.javaer.wechat.pay.model.base;
 
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayUtils;

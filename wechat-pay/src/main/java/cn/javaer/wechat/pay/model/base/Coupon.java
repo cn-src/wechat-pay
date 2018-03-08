@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay.model;
+package cn.javaer.wechat.pay.model.base;
 
 import lombok.Data;
 
@@ -22,6 +22,10 @@ import lombok.Data;
  */
 @Data
 public class Coupon {
+
+    private String id;
+    private Type type;
+    private Integer fee;
 
     /**
      * 代金券类型.
@@ -36,8 +40,4 @@ public class Coupon {
          */
         NO_CASH
     }
-
-    private String id;
-    private Type type;
-    private Integer fee;
 }

@@ -13,7 +13,6 @@
 
 package cn.javaer.wechat.pay;
 
-import cn.javaer.wechat.pay.model.BasePayResponse;
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 import cn.javaer.wechat.pay.model.DownloadBillRequest;
@@ -25,6 +24,7 @@ import cn.javaer.wechat.pay.model.RefundRequest;
 import cn.javaer.wechat.pay.model.RefundResponse;
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
+import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;

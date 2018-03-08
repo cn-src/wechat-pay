@@ -15,6 +15,7 @@ package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayUtils;
+import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import lombok.Getter;
 import lombok.ToString;
 import org.apache.commons.lang3.Validate;

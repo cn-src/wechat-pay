@@ -14,6 +14,9 @@
 package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.WeChatPayUtils;
+import cn.javaer.wechat.pay.model.base.BasePayResponse;
+import cn.javaer.wechat.pay.model.base.Coupon;
+import cn.javaer.wechat.pay.model.base.Refund;
 import cn.javaer.wechat.pay.support.SignIgnore;
 import lombok.Getter;
 import lombok.Setter;
