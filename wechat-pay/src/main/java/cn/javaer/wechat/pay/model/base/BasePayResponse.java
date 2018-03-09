@@ -44,7 +44,7 @@ public abstract class BasePayResponse {
     @XmlElement(name = "return_msg")
     private String returnMsg;
     @XmlElement(name = "appid")
-    private String appid;
+    private String appId;
     @XmlElement(name = "mch_id")
     private String mchId;
     @XmlElement(name = "sub_appid")

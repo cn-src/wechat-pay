@@ -103,7 +103,7 @@ public class WeChatPayService {
         request.setSpbillCreateIp(spbillCreateIp);
         request.setOpenid(openid);
         final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
-        return JsParams.create(response.getPrepayId(), request.getSignType(), request.getAppid());
+        return JsParams.create(response.getPrepayId(), request.getSignType(), request.getAppId());
     }
 
     /**
@@ -225,7 +225,7 @@ public class WeChatPayService {
     }
 
     private void configureAndSign(final BasePayRequest request) {
-        request.setAppid(this.configurator.getAppId());
+        request.setAppId(this.configurator.getAppId());
         request.setMchId(this.configurator.getMchId());
         request.setNonceStr(ObjectUtils.uuid32());
         request.setSign(SignUtils.generateSign(request, this.configurator.getMchKey()));

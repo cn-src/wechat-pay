@@ -36,7 +36,7 @@ public abstract class BasePayRequest {
      */
     @NotEmpty
     @XmlElement(name = "appid")
-    private String appid;
+    private String appId;
 
     /**
      * 商户号.

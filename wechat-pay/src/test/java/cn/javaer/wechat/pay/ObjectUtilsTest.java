@@ -46,7 +46,7 @@ public class ObjectUtilsTest {
         final UnifiedOrderResponse response = new UnifiedOrderResponse();
         response.setReturnCode("SUCCESS");
         response.setReturnMsg("OK");
-        response.setAppid("wx2421b1c4370ec43b");
+        response.setAppId("wx2421b1c4370ec43b");
         response.setMchId("10000100");
         response.setNonceStr("IITRi8Iabbblz1Jc");
         response.setResultCode("SUCCESS");
@@ -63,7 +63,7 @@ public class ObjectUtilsTest {
         final UnifiedOrderResponse response = new UnifiedOrderResponse();
         response.setReturnCode("SUCCESS");
         response.setReturnMsg("OK");
-        response.setAppid("wx2421b1c4370ec43b");
+        response.setAppId("wx2421b1c4370ec43b");
         response.setMchId("10000100");
         response.setNonceStr("IITRi8Iabbblz1Jc");
         response.setResultCode("SUCCESS");
