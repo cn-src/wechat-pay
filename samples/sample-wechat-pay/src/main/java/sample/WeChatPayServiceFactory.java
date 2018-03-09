@@ -35,7 +35,6 @@ public class WeChatPayServiceFactory {
         configurator.setMchId(System.getenv("wechat.pay.mchId"));
         configurator.setMchKey(System.getenv("wechat.pay.mchKey"));
         configurator.setNotifyUrl(System.getenv("wechat.pay.notifyUrl"));
-        configurator.setBasePath("https://api.mch.weixin.qq.com");
         final HttpClient httpClient = new HttpClientFactory(configurator.getMchId(), System.getenv("wechat.pay.certificatePath")).build();
         final WeChatPayClient weChatPayClient = new WeChatPayHttpComponentsClient(configurator.getBasePath(), httpClient);
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
