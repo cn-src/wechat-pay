@@ -32,7 +32,7 @@ public class WeChatPayProperties implements InitializingBean {
     private String mchId;
     private String mchKey;
     private String notifyUrl;
-    private String spbillCreateIp;
+    private String certificatePath;
     private String basePath;
     /**
      * 接收支付结果通知 Controller 的 path.
