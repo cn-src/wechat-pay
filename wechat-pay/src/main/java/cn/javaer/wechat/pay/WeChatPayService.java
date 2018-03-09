@@ -34,7 +34,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -205,7 +204,7 @@ public class WeChatPayService {
      */
     public byte[] downloadBill(final LocalDate queryDate, final BillType billType) {
         final DownloadBillRequest request = new DownloadBillRequest();
-        request.setBillDate(queryDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        request.setBillDate(queryDate);
         request.setBillType(billType);
         return this.client.downloadBill(request);
     }
