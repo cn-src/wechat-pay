@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay.starter;
+package cn.javaer.wechat.pay.autoconfigure;
 
 import cn.javaer.wechat.pay.WeChatPayService;
 import cn.javaer.wechat.pay.client.HttpClientFactory;

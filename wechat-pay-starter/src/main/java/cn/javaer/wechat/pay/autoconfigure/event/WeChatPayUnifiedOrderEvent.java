@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay.starter.event;
+package cn.javaer.wechat.pay.autoconfigure.event;
 
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 
