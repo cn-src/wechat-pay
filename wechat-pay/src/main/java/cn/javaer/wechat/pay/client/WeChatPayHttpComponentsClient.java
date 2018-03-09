@@ -66,31 +66,31 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
     @Override
     public UnifiedOrderResponse unifiedOrder(final UnifiedOrderRequest request) {
         checkNotNull(request, "UnifiedOrderRequest");
-        return postForEntity(WeChatPayClient.UNIFIED_ORDER_PATH, request, UnifiedOrderResponse.class);
+        return doPost(WeChatPayClient.UNIFIED_ORDER_PATH, request, UnifiedOrderResponse.class);
     }
 
     @Override
     public OrderQueryResponse orderQuery(final OrderQueryRequest request) {
         checkNotNull(request, "OrderQueryRequest");
-        return postForEntity(WeChatPayClient.ORDER_QUERY_PATH, request, OrderQueryResponse.class);
+        return doPost(WeChatPayClient.ORDER_QUERY_PATH, request, OrderQueryResponse.class);
     }
 
     @Override
     public CloseOrderResponse closeOrder(final CloseOrderRequest request) {
         checkNotNull(request, "CloseOrderRequest");
-        return postForEntity(WeChatPayClient.CLOSE_ORDER_PATH, request, CloseOrderResponse.class);
+        return doPost(WeChatPayClient.CLOSE_ORDER_PATH, request, CloseOrderResponse.class);
     }
 
     @Override
     public RefundResponse refund(final RefundRequest request) {
         checkNotNull(request, "RefundRequest");
-        return postForEntity(WeChatPayClient.REFUND_PATH, request, RefundResponse.class);
+        return doPost(WeChatPayClient.REFUND_PATH, request, RefundResponse.class);
     }
 
     @Override
     public RefundQueryResponse refundQuery(final RefundQueryRequest request) {
         checkNotNull(request, "RefundQueryRequest");
-        return postForEntity(WeChatPayClient.REFUND_QUERY_PATH, request, RefundQueryResponse.class);
+        return doPost(WeChatPayClient.REFUND_QUERY_PATH, request, RefundQueryResponse.class);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         }
     }
 
-    private <Q, S extends BasePayResponse> S postForEntity(final String apiPath, final Q request, final Class<S> responseClass) {
+    private <Q, S extends BasePayResponse> S doPost(final String apiPath, final Q request, final Class<S> responseClass) {
         final HttpPost httpPost = new HttpPost();
         final String responseStr;
         try {
