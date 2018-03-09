@@ -15,13 +15,21 @@ package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.TradeType;
+import cn.javaer.wechat.pay.support.LocalDateTimeXmlAdapter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.time.LocalDateTime;
 
 /**
  * 微信支付-统一下单-请求.
@@ -33,56 +41,80 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class UnifiedOrderRequest extends BasePayRequest {
+
     /**
      * 设备号.
      */
+    @Length(min = 1, max = 32)
     @XmlElement(name = "device_info")
     private String deviceInfo;
+
     /**
      * 商品描述.
      */
+    @NotNull
+    @Length(min = 1, max = 128)
     @XmlElement(name = "body")
     private String body;
+
     /**
      * 商品详情.
      */
+    @Length(min = 1, max = 6000)
     @XmlElement(name = "detail")
     private String detail;
+
     /**
      * 附加数据.
      */
+    @Length(min = 1, max = 127)
     @XmlElement(name = "attach")
     private String attach;
+
     /**
      * 商户订单号.
      */
+    @NotNull
+    @Length(min = 1, max = 32)
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
+
     /**
      * 货币类型.
      */
     @XmlElement(name = "fee_type")
     private String feeType;
+
     /**
      * 总金额.
      */
+    @NotNull
+    @Min(1)
+    @Max(10_0000_00)
     @XmlElement(name = "total_fee")
     private Integer totalFee;
+
     /**
      * 终端IP.
      */
+    @NotEmpty
     @XmlElement(name = "spbill_create_ip")
     private String spbillCreateIp;
+
     /**
      * 交易起始时间.
      */
     @XmlElement(name = "time_start")
-    private String timeStart;
+    @XmlJavaTypeAdapter(LocalDateTimeXmlAdapter.class)
+    private LocalDateTime timeStart;
+
     /**
      * 交易结束时间.
      */
     @XmlElement(name = "time_expire")
-    private String timeExpire;
+    @XmlJavaTypeAdapter(LocalDateTimeXmlAdapter.class)
+    private LocalDateTime timeExpire;
+
     /**
      * 订单优惠标记.
      */
