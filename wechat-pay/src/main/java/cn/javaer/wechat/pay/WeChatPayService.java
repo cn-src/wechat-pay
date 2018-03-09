@@ -39,8 +39,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.Set;
 import java.util.function.Function;
 
-import static cn.javaer.wechat.pay.WeChatPayUtils.checkMaxLength;
-import static cn.javaer.wechat.pay.WeChatPayUtils.checkNotEmpty;
 import static cn.javaer.wechat.pay.WeChatPayUtils.checkNotNull;
 
 /**
@@ -72,14 +70,6 @@ public class WeChatPayService {
      * @return 二维码链接
      */
     public String unifiedOrderWithNative(final String outTradeNo, final String body, final int totalFee, final String spbillCreateIp) {
-        checkNotEmpty(outTradeNo, "outTradeNo");
-        checkMaxLength(outTradeNo, 32, "outTradeNo");
-
-        checkNotEmpty(body, "body");
-        checkMaxLength(body, 128, "body");
-
-        checkNotEmpty(spbillCreateIp, "spbillCreateIp");
-
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
         request.setProductId(WeChatPayUtils.uuid32());
         request.setTradeType(TradeType.NATIVE);
@@ -157,8 +147,6 @@ public class WeChatPayService {
                                  final int totalFee,
                                  final int refundFee,
                                  final String refundDesc) {
-        Validate.inclusiveBetween(1, 10_0000_00, totalFee);
-        Validate.inclusiveBetween(1, totalFee, refundFee);
 
         final RefundRequest request = new RefundRequest();
         request.setOutTradeNo(outTradeNo);
