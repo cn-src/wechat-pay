@@ -70,6 +70,7 @@ public class WeChatPayUtils {
     private static final Map<Class, List<Field>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
 
     static {
+        // 对加解密中 PKCS7Padding 模式的支持
         Security.addProvider(new BouncyCastleProvider());
     }
 
