@@ -13,8 +13,8 @@
 
 package cn.javaer.wechat.pay.support;
 
-import cn.javaer.wechat.pay.util.CodecUtils;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
+import cn.javaer.wechat.pay.util.CodecUtils;
 import org.junit.Test;
 import util.AssertJson;
 
