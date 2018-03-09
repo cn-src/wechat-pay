@@ -15,6 +15,7 @@ package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.TradeType;
+import cn.javaer.wechat.pay.support.Groups;
 import cn.javaer.wechat.pay.support.LocalDateTimeXmlAdapter;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -127,7 +128,7 @@ public class UnifiedOrderRequest extends BasePayRequest {
     /**
      * 商品ID.
      */
-    @NotNull(groups = NATIVE.class)
+    @NotNull(groups = Groups.NATIVE.class)
     @Length(min = 1, max = 32)
     @XmlElement(name = "product_id")
     private String productId;
@@ -139,7 +140,7 @@ public class UnifiedOrderRequest extends BasePayRequest {
     /**
      * 用户标识.
      */
-    @NotNull(groups = JSAPI.class)
+    @NotNull(groups = Groups.JSAPI.class)
     @Length(min = 1, max = 128)
     @XmlElement(name = "openid")
     private String openid;
@@ -150,7 +151,4 @@ public class UnifiedOrderRequest extends BasePayRequest {
     @XmlElement(name = "scene_info")
     private String sceneInfo;
 
-    public interface JSAPI {}
-
-    public interface NATIVE {}
 }
