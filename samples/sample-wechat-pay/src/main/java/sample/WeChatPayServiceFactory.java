@@ -31,7 +31,7 @@ public class WeChatPayServiceFactory {
 
     public static void init() {
         final WeChatPayConfigurator configurator = new WeChatPayConfigurator();
-        configurator.setAppid(System.getenv("wechat.pay.appid"));
+        configurator.setAppId(System.getenv("wechat.pay.appId"));
         configurator.setMchId(System.getenv("wechat.pay.mchId"));
         configurator.setMchKey(System.getenv("wechat.pay.mchKey"));
         configurator.setNotifyUrl(System.getenv("wechat.pay.notifyUrl"));

@@ -31,7 +31,7 @@ public class WeChatPayConfigurator {
      * 公众号 ID
      */
     @NonNull
-    private String appid;
+    private String appId;
 
     /**
      * 商户号 ID

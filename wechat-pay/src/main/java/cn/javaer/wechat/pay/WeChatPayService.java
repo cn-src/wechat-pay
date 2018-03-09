@@ -225,7 +225,7 @@ public class WeChatPayService {
     }
 
     private void configureAndSign(final BasePayRequest request) {
-        request.setAppid(this.configurator.getAppid());
+        request.setAppid(this.configurator.getAppId());
         request.setMchId(this.configurator.getMchId());
         request.setNonceStr(ObjectUtils.uuid32());
         request.setSign(SignUtils.generateSign(request, this.configurator.getMchKey()));
