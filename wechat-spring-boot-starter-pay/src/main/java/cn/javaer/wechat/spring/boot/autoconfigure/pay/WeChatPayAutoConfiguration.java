@@ -15,7 +15,6 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.pay.HttpClientFactory;
 import cn.javaer.wechat.pay.WeChatPayClient;
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayHttpComponentsClient;
 import cn.javaer.wechat.pay.WeChatPayService;
 import org.apache.http.client.HttpClient;
@@ -64,16 +63,10 @@ public class WeChatPayAutoConfiguration {
     }
 
     @Bean
-    public WeChatPayConfigurator weChatPayConfigurator() {
-        final WeChatPayConfigurator configurator = new WeChatPayConfigurator();
-        return configurator;
-    }
-
-    @Bean
     @ConditionalOnMissingBean
     public WeChatPayService weChatPayService() {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        return new WeChatPayService(weChatPayClient(), weChatPayConfigurator(), validator);
+        return new WeChatPayService(weChatPayClient(), this.weChatPayProperties, validator);
     }
 
     @Bean
