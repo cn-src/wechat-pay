@@ -88,7 +88,7 @@ public class ObjectUtils {
         final List<Field> annotatedFields = new ArrayList<>();
         Class<?> currentClass = clazz;
         while (currentClass != null) {
-            final Field[] declaredFields = clazz.getDeclaredFields();
+            final Field[] declaredFields = currentClass.getDeclaredFields();
             for (final Field field : declaredFields) {
                 if (field.getAnnotation(annotationCls) != null) {
                     field.setAccessible(true);
