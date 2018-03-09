@@ -68,6 +68,7 @@ import java.util.zip.GZIPInputStream;
 public class WeChatPayUtils {
 
     private static final Map<Class, List<Field>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
+    private static final int RMB_10W_YUAN = 10_0000_00;
 
     static {
         // 对加解密中 PKCS7Padding 模式的支持
@@ -360,7 +361,7 @@ public class WeChatPayUtils {
      * @param str the str
      * @param argumentName 参数名
      */
-    public static void notEmpty(final String str, final String argumentName) {
+    public static void checkNotEmpty(final String str, final String argumentName) {
         if (null == str || str.isEmpty()) {
             throw new IllegalArgumentException("'" + argumentName + "' must be not empty");
         }
@@ -372,7 +373,7 @@ public class WeChatPayUtils {
      * @param obj the obj
      * @param argumentName 参数名
      */
-    public static void notNull(final Object obj, final String argumentName) {
+    public static void checkNotNull(final Object obj, final String argumentName) {
         if (null == obj) {
             throw new IllegalArgumentException("'" + argumentName + "' must be not null");
         }
@@ -385,9 +386,38 @@ public class WeChatPayUtils {
      * @param maxLength 字符串最大长度
      * @param argumentName 参数名
      */
-    public static void maxLength(final String str, final int maxLength, final String argumentName) {
+    public static void checkMaxLength(final String str, final int maxLength, final String argumentName) {
         if (str.length() > maxLength) {
             throw new IllegalArgumentException("'" + argumentName + "' length cannot exceed " + maxLength);
+        }
+    }
+
+    /**
+     * 校验金额范围，必须大于1.
+     *
+     * @param value 金额
+     * @param maxFee 最大金额
+     * @param argumentName 参数名
+     */
+    public static void checkFeeRange(final int value, final int maxFee, final String argumentName) {
+        if (value < 1 || value > maxFee) {
+            throw new IllegalArgumentException(
+                    String.format("'%s' value %d is not in the specified inclusive range of 1 to %d",
+                            argumentName, value, maxFee));
+        }
+    }
+
+    /**
+     * 校验金额范围，必须大于1，小于 10000000（1分到10万元）.
+     *
+     * @param value 金额
+     * @param argumentName 参数名
+     */
+    public static void checkFeeRange(final int value, final String argumentName) {
+        if (value < 1 || value > RMB_10W_YUAN) {
+            throw new IllegalArgumentException(
+                    String.format("'%s' value %d is not in the specified inclusive range of 1 to 10000000",
+                            argumentName, value));
         }
     }
 

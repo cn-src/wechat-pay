@@ -35,7 +35,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
-import static cn.javaer.wechat.pay.WeChatPayUtils.notNull;
+import static cn.javaer.wechat.pay.WeChatPayUtils.checkMaxLength;
+import static cn.javaer.wechat.pay.WeChatPayUtils.checkNotEmpty;
+import static cn.javaer.wechat.pay.WeChatPayUtils.checkNotNull;
 
 /**
  * @author zhangpeng
@@ -45,8 +47,8 @@ public class WeChatPayService {
     private final WeChatPayConfigurator configurator;
 
     public WeChatPayService(final WeChatPayClient client, final WeChatPayConfigurator configurator) {
-        notNull(client, "client");
-        notNull(configurator, "configurator");
+        checkNotNull(client, "client");
+        checkNotNull(configurator, "configurator");
 
         this.client = client;
         this.configurator = configurator;
@@ -62,6 +64,14 @@ public class WeChatPayService {
      * @return 二维码链接
      */
     public String unifiedOrderWithNative(final String outTradeNo, final String body, final int totalFee, final String spbillCreateIp) {
+        checkNotEmpty(outTradeNo, "outTradeNo");
+        checkMaxLength(outTradeNo, 32, "outTradeNo");
+
+        checkNotEmpty(body, "body");
+        checkMaxLength(body, 128, "body");
+
+        checkNotEmpty(spbillCreateIp, "spbillCreateIp");
+
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
         request.setProductId(WeChatPayUtils.uuid32());
         request.setTradeType(TradeType.NATIVE);
