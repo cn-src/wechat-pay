@@ -18,7 +18,10 @@ import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -32,24 +35,29 @@ public abstract class BasePayRequest {
     /**
      * 公众账号ID.
      */
+    @NotEmpty
     @XmlElement(name = "appid")
     private String appid;
 
     /**
      * 商户号.
      */
+    @NotEmpty
     @XmlElement(name = "mch_id")
     private String mchId;
 
     /**
      * 随机字符串.
      */
+    @NotNull
+    @Length(min = 1, max = 32)
     @XmlElement(name = "nonce_str")
     private String nonceStr;
 
     /**
      * 签名.
      */
+    @NotEmpty
     @SignIgnore
     @XmlElement(name = "sign")
     private String sign;
