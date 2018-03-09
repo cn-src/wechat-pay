@@ -86,12 +86,16 @@ public class ObjectUtils {
         checkNotNull(annotationCls, "The annotation class must not be null");
 
         final List<Field> annotatedFields = new ArrayList<>();
-        final Field[] declaredFields = clazz.getDeclaredFields();
-        for (final Field field : declaredFields) {
-            if (field.getAnnotation(annotationCls) != null) {
-                field.setAccessible(true);
-                annotatedFields.add(field);
+        Class<?> currentClass = clazz;
+        while (currentClass != null) {
+            final Field[] declaredFields = clazz.getDeclaredFields();
+            for (final Field field : declaredFields) {
+                if (field.getAnnotation(annotationCls) != null) {
+                    field.setAccessible(true);
+                    annotatedFields.add(field);
+                }
             }
+            currentClass = currentClass.getSuperclass();
         }
 
         return annotatedFields;
