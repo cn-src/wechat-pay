@@ -78,7 +78,7 @@ public class WeChatPayService {
         request.setBody(body);
         request.setTotalFee(totalFee);
         request.setSpbillCreateIp(spbillCreateIp);
-        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request, Groups.NATIVE.class);
+        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request, Groups.Native.class);
         return response.getCodeUrl();
     }
 

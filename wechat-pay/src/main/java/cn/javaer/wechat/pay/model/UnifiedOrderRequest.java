@@ -128,7 +128,7 @@ public class UnifiedOrderRequest extends BasePayRequest {
     /**
      * 商品ID.
      */
-    @NotNull(groups = Groups.NATIVE.class)
+    @NotNull(groups = Groups.Native.class)
     @Length(min = 1, max = 32)
     @XmlElement(name = "product_id")
     private String productId;
@@ -140,7 +140,7 @@ public class UnifiedOrderRequest extends BasePayRequest {
     /**
      * 用户标识.
      */
-    @NotNull(groups = Groups.JSAPI.class)
+    @NotNull(groups = Groups.JsApi.class)
     @Length(min = 1, max = 128)
     @XmlElement(name = "openid")
     private String openid;

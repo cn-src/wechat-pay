@@ -17,7 +17,7 @@ package cn.javaer.wechat.pay.support;
  * @author zhangpeng
  */
 public interface Groups {
-    interface JSAPI extends Groups {}
+    interface JsApi extends Groups {}
 
-    interface NATIVE extends Groups {}
+    interface Native extends Groups {}
 }
