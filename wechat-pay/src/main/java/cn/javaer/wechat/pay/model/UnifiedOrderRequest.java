@@ -20,6 +20,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.URL;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -118,36 +119,49 @@ public class UnifiedOrderRequest extends BasePayRequest {
     /**
      * 订单优惠标记.
      */
+    @Length(min = 1, max = 32)
     @XmlElement(name = "goods_tag")
     private String goodsTag;
+
     /**
      * 通知地址.
      */
+    @NotNull
+    @URL
     @XmlElement(name = "notify_url")
     private String notifyUrl;
+
     /**
      * 交易类型.
      */
+    @NotNull
     @XmlElement(name = "trade_type")
     private TradeType tradeType;
+
     /**
      * 商品ID.
      */
+    @Length(min = 1, max = 32)
     @XmlElement(name = "product_id")
     private String productId;
+
     /**
      * 指定支付方式.
      */
     @XmlElement(name = "limit_pay")
     private String limitPay;
+
     /**
      * 用户标识.
      */
+    @Length(min = 1, max = 128)
     @XmlElement(name = "openid")
     private String openid;
+
     /**
      * 场景信息.
      */
+    @Length(min = 1, max = 256)
     @XmlElement(name = "scene_info")
     private String sceneInfo;
 }
