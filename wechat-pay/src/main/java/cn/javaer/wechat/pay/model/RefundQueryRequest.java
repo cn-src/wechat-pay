@@ -14,6 +14,8 @@
 package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
+import cn.javaer.wechat.pay.support.OnlyOne;
+import cn.javaer.wechat.pay.support.OnlyOneNotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,23 +29,32 @@ import javax.xml.bind.annotation.XmlRootElement;
  *
  * @author zhangpeng
  */
+@OnlyOneNotNull
 @Getter
 @Setter
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class RefundQueryRequest extends BasePayRequest {
 
+    @OnlyOne
     @XmlElement(name = "transaction_id")
     private String transactionId;
+
+    @OnlyOne
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
+
     /**
      * 商户退款单号.
      */
+    @OnlyOne
     @XmlElement(name = "out_refund_no")
     private String outRefundNo;
+
+    @OnlyOne
     @XmlElement(name = "refund_id")
     private String refundId;
+
     @XmlElement(name = "offset")
     private Integer offset;
 
