@@ -15,7 +15,6 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.pay.WeChatPayClient;
 import cn.javaer.wechat.pay.WeChatPayHttpComponentsClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -25,7 +24,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.client.RestTemplate;
 
 
 /**
@@ -48,18 +46,14 @@ public class WeChatPayAutoConfiguration {
     /**
      * WeChatPayClient 配置.
      *
-     * @param restTemplate RestTemplate
      *
      * @return WeChatPayClient
      */
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayClient weChatPayClient(
-            @Autowired(required = false) RestTemplate restTemplate) {
-        if (null == restTemplate) {
-            restTemplate = new RestTemplate();
-        }
-        return new WeChatPayHttpComponentsClient(restTemplate);
+    public WeChatPayClient weChatPayClient() {
+        // TODO
+        return new WeChatPayHttpComponentsClient(null);
     }
     // TODO
 //    @Bean
