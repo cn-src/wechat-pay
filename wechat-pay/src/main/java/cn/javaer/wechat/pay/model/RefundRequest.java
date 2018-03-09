@@ -74,18 +74,22 @@ public class RefundRequest extends BasePayRequest {
     @Min(1)
     @Max(10_0000_00)
     @XmlElement(name = "refund_fee")
-    private int refundFee;
+    private Integer refundFee;
 
     @XmlElement(name = "refund_fee_type")
     private String refundFeeType;
+
     /**
      * 退款原因.
      */
+    @Length(min = 1, max = 80)
     @XmlElement(name = "refund_desc")
     private String refundDesc;
+
     /**
      * 退款资金来源.
      */
+    @Length(min = 1, max = 30)
     @XmlElement(name = "refund_account")
     private String refundAccount;
 
