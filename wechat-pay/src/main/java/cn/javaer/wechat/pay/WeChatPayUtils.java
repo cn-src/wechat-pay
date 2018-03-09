@@ -379,48 +379,6 @@ public class WeChatPayUtils {
         }
     }
 
-    /**
-     * 校验字符串最大长度.
-     *
-     * @param str the str
-     * @param maxLength 字符串最大长度
-     * @param argumentName 参数名
-     */
-    public static void checkMaxLength(final String str, final int maxLength, final String argumentName) {
-        if (str.length() > maxLength) {
-            throw new IllegalArgumentException("'" + argumentName + "' length cannot exceed " + maxLength);
-        }
-    }
-
-    /**
-     * 校验金额范围，必须大于1.
-     *
-     * @param value 金额
-     * @param maxFee 最大金额
-     * @param argumentName 参数名
-     */
-    public static void checkFeeRange(final int value, final int maxFee, final String argumentName) {
-        if (value < 1 || value > maxFee) {
-            throw new IllegalArgumentException(
-                    String.format("'%s' value %d is not in the specified inclusive range of 1 to %d",
-                            argumentName, value, maxFee));
-        }
-    }
-
-    /**
-     * 校验金额范围，必须大于1，小于 10000000（1分到10万元）.
-     *
-     * @param value 金额
-     * @param argumentName 参数名
-     */
-    public static void checkFeeRange(final int value, final String argumentName) {
-        if (value < 1 || value > RMB_10W_YUAN) {
-            throw new IllegalArgumentException(
-                    String.format("'%s' value %d is not in the specified inclusive range of 1 to 10000000",
-                            argumentName, value));
-        }
-    }
-
     private static String asString(final Field field, final Object obj) {
         try {
             field.setAccessible(true);
