@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay.autoconfigure.event;
+package cn.javaer.wechat.spring.boot.autoconfigure.pay.event;
 
 import cn.javaer.wechat.pay.model.notify.PayNotifyResult;
 
