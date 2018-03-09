@@ -184,7 +184,7 @@ public class ObjectUtils {
      * mapping.put("coupon_id_", (val, coupon) -> coupon.setId(val));
      * mapping.put("coupon_type_", (val, coupon) -> coupon.setType(val));
      * mapping.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
-     * WeChatPayUtils.beansMapFrom(this.otherParams, mapping, Coupon::new);
+     * ObjectUtils.beansMapFrom(this.otherParams, mapping, Coupon::new);
      * </pre>
      *
      * @param params 已存放的动态数据

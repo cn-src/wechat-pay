@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay;
+package cn.javaer.wechat.pay.util;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -44,7 +44,7 @@ import java.util.zip.GZIPInputStream;
  *
  * @author zhangpeng
  */
-public class WeChatPayUtils {
+public class CodecUtils {
 
 
     static {
@@ -141,11 +141,5 @@ public class WeChatPayUtils {
             throw new RuntimeException(e);
         }
     }
-
-
-
-
-
-
 
 }

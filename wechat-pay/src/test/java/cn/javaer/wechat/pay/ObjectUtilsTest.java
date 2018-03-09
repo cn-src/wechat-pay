@@ -14,6 +14,7 @@
 package cn.javaer.wechat.pay;
 
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
+import cn.javaer.wechat.pay.util.CodecUtils;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import cn.javaer.wechat.pay.util.SignUtils;
 import org.junit.Test;
@@ -74,7 +75,7 @@ public class ObjectUtilsTest {
         SignUtils.generateSign(response, "key");
 
         assertEquals("BC884153761883FE608EA956BD05A6F5", SignUtils.generateSign(response, "key"));
-        final Field field = WeChatPayUtils.class.getDeclaredField("CACHE_FOR_SIGN");
+        final Field field = CodecUtils.class.getDeclaredField("CACHE_FOR_SIGN");
         field.setAccessible(true);
         final Map<Class, List<Field>> cache = (Map<Class, List<Field>>) field.get(null);
         assertThat(cache).hasSize(1);
