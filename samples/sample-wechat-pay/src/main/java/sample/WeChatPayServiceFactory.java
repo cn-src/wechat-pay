@@ -13,11 +13,11 @@
 
 package sample;
 
-import cn.javaer.wechat.pay.HttpClientFactory;
-import cn.javaer.wechat.pay.WeChatPayClient;
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
-import cn.javaer.wechat.pay.WeChatPayHttpComponentsClient;
 import cn.javaer.wechat.pay.WeChatPayService;
+import cn.javaer.wechat.pay.client.HttpClientFactory;
+import cn.javaer.wechat.pay.client.WeChatPayClient;
+import cn.javaer.wechat.pay.client.WeChatPayHttpComponentsClient;
 import org.apache.http.client.HttpClient;
 
 import javax.validation.Validation;

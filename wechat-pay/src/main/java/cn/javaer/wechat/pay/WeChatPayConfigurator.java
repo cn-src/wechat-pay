@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay;
 
+import cn.javaer.wechat.pay.client.WeChatPayClient;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;

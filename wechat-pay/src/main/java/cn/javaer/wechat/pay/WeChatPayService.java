@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay;
 
+import cn.javaer.wechat.pay.client.WeChatPayClient;
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 import cn.javaer.wechat.pay.model.DownloadBillRequest;
