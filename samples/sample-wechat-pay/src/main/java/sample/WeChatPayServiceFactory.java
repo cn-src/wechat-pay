@@ -15,16 +15,14 @@ package sample;
 
 import cn.javaer.wechat.pay.WeChatPayClient;
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
-import cn.javaer.wechat.pay.WeChatPayRestTemplateClient;
+import cn.javaer.wechat.pay.WeChatPayHttpComponentsClient;
 import cn.javaer.wechat.pay.WeChatPayService;
-import cn.javaer.wechat.pay.support.JaxbTextPlainHttpMessageConverter;
 import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
-import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
 import javax.validation.Validation;
@@ -65,16 +63,13 @@ public class WeChatPayServiceFactory {
             final CloseableHttpClient httpclient = HttpClients.custom()
                     .setSSLSocketFactory(sslsf)
                     .build();
-
-            clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory(httpclient);
+            final WeChatPayClient weChatPayClient = new WeChatPayHttpComponentsClient(httpclient);
+            final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+            weChatPayService = new WeChatPayService(weChatPayClient, configurator, validator);
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
-        final RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
-        restTemplate.getMessageConverters().add(new JaxbTextPlainHttpMessageConverter());
-        final WeChatPayClient weChatPayClient = new WeChatPayRestTemplateClient(restTemplate);
-        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        weChatPayService = new WeChatPayService(weChatPayClient, configurator, validator);
+
     }
 
     public static WeChatPayService weChatPayService() {
