@@ -18,9 +18,9 @@ import cn.javaer.wechat.pay.model.base.BillType;
 import cn.javaer.wechat.pay.model.base.TarType;
 import cn.javaer.wechat.pay.support.LocalDateXmlAdapter;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -44,6 +44,7 @@ public class DownloadBillRequest extends BasePayRequest {
      *
      * <p>下载对账单的日期，格式：20140603</p>
      */
+    @NotNull
     @XmlElement(name = "bill_date")
     @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
     private LocalDate billDate;
@@ -51,7 +52,7 @@ public class DownloadBillRequest extends BasePayRequest {
     /**
      * 账单类型.
      */
-    @NonNull
+    @NotNull
     @XmlElement(name = "bill_type")
     private BillType billType;
 
