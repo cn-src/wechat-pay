@@ -354,6 +354,30 @@ public class WeChatPayUtils {
         return WeChatPayUtils.beansFrom(params, mappingMap, Coupon::new);
     }
 
+    /**
+     * 校验字符串不能为空.
+     *
+     * @param str the str
+     * @param argumentName 参数名
+     */
+    public static void notEmpty(final String str, final String argumentName) {
+        if (null == str || str.isEmpty()) {
+            throw new IllegalArgumentException("'" + argumentName + "' must be not empty");
+        }
+    }
+
+    /**
+     * 校验对象不能为 null.
+     *
+     * @param obj the obj
+     * @param argumentName 参数名
+     */
+    public static void notNull(final Object obj, final String argumentName) {
+        if (null == obj) {
+            throw new IllegalArgumentException("'" + argumentName + "' must be not null");
+        }
+    }
+
     private static String asString(final Field field, final Object obj) {
         try {
             field.setAccessible(true);
