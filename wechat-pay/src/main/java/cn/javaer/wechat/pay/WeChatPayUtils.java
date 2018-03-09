@@ -18,10 +18,6 @@ import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.Coupon;
 import cn.javaer.wechat.pay.support.SignIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.reflect.FieldUtils;
-import org.apache.commons.lang3.tuple.Pair;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.BadPaddingException;
@@ -39,6 +35,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.UncheckedIOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -46,6 +43,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.Security;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -55,9 +53,7 @@ import java.util.TreeMap;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 import java.util.zip.GZIPInputStream;
 
 /**
@@ -68,7 +64,6 @@ import java.util.zip.GZIPInputStream;
 public class WeChatPayUtils {
 
     private static final Map<Class, List<Field>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
-    private static final int RMB_10W_YUAN = 10_0000_00;
 
     static {
         // 对加解密中 PKCS7Padding 模式的支持
@@ -97,8 +92,9 @@ public class WeChatPayUtils {
      * @return 拼接后的 url.
      */
     public static String fullApiUrl(final String basePath, final String apiPath) {
-        Validate.notEmpty(basePath);
-        Validate.notEmpty(apiPath);
+        checkNotEmpty(basePath, "basePath");
+        checkNotEmpty(apiPath, "apiPath");
+
         final String tmp1 = basePath.endsWith("/") ? basePath.substring(0, basePath.length() - 1) : basePath;
         final String tmp2 = apiPath.startsWith("/") ? (tmp1 + apiPath) : (tmp1 + "/" + apiPath);
         return tmp2.endsWith("/") ? tmp2.substring(0, tmp2.length() - 1) : tmp2;
@@ -368,6 +364,18 @@ public class WeChatPayUtils {
     }
 
     /**
+     * 校验字符串不能为空.
+     *
+     * @param collection the collection
+     * @param argumentName 参数名
+     */
+    public static void checkNotEmpty(final Collection<?> collection, final String argumentName) {
+        if (null == collection || collection.isEmpty()) {
+            throw new IllegalArgumentException("'" + argumentName + "' must be not empty");
+        }
+    }
+
+    /**
      * 校验对象不能为 null.
      *
      * @param obj the obj
@@ -379,30 +387,59 @@ public class WeChatPayUtils {
         }
     }
 
-    private static String asString(final Field field, final Object obj) {
-        try {
-            field.setAccessible(true);
-            final Object val = field.get(obj);
-            return (null == val) ? null : val.toString();
-        } catch (final IllegalAccessException e) {
-            throw new RuntimeException(e);
+    /**
+     * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
+     *
+     * @param clazz the {@link Class} to query
+     * @param annotationCls the {@link Annotation} that must be present on a field to be matched
+     *
+     * @return a list of Fields (possibly empty).
+     *
+     * @throws IllegalArgumentException if the class or annotation are {@code null}
+     * @since 3.4
+     */
+    public static List<Field> getFieldsListWithAnnotation(final Class<?> clazz, final Class<? extends Annotation> annotationCls) {
+        checkNotNull(clazz, "The class must not be null");
+        checkNotNull(annotationCls, "The annotation class must not be null");
+
+        final List<Field> annotatedFields = new ArrayList<>();
+        final Field[] declaredFields = clazz.getDeclaredFields();
+        for (final Field field : declaredFields) {
+            if (field.getAnnotation(annotationCls) != null) {
+                field.setAccessible(true);
+                annotatedFields.add(field);
+            }
         }
+
+        return annotatedFields;
     }
 
     private static SortedMap<String, String> signParamsFrom(final Object obj) {
         final Class<?> clazz = obj.getClass();
         final List<Field> fields = CACHE_FOR_SIGN.computeIfAbsent(clazz, clazz0 ->
-                FieldUtils.getFieldsListWithAnnotation(clazz0, XmlElement.class));
-        Validate.notEmpty(fields);
+                getFieldsListWithAnnotation(clazz0, XmlElement.class));
+        checkNotEmpty(fields, "fields");
 
-        final BinaryOperator<String> mergeFunction = (u, v) -> {
-            throw new IllegalStateException(String.format("Duplicate key %s", u));
-        };
-
-        return fields.stream()
-                .filter(field -> null == field.getAnnotation(SignIgnore.class))
-                .map(field -> Pair.of(field.getAnnotation(XmlElement.class).name(), asString(field, obj)))
-                .filter(pair -> StringUtils.isNoneEmpty(pair.getKey(), pair.getValue()))
-                .collect(Collectors.toMap(Pair::getKey, Pair::getValue, mergeFunction, TreeMap::new));
+        final SortedMap<String, String> params = new TreeMap<>();
+        try {
+            for (final Field field : fields) {
+                if (null != field.getAnnotation(SignIgnore.class)) {
+                    continue;
+                }
+                final String name = field.getAnnotation(XmlElement.class).name();
+                final Object value = field.get(obj);
+                final String valueStr = value == null ? null : value.toString();
+                if (name.isEmpty()) {
+                    continue;
+                }
+                if (null == valueStr || valueStr.isEmpty()) {
+                    continue;
+                }
+                params.put(name, valueStr);
+            }
+        } catch (final IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+        return params;
     }
 }

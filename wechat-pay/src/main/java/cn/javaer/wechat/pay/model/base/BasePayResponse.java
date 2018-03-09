@@ -18,8 +18,6 @@ import cn.javaer.wechat.pay.support.SignIgnore;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -71,9 +69,4 @@ public abstract class BasePayResponse {
      * 签名之前的处理, 子类可覆盖实现完成各自特定处理.
      */
     public void beforeSign() {}
-
-    @Override
-    public String toString() {
-        return ReflectionToStringBuilder.toString(this, ToStringStyle.JSON_STYLE);
-    }
 }

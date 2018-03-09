@@ -13,7 +13,7 @@
 
 package cn.javaer.wechat.pay.support;
 
-import org.apache.commons.lang3.reflect.FieldUtils;
+import cn.javaer.wechat.pay.WeChatPayUtils;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -38,7 +38,7 @@ public class OnlyOneNotNullValidator implements ConstraintValidator<OnlyOneNotNu
     public boolean isValid(final Object value, final ConstraintValidatorContext context) {
 
         final List<Field> fields = CACHE_FOR_SIGN.computeIfAbsent(value.getClass(), clazz0 ->
-                FieldUtils.getFieldsListWithAnnotation(clazz0, OnlyOne.class));
+                WeChatPayUtils.getFieldsListWithAnnotation(clazz0, OnlyOne.class));
 
         if (null == fields || fields.isEmpty()) {
             return true;
@@ -46,10 +46,10 @@ public class OnlyOneNotNullValidator implements ConstraintValidator<OnlyOneNotNu
         int count = 0;
         try {
             for (final Field field : fields) {
-                field.setAccessible(true);
                 if (null != field.get(value)) {
                     count++;
                 }
+
             }
         } catch (final IllegalAccessException e) {
             throw new RuntimeException(e);
