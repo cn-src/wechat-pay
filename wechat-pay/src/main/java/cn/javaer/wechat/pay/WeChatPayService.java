@@ -31,8 +31,12 @@ import cn.javaer.wechat.pay.model.base.JsParams;
 import cn.javaer.wechat.pay.model.base.TradeType;
 import org.apache.commons.lang3.Validate;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ValidationException;
+import javax.validation.Validator;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Set;
 import java.util.function.Function;
 
 import static cn.javaer.wechat.pay.WeChatPayUtils.checkMaxLength;
@@ -45,13 +49,17 @@ import static cn.javaer.wechat.pay.WeChatPayUtils.checkNotNull;
 public class WeChatPayService {
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
+    private final Validator validator;
 
-    public WeChatPayService(final WeChatPayClient client, final WeChatPayConfigurator configurator) {
+    public WeChatPayService(final WeChatPayClient client, final WeChatPayConfigurator configurator,
+                            final Validator validator) {
         checkNotNull(client, "client");
         checkNotNull(configurator, "configurator");
+        checkNotNull(validator, "validator");
 
         this.client = client;
         this.configurator = configurator;
+        this.validator = validator;
     }
 
     /**
@@ -217,6 +225,10 @@ public class WeChatPayService {
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(final Function<T, R> fun, final T request) {
         configureAndSign(request);
+        final Set<ConstraintViolation<T>> violationSet = this.validator.validate(request);
+        if (violationSet.size() > 0) {
+            throw new ValidationException(violationSet.iterator().next().getMessage());
+        }
         final R response = fun.apply(request);
         processAndCheck(response);
         return response;

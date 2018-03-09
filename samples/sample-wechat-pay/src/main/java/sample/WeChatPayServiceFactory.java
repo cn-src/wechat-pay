@@ -71,7 +71,7 @@ public class WeChatPayServiceFactory {
         final RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
         restTemplate.getMessageConverters().add(new JaxbTextPlainHttpMessageConverter());
         final WeChatPayClient weChatPayClient = new WeChatPayRestTemplateClient(restTemplate);
-        weChatPayService = new WeChatPayService(weChatPayClient, configurator);
+        weChatPayService = new WeChatPayService(weChatPayClient, configurator, validator);
     }
 
     public static WeChatPayService weChatPayService() {
