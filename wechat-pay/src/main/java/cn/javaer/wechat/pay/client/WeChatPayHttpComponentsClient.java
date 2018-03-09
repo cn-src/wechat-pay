@@ -113,7 +113,7 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         final String responseStr;
         try {
             httpPost.setURI(new URI(ObjectUtils.fullApiUrl(this.basePath, apiPath)));
-            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), "UTf-8"));
+            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), "UTF-8"));
             responseStr = this.httpClient.execute(httpPost, new BasicResponseHandler());
         } catch (final URISyntaxException | IOException e) {
             throw new RuntimeException(e);
