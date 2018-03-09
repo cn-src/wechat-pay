@@ -50,6 +50,9 @@ public class WeChatPayConfigurator {
     @NonNull
     private String notifyUrl;
 
+    /**
+     * api 证书路径
+     */
     @NonNull
     private String certificatePath;
 
