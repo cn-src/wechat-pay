@@ -29,7 +29,6 @@ import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.BillType;
 import cn.javaer.wechat.pay.model.base.JsParams;
 import cn.javaer.wechat.pay.model.base.TradeType;
-import cn.javaer.wechat.pay.support.Groups;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ValidationException;
@@ -78,7 +77,7 @@ public class WeChatPayService {
         request.setBody(body);
         request.setTotalFee(totalFee);
         request.setSpbillCreateIp(spbillCreateIp);
-        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request, Groups.Native.class);
+        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
         return response.getCodeUrl();
     }
 
@@ -101,7 +100,7 @@ public class WeChatPayService {
         request.setTotalFee(totalFee);
         request.setSpbillCreateIp(spbillCreateIp);
         request.setOpenid(openid);
-        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request, Groups.JsApi.class);
+        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
         return JsParams.create(response.getPrepayId(), request.getSignType(), request.getAppid());
     }
 
@@ -115,7 +114,7 @@ public class WeChatPayService {
     public OrderQueryResponse orderQueryWithOutTradeNo(final String outTradeNo) {
         final OrderQueryRequest request = new OrderQueryRequest();
         request.setOutTradeNo(outTradeNo);
-        return call(this.client::orderQuery, request, Groups.OutTradeNo.class);
+        return call(this.client::orderQuery, request);
     }
 
     /**
@@ -211,11 +210,10 @@ public class WeChatPayService {
         return this.client.downloadBill(request);
     }
 
-    @SafeVarargs
-    private final <T extends BasePayRequest, R extends BasePayResponse> R call(
-            final Function<T, R> fun, final T request, final Class<? extends Groups>... groupClass) {
+    private <T extends BasePayRequest, R extends BasePayResponse> R call(
+            final Function<T, R> fun, final T request) {
         configureAndSign(request);
-        final Set<ConstraintViolation<T>> violationSet = this.validator.validate(request, groupClass);
+        final Set<ConstraintViolation<T>> violationSet = this.validator.validate(request);
         if (violationSet.size() > 0) {
             throw new ValidationException(violationSet.iterator().next().getMessage());
         }

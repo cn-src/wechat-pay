@@ -15,8 +15,8 @@ package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.TradeType;
-import cn.javaer.wechat.pay.support.Groups;
 import cn.javaer.wechat.pay.support.LocalDateTimeXmlAdapter;
+import cn.javaer.wechat.pay.support.ValidUnifiedOrderRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
@@ -38,6 +38,7 @@ import java.time.LocalDateTime;
  *
  * @author zhangpeng
  */
+@ValidUnifiedOrderRequest
 @EqualsAndHashCode(callSuper = true)
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -128,7 +129,6 @@ public class UnifiedOrderRequest extends BasePayRequest {
     /**
      * 商品ID.
      */
-    @NotNull(groups = Groups.Native.class)
     @Length(min = 1, max = 32)
     @XmlElement(name = "product_id")
     private String productId;
@@ -140,7 +140,6 @@ public class UnifiedOrderRequest extends BasePayRequest {
     /**
      * 用户标识.
      */
-    @NotNull(groups = Groups.JsApi.class)
     @Length(min = 1, max = 128)
     @XmlElement(name = "openid")
     private String openid;

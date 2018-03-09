@@ -13,15 +13,27 @@
 
 package cn.javaer.wechat.pay.support;
 
+import javax.validation.Constraint;
+import javax.validation.Payload;
+import java.lang.annotation.Documented;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
+
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.ElementType.TYPE;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
+
 /**
  * @author zhangpeng
  */
-public interface Groups {
-    interface JsApi extends Groups {}
+@Target({TYPE, ANNOTATION_TYPE})
+@Retention(RUNTIME)
+@Constraint(validatedBy = {ValidUnifiedOrderRequestValidator.class})
+@Documented
+public @interface ValidUnifiedOrderRequest {
+    String message() default "#default";
 
-    interface Native extends Groups {}
+    Class<?>[] groups() default {};
 
-    interface TransactionId extends Groups {}
-
-    interface OutTradeNo extends Groups {}
+    Class<? extends Payload>[] payload() default {};
 }

@@ -14,9 +14,14 @@
 package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
+import cn.javaer.wechat.pay.support.Groups;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -33,25 +38,42 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class RefundRequest extends BasePayRequest {
 
+    @NotNull(groups = Groups.TransactionId.class)
+    @Length(min = 1, max = 32)
     @XmlElement(name = "transaction_id")
     private String transactionId;
+
+    @NotNull(groups = Groups.OutTradeNo.class)
+    @Length(min = 1, max = 32)
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
+
     /**
      * 商户退款单号.
      */
+    @NotNull
+    @Length(min = 1, max = 64)
     @XmlElement(name = "out_refund_no")
     private String outRefundNo;
+
     /**
      * 订单金额.
      */
+    @NotNull
+    @Min(1)
+    @Max(10_0000_00)
     @XmlElement(name = "total_fee")
-    private int totalFee;
+    private Integer totalFee;
+
     /**
      * 退款金额.
      */
+    @NotNull
+    @Min(1)
+    @Max(10_0000_00)
     @XmlElement(name = "refund_fee")
     private int refundFee;
+
     @XmlElement(name = "refund_fee_type")
     private String refundFeeType;
     /**
