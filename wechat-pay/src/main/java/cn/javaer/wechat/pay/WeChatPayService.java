@@ -101,7 +101,7 @@ public class WeChatPayService {
         request.setTotalFee(totalFee);
         request.setSpbillCreateIp(spbillCreateIp);
         request.setOpenid(openid);
-        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
+        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request, Groups.JsApi.class);
         return JsParams.create(response.getPrepayId(), request.getSignType(), request.getAppid());
     }
 
