@@ -56,12 +56,12 @@
             </dependency>
 
             <dependency>
-                <groupId>cn.javaer</groupId>
+                <groupId>cn.javaer.wechat</groupId>
                 <artifactId>wechat-pay</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>cn.javaer</groupId>
+                <groupId>cn.javaer.wechat</groupId>
                 <artifactId>wechat-spring-boot-starter-pay</artifactId>
                 <version>${project.version}</version>
             </dependency>
