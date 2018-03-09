@@ -25,11 +25,14 @@ import cn.javaer.wechat.pay.model.RefundResponse;
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.web.client.RestTemplate;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Objects;
 
 /**
@@ -37,20 +40,17 @@ import java.util.Objects;
  *
  * @author zhangpeng
  */
-public class WeChatPayRestTemplateClient implements WeChatPayClient {
+public class WeChatPayHttpComponentsClient implements WeChatPayClient {
 
-    private final RestTemplate restTemplate;
+    private final HttpClient httpClient;
 
     /**
-     * Instantiates a new WeChatPayRestTemplateClient.
+     * Instantiates a new WeChatPayHttpComponentsClient.
      *
-     * @param restTemplate RestTemplate
+     * @param httpClient httpClient
      */
-    public WeChatPayRestTemplateClient(
-            final RestTemplate restTemplate) {
-        Objects.requireNonNull(restTemplate);
-
-        this.restTemplate = restTemplate;
+    public WeChatPayHttpComponentsClient(final HttpClient httpClient) {
+        this.httpClient = httpClient;
     }
 
     @Override
@@ -86,19 +86,29 @@ public class WeChatPayRestTemplateClient implements WeChatPayClient {
 
     @Override
     public byte[] downloadBill(final DownloadBillRequest request) {
-        final String url = WeChatPayUtils.fullApiUrl(WeChatPayClient.BASE_PATH, WeChatPayClient.DOWNLOAD_BILL_PATH);
-        final byte[] data = this.restTemplate.postForObject(url, request, byte[].class);
-        if ("GZIP".equals(request.getTarType())) {
-            return WeChatPayUtils.unCompress(data);
+        final HttpPost httpPost = new HttpPost();
+        // TODO BASE_PATH
+        try {
+            httpPost.setURI(new URI(WeChatPayUtils.fullApiUrl(WeChatPayClient.BASE_PATH, WeChatPayClient.DOWNLOAD_BILL_PATH)));
+            httpPost.setEntity(new StringEntity(WeChatPayUtils.marshal(request), "UTf-8"));
+            // TODO GZIP
+            return this.httpClient.execute(httpPost, new BasicResponseHandler()).getBytes();
+        } catch (final URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
         }
-        return data;
     }
 
     private <Q, S extends BasePayResponse> S postForEntity(final String apiPath, final Q request, final Class<S> responseClass) {
-        final HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.TEXT_XML);
-        final HttpEntity<Q> httpEntity = new HttpEntity<>(request, headers);
-        final String url = WeChatPayUtils.fullApiUrl(WeChatPayClient.BASE_PATH, apiPath);
-        return this.restTemplate.postForEntity(url, httpEntity, responseClass).getBody();
+        final HttpPost httpPost = new HttpPost();
+        final String responseStr;
+        // TODO BASE_PATH
+        try {
+            httpPost.setURI(new URI(WeChatPayUtils.fullApiUrl(WeChatPayClient.BASE_PATH, apiPath)));
+            httpPost.setEntity(new StringEntity(WeChatPayUtils.marshal(request), "UTf-8"));
+            responseStr = this.httpClient.execute(httpPost, new BasicResponseHandler());
+        } catch (final URISyntaxException | IOException e) {
+            throw new RuntimeException(e);
+        }
+        return WeChatPayUtils.unmarshal(responseStr, responseClass);
     }
 }

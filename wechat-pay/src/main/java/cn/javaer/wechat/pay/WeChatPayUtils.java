@@ -27,12 +27,14 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.bind.annotation.XmlElement;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.io.UncheckedIOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.annotation.Annotation;
@@ -212,6 +214,18 @@ public class WeChatPayUtils {
         }
     }
 
+    public static String marshal(final Object obj) {
+        try {
+            final JAXBContext context = JAXBContext.newInstance(obj.getClass());
+            final Marshaller marshaller = context.createMarshaller();
+            final StringWriter writer = new StringWriter();
+            marshaller.marshal(obj, writer);
+            return writer.toString();
+        } catch (final JAXBException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    
     /**
      * jaxb xml 转 pojo.
      *
