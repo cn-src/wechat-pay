@@ -378,6 +378,19 @@ public class WeChatPayUtils {
         }
     }
 
+    /**
+     * 校验字符串最大长度.
+     *
+     * @param str the str
+     * @param maxLength 字符串最大长度
+     * @param argumentName 参数名
+     */
+    public static void maxLength(final String str, final int maxLength, final String argumentName) {
+        if (str.length() > maxLength) {
+            throw new IllegalArgumentException("'" + argumentName + "' length cannot exceed " + maxLength);
+        }
+    }
+
     private static String asString(final Field field, final Object obj) {
         try {
             field.setAccessible(true);
