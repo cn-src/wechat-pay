@@ -43,13 +43,16 @@ import java.util.Objects;
 public class WeChatPayHttpComponentsClient implements WeChatPayClient {
 
     private final HttpClient httpClient;
+    private final String basePath;
 
     /**
      * Instantiates a new WeChatPayHttpComponentsClient.
      *
+     * @param apiBasePath apiBasePath
      * @param httpClient httpClient
      */
-    public WeChatPayHttpComponentsClient(final HttpClient httpClient) {
+    public WeChatPayHttpComponentsClient(final String apiBasePath, final HttpClient httpClient) {
+        this.basePath = apiBasePath;
         this.httpClient = httpClient;
     }
 
@@ -87,9 +90,8 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
     @Override
     public byte[] downloadBill(final DownloadBillRequest request) {
         final HttpPost httpPost = new HttpPost();
-        // TODO BASE_PATH
         try {
-            httpPost.setURI(new URI(WeChatPayUtils.fullApiUrl(WeChatPayClient.BASE_PATH, WeChatPayClient.DOWNLOAD_BILL_PATH)));
+            httpPost.setURI(new URI(WeChatPayUtils.fullApiUrl(this.basePath, WeChatPayClient.DOWNLOAD_BILL_PATH)));
             httpPost.setEntity(new StringEntity(WeChatPayUtils.marshal(request), "UTf-8"));
             // TODO GZIP
             return this.httpClient.execute(httpPost, new BasicResponseHandler()).getBytes();
@@ -101,9 +103,8 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
     private <Q, S extends BasePayResponse> S postForEntity(final String apiPath, final Q request, final Class<S> responseClass) {
         final HttpPost httpPost = new HttpPost();
         final String responseStr;
-        // TODO BASE_PATH
         try {
-            httpPost.setURI(new URI(WeChatPayUtils.fullApiUrl(WeChatPayClient.BASE_PATH, apiPath)));
+            httpPost.setURI(new URI(WeChatPayUtils.fullApiUrl(this.basePath, apiPath)));
             httpPost.setEntity(new StringEntity(WeChatPayUtils.marshal(request), "UTf-8"));
             responseStr = this.httpClient.execute(httpPost, new BasicResponseHandler());
         } catch (final URISyntaxException | IOException e) {
