@@ -35,6 +35,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.function.Function;
 
+import static cn.javaer.wechat.pay.WeChatPayUtils.notNull;
+
 /**
  * @author zhangpeng
  */
@@ -43,6 +45,9 @@ public class WeChatPayService {
     private final WeChatPayConfigurator configurator;
 
     public WeChatPayService(final WeChatPayClient client, final WeChatPayConfigurator configurator) {
+        notNull(client, "client");
+        notNull(configurator, "configurator");
+
         this.client = client;
         this.configurator = configurator;
     }
