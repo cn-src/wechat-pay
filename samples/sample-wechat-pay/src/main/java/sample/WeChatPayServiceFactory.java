@@ -27,6 +27,8 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
+import javax.validation.Validation;
+import javax.validation.Validator;
 import java.io.FileInputStream;
 import java.security.KeyStore;
 
@@ -71,6 +73,7 @@ public class WeChatPayServiceFactory {
         final RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
         restTemplate.getMessageConverters().add(new JaxbTextPlainHttpMessageConverter());
         final WeChatPayClient weChatPayClient = new WeChatPayRestTemplateClient(restTemplate);
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
         weChatPayService = new WeChatPayService(weChatPayClient, configurator, validator);
     }
 
