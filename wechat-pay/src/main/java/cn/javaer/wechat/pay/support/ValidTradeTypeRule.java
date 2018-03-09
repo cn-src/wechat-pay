@@ -31,7 +31,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {ValidTradeTypeRuleValidator.class})
 @Documented
 public @interface ValidTradeTypeRule {
-    String message() default "{cn.javaer.wechat.pay.support.ValidTradeTypeRule.message}";
+    String message() default "Does not meet the TradeType rules";
 
     Class<?>[] groups() default {};
 
