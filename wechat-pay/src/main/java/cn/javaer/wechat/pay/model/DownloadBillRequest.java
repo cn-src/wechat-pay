@@ -15,6 +15,8 @@ package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.BillType;
+import cn.javaer.wechat.pay.model.base.TarType;
+import cn.javaer.wechat.pay.support.LocalDateXmlAdapter;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -23,6 +25,8 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import java.time.LocalDate;
 
 /**
  * 微信支付-下载对账单-请求.
@@ -41,19 +45,22 @@ public class DownloadBillRequest extends BasePayRequest {
      * <p>下载对账单的日期，格式：20140603</p>
      */
     @XmlElement(name = "bill_date")
-    private String billDate;
+    @XmlJavaTypeAdapter(LocalDateXmlAdapter.class)
+    private LocalDate billDate;
+
     /**
      * 账单类型.
      */
     @NonNull
     @XmlElement(name = "bill_type")
     private BillType billType;
+
     /**
      * 压缩账单.
      *
      * <p>非必传参数，固定值：GZIP，返回格式为.gzip的压缩包账单。不传则默认为数据流形式。</p>
      */
     @XmlElement(name = "tar_type")
-    private String tarType;
+    private TarType tarType;
 
 }
