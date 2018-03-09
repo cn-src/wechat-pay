@@ -35,13 +35,22 @@ public class JsParams {
 
     private JsParams() {}
 
-    public static JsParams create(final String prepayId) {
+    /**
+     * 公众号支付时前端 js 所需要的参数.
+     *
+     * @param prepayId the prepay id
+     * @param signType the sign type, signType 必须与下单的一致
+     * @param appId the app id
+     *
+     * @return the js params
+     */
+    public static JsParams create(final String prepayId, final SignType signType, final String appId) {
         final JsParams params = new JsParams();
-//        params.appId = WeChatPayConfigurator.DEFAULT.getAppid();
+        params.appId = appId;
         params.timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
         params.nonceStr = WeChatPayUtils.uuid32();
         params.packageStr = "prepay_id=" + prepayId;
-//        params.signType = "MD5";
+        params.signType = signType == null ? SignType.MD5 : signType;
         params.paySign = "";  // TODO
         return params;
     }
