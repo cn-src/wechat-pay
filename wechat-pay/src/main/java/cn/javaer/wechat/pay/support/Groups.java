@@ -20,4 +20,8 @@ public interface Groups {
     interface JsApi extends Groups {}
 
     interface Native extends Groups {}
+
+    interface TransactionId extends Groups {}
+
+    interface OutTradeNo extends Groups {}
 }

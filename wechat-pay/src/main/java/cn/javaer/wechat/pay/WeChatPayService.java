@@ -115,7 +115,7 @@ public class WeChatPayService {
     public OrderQueryResponse orderQueryWithOutTradeNo(final String outTradeNo) {
         final OrderQueryRequest request = new OrderQueryRequest();
         request.setOutTradeNo(outTradeNo);
-        return call(this.client::orderQuery, request);
+        return call(this.client::orderQuery, request, Groups.OutTradeNo.class);
     }
 
     /**
