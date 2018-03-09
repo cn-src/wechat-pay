@@ -13,11 +13,11 @@
 
 package cn.javaer.wechat.pay.model;
 
-import cn.javaer.wechat.pay.WeChatPayUtils;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.Coupon;
 import cn.javaer.wechat.pay.model.base.Refund;
 import cn.javaer.wechat.pay.support.SignIgnore;
+import cn.javaer.wechat.pay.util.ObjectUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -75,7 +75,7 @@ public class RefundQueryResponse extends BasePayResponse {
     public void beforeSign() {
         if (null == this.refunds && null != this.otherParams) {
             final Map<String, Refund> refundsMap =
-                    WeChatPayUtils.beansMapFrom(this.otherParams, createRefundMapping(), Refund::new);
+                    ObjectUtils.beansMapFrom(this.otherParams, createRefundMapping(), Refund::new);
             initCoupons(refundsMap);
             this.refunds = new ArrayList<>(refundsMap.values());
         }
@@ -85,7 +85,7 @@ public class RefundQueryResponse extends BasePayResponse {
         for (final Map.Entry<String, Refund> entry : refundMap.entrySet()) {
             final String key = entry.getKey();
             final List<Coupon> coupons =
-                    WeChatPayUtils.beansFrom(this.otherParams, createCouponMapping(key), Coupon::new);
+                    ObjectUtils.beansFrom(this.otherParams, createCouponMapping(key), Coupon::new);
             entry.getValue().setCoupons(coupons);
         }
     }

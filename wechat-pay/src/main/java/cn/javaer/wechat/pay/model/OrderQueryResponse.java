@@ -13,10 +13,10 @@
 
 package cn.javaer.wechat.pay.model;
 
-import cn.javaer.wechat.pay.WeChatPayUtils;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.Coupon;
 import cn.javaer.wechat.pay.support.SignIgnore;
+import cn.javaer.wechat.pay.util.ObjectUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -111,7 +111,7 @@ public class OrderQueryResponse extends BasePayResponse {
     @Override
     public void beforeSign() {
         if (null == this.coupons && null != this.otherParams) {
-            this.coupons = WeChatPayUtils.couponsFrom(this.otherParams);
+            this.coupons = ObjectUtils.couponsFrom(this.otherParams);
         }
     }
 }

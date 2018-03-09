@@ -29,6 +29,8 @@ import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.BillType;
 import cn.javaer.wechat.pay.model.base.JsParams;
 import cn.javaer.wechat.pay.model.base.TradeType;
+import cn.javaer.wechat.pay.util.ObjectUtils;
+import cn.javaer.wechat.pay.util.SignUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ValidationException;
@@ -37,7 +39,7 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.function.Function;
 
-import static cn.javaer.wechat.pay.WeChatPayUtils.checkNotNull;
+import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
 
 /**
  * @author zhangpeng
@@ -69,7 +71,7 @@ public class WeChatPayService {
      */
     public String unifiedOrderWithNative(final String outTradeNo, final String body, final int totalFee, final String spbillCreateIp) {
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
-        request.setProductId(WeChatPayUtils.uuid32());
+        request.setProductId(ObjectUtils.uuid32());
         request.setTradeType(TradeType.NATIVE);
         request.setNotifyUrl(this.configurator.getNotifyUrl());
         request.setOutTradeNo(outTradeNo);
@@ -224,13 +226,13 @@ public class WeChatPayService {
     private void configureAndSign(final BasePayRequest request) {
         request.setAppid(this.configurator.getAppid());
         request.setMchId(this.configurator.getMchId());
-        request.setNonceStr(WeChatPayUtils.uuid32());
-        request.setSign(WeChatPayUtils.generateSign(request, this.configurator.getMchKey()));
+        request.setNonceStr(ObjectUtils.uuid32());
+        request.setSign(SignUtils.generateSign(request, this.configurator.getMchKey()));
     }
 
     private void processAndCheck(final BasePayResponse response) {
         response.beforeSign();
-        WeChatPayUtils.checkSign(response, this.configurator.getMchKey());
-        WeChatPayUtils.checkSuccessful(response);
+        ObjectUtils.checkSign(response, this.configurator.getMchKey());
+        ObjectUtils.checkSuccessful(response);
     }
 }

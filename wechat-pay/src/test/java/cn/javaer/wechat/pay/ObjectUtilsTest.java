@@ -14,6 +14,8 @@
 package cn.javaer.wechat.pay;
 
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
+import cn.javaer.wechat.pay.util.ObjectUtils;
+import cn.javaer.wechat.pay.util.SignUtils;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -26,17 +28,17 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author zhangpeng
  */
-public class WeChatPayUtilsTest {
+public class ObjectUtilsTest {
 
     @Test
     public void fullApiUrl() {
-        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("http://demo.com", "/demo"));
-        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("http://demo.com", "/demo/"));
-        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("http://demo.com", "demo/"));
+        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com", "/demo"));
+        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com", "/demo/"));
+        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com", "demo/"));
 
-        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("http://demo.com/", "/demo"));
-        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("http://demo.com/", "/demo/"));
-        assertEquals("http://demo.com/demo", WeChatPayUtils.fullApiUrl("http://demo.com/", "demo/"));
+        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com/", "/demo"));
+        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com/", "/demo/"));
+        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com/", "demo/"));
     }
 
     @Test
@@ -53,7 +55,7 @@ public class WeChatPayUtilsTest {
 
         response.beforeSign();
 
-        assertEquals("BC884153761883FE608EA956BD05A6F5", WeChatPayUtils.generateSign(response, "key"));
+        assertEquals("BC884153761883FE608EA956BD05A6F5", SignUtils.generateSign(response, "key"));
     }
 
     @Test
@@ -69,9 +71,9 @@ public class WeChatPayUtilsTest {
         response.setTradeType("JSAPI");
 
         // 2次调用测试缓存
-        WeChatPayUtils.generateSign(response, "key");
+        SignUtils.generateSign(response, "key");
 
-        assertEquals("BC884153761883FE608EA956BD05A6F5", WeChatPayUtils.generateSign(response, "key"));
+        assertEquals("BC884153761883FE608EA956BD05A6F5", SignUtils.generateSign(response, "key"));
         final Field field = WeChatPayUtils.class.getDeclaredField("CACHE_FOR_SIGN");
         field.setAccessible(true);
         final Map<Class, List<Field>> cache = (Map<Class, List<Field>>) field.get(null);

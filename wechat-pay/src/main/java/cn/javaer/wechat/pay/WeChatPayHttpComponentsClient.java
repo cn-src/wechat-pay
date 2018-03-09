@@ -25,6 +25,7 @@ import cn.javaer.wechat.pay.model.RefundResponse;
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
+import cn.javaer.wechat.pay.util.ObjectUtils;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -91,7 +92,7 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
     public byte[] downloadBill(final DownloadBillRequest request) {
         final HttpPost httpPost = new HttpPost();
         try {
-            httpPost.setURI(new URI(WeChatPayUtils.fullApiUrl(this.basePath, WeChatPayClient.DOWNLOAD_BILL_PATH)));
+            httpPost.setURI(new URI(ObjectUtils.fullApiUrl(this.basePath, WeChatPayClient.DOWNLOAD_BILL_PATH)));
             httpPost.setEntity(new StringEntity(WeChatPayUtils.marshal(request), "UTf-8"));
             // TODO GZIP
             return this.httpClient.execute(httpPost, new BasicResponseHandler()).getBytes();
@@ -104,7 +105,7 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         final HttpPost httpPost = new HttpPost();
         final String responseStr;
         try {
-            httpPost.setURI(new URI(WeChatPayUtils.fullApiUrl(this.basePath, apiPath)));
+            httpPost.setURI(new URI(ObjectUtils.fullApiUrl(this.basePath, apiPath)));
             httpPost.setEntity(new StringEntity(WeChatPayUtils.marshal(request), "UTf-8"));
             responseStr = this.httpClient.execute(httpPost, new BasicResponseHandler());
         } catch (final URISyntaxException | IOException e) {
