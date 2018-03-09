@@ -59,6 +59,6 @@ public class WeChatPayConfigurator {
     /**
      * 微信支付 api base path
      */
-    private String basePath;
+    private String basePath = WeChatPayClient.BASE_PATH;
 
 }
