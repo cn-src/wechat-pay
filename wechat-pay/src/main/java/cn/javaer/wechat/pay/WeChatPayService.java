@@ -29,7 +29,6 @@ import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.BillType;
 import cn.javaer.wechat.pay.model.base.JsParams;
 import cn.javaer.wechat.pay.model.base.TradeType;
-import org.apache.commons.lang3.Validate;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ValidationException;
