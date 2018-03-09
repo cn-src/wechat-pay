@@ -10,7 +10,7 @@
     <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>wechat-pay</module>
-        <module>wechat-spring-boot-starter-pay</module>
+        <module>wechat-pay-starter</module>
     </modules>
     <name>wechat-pay-parent</name>
     <description>WeChat pay project parent</description>
@@ -62,7 +62,7 @@
             </dependency>
             <dependency>
                 <groupId>cn.javaer.wechat</groupId>
-                <artifactId>wechat-spring-boot-starter-pay</artifactId>
+                <artifactId>wechat-pay-starter</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

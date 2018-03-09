@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>wechat-spring-boot-starter-pay</artifactId>
+    <artifactId>wechat-pay-starter</artifactId>
 
     <dependencies>
         <dependency>
