@@ -16,6 +16,7 @@ package cn.javaer.wechat.pay.model;
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -33,8 +34,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "xml")
 public class OrderQueryRequest extends BasePayRequest {
 
+    @Length(min = 1, max = 32)
     @XmlElement(name = "transaction_id")
     private String transactionId;
+
+    @Length(min = 1, max = 32)
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
 }

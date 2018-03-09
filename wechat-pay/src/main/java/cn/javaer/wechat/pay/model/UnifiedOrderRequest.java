@@ -16,7 +16,6 @@ package cn.javaer.wechat.pay.model;
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.TradeType;
 import cn.javaer.wechat.pay.support.LocalDateTimeXmlAdapter;
-import cn.javaer.wechat.pay.support.ValidTradeTypeRule;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
@@ -38,20 +37,17 @@ import java.time.LocalDateTime;
  *
  * @author zhangpeng
  */
-@ValidTradeTypeRule
 @EqualsAndHashCode(callSuper = true)
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
 public class UnifiedOrderRequest extends BasePayRequest {
-
     /**
      * 设备号.
      */
     @Length(min = 1, max = 32)
     @XmlElement(name = "device_info")
     private String deviceInfo;
-
     /**
      * 商品描述.
      */
@@ -59,21 +55,18 @@ public class UnifiedOrderRequest extends BasePayRequest {
     @Length(min = 1, max = 128)
     @XmlElement(name = "body")
     private String body;
-
     /**
      * 商品详情.
      */
     @Length(min = 1, max = 6000)
     @XmlElement(name = "detail")
     private String detail;
-
     /**
      * 附加数据.
      */
     @Length(min = 1, max = 127)
     @XmlElement(name = "attach")
     private String attach;
-
     /**
      * 商户订单号.
      */
@@ -81,13 +74,11 @@ public class UnifiedOrderRequest extends BasePayRequest {
     @Length(min = 1, max = 32)
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
-
     /**
      * 货币类型.
      */
     @XmlElement(name = "fee_type")
     private String feeType;
-
     /**
      * 总金额.
      */
@@ -96,35 +87,30 @@ public class UnifiedOrderRequest extends BasePayRequest {
     @Max(10_0000_00)
     @XmlElement(name = "total_fee")
     private Integer totalFee;
-
     /**
      * 终端IP.
      */
     @NotEmpty
     @XmlElement(name = "spbill_create_ip")
     private String spbillCreateIp;
-
     /**
      * 交易起始时间.
      */
     @XmlElement(name = "time_start")
     @XmlJavaTypeAdapter(LocalDateTimeXmlAdapter.class)
     private LocalDateTime timeStart;
-
     /**
      * 交易结束时间.
      */
     @XmlElement(name = "time_expire")
     @XmlJavaTypeAdapter(LocalDateTimeXmlAdapter.class)
     private LocalDateTime timeExpire;
-
     /**
      * 订单优惠标记.
      */
     @Length(min = 1, max = 32)
     @XmlElement(name = "goods_tag")
     private String goodsTag;
-
     /**
      * 通知地址.
      */
@@ -132,38 +118,39 @@ public class UnifiedOrderRequest extends BasePayRequest {
     @URL
     @XmlElement(name = "notify_url")
     private String notifyUrl;
-
     /**
      * 交易类型.
      */
     @NotNull
     @XmlElement(name = "trade_type")
     private TradeType tradeType;
-
     /**
      * 商品ID.
      */
+    @NotNull(groups = NATIVE.class)
     @Length(min = 1, max = 32)
     @XmlElement(name = "product_id")
     private String productId;
-
     /**
      * 指定支付方式.
      */
     @XmlElement(name = "limit_pay")
     private String limitPay;
-
     /**
      * 用户标识.
      */
+    @NotNull(groups = JSAPI.class)
     @Length(min = 1, max = 128)
     @XmlElement(name = "openid")
     private String openid;
-
     /**
      * 场景信息.
      */
     @Length(min = 1, max = 256)
     @XmlElement(name = "scene_info")
     private String sceneInfo;
+
+    public interface JSAPI {}
+
+    public interface NATIVE {}
 }
