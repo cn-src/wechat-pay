@@ -100,7 +100,7 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         final HttpPost httpPost = new HttpPost();
         try {
             httpPost.setURI(new URI(ObjectUtils.fullApiUrl(this.basePath, WeChatPayClient.DOWNLOAD_BILL_PATH)));
-            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), "UTf-8"));
+            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), "UTF-8"));
             // TODO GZIP
             return this.httpClient.execute(httpPost, new BasicResponseHandler()).getBytes();
         } catch (final URISyntaxException | IOException e) {
