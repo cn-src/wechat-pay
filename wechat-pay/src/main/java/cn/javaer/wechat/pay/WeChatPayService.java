@@ -48,7 +48,7 @@ public class WeChatPayService {
     }
 
     /**
-     * 微信支付-统一下单-NATIVE 类型.
+     * 统一下单, 扫码支付(NATIVE).
      *
      * @param body 商品简述
      * @param outTradeNo 商户订单号
@@ -70,7 +70,7 @@ public class WeChatPayService {
     }
 
     /**
-     * 微信支付-统一下单-JSAPI 类型.
+     * 统一下单, 公众号支付(JSAPI).
      *
      * @param openid openid
      * @param body 商品简述
@@ -93,7 +93,7 @@ public class WeChatPayService {
     }
 
     /**
-     * 根据商户订单号查询订单.
+     * 查询订单, 根据商户订单号查询(outTradeNo).
      *
      * @param outTradeNo 商户订单号
      *
