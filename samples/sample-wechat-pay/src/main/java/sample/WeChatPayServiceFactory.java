@@ -13,22 +13,15 @@
 
 package sample;
 
+import cn.javaer.wechat.pay.HttpClientFactory;
 import cn.javaer.wechat.pay.WeChatPayClient;
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayHttpComponentsClient;
 import cn.javaer.wechat.pay.WeChatPayService;
-import org.apache.http.conn.ssl.DefaultHostnameVerifier;
-import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.ssl.SSLContexts;
-import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.apache.http.client.HttpClient;
 
-import javax.net.ssl.SSLContext;
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.io.FileInputStream;
-import java.security.KeyStore;
 
 /**
  * @author zhangpeng
@@ -43,33 +36,10 @@ public class WeChatPayServiceFactory {
         configurator.setMchKey(System.getenv("wechat.pay.mchKey"));
         configurator.setNotifyUrl(System.getenv("wechat.pay.notifyUrl"));
         configurator.setBasePath("https://api.mch.weixin.qq.com");
-//        configurator.setSpbillCreateIp("127.0.0.1");
-
-        final HttpComponentsClientHttpRequestFactory clientHttpRequestFactory;
-        try {
-
-            // 配置证书
-            final KeyStore keystore = KeyStore.getInstance("PKCS12");
-            final char[] partnerId2charArray = configurator.getMchId().toCharArray();
-            keystore.load(new FileInputStream(System.getenv("wechat.pay.certificatePath")), partnerId2charArray);
-
-            // ssl
-            final SSLContext sslContext = SSLContexts.custom()
-                    .loadKeyMaterial(keystore, partnerId2charArray).build();
-            final SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(sslContext,
-                    new String[]{"TLSv1"}, null, new DefaultHostnameVerifier());
-
-            // httpclient
-            final CloseableHttpClient httpclient = HttpClients.custom()
-                    .setSSLSocketFactory(sslsf)
-                    .build();
-            final WeChatPayClient weChatPayClient = new WeChatPayHttpComponentsClient(httpclient);
-            final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-            weChatPayService = new WeChatPayService(weChatPayClient, configurator, validator);
-        } catch (final Exception e) {
-            throw new RuntimeException(e);
-        }
-
+        final HttpClient httpClient = new HttpClientFactory(configurator.getMchId(), System.getenv("wechat.pay.certificatePath")).build();
+        final WeChatPayClient weChatPayClient = new WeChatPayHttpComponentsClient(configurator.getBasePath(), httpClient);
+        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        weChatPayService = new WeChatPayService(weChatPayClient, configurator, validator);
     }
 
     public static WeChatPayService weChatPayService() {
