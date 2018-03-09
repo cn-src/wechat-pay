@@ -14,6 +14,7 @@
 package cn.javaer.wechat.pay.model.base;
 
 import cn.javaer.wechat.pay.WeChatPayUtils;
+import cn.javaer.wechat.pay.support.SignType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -29,7 +30,7 @@ public class JsParams {
     private String nonceStr;
     @JsonProperty("package")
     private String packageStr;
-    private String signType;
+    private SignType signType;
     private String paySign;
 
     private JsParams() {}
@@ -40,7 +41,7 @@ public class JsParams {
         params.timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
         params.nonceStr = WeChatPayUtils.uuid32();
         params.packageStr = "prepay_id=" + prepayId;
-        params.signType = "MD5";
+//        params.signType = "MD5";
         params.paySign = "";  // TODO
         return params;
     }
