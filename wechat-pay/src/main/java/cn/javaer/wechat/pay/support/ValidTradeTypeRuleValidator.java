@@ -22,9 +22,9 @@ import javax.validation.ConstraintValidatorContext;
 /**
  * @author zhangpeng
  */
-public class ValidUnifiedOrderRequestValidator implements ConstraintValidator<ValidUnifiedOrderRequest, UnifiedOrderRequest> {
+public class ValidTradeTypeRuleValidator implements ConstraintValidator<ValidTradeTypeRule, UnifiedOrderRequest> {
     @Override
-    public void initialize(final ValidUnifiedOrderRequest constraintAnnotation) {
+    public void initialize(final ValidTradeTypeRule constraintAnnotation) {
         // nothing
     }
 

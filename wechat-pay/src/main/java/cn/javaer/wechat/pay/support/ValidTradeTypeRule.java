@@ -28,9 +28,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  */
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
-@Constraint(validatedBy = {ValidUnifiedOrderRequestValidator.class})
+@Constraint(validatedBy = {ValidTradeTypeRuleValidator.class})
 @Documented
-public @interface ValidUnifiedOrderRequest {
+public @interface ValidTradeTypeRule {
     String message() default "#default";
 
     Class<?>[] groups() default {};

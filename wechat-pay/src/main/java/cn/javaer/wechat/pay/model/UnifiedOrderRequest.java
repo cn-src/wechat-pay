@@ -16,7 +16,7 @@ package cn.javaer.wechat.pay.model;
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.TradeType;
 import cn.javaer.wechat.pay.support.LocalDateTimeXmlAdapter;
-import cn.javaer.wechat.pay.support.ValidUnifiedOrderRequest;
+import cn.javaer.wechat.pay.support.ValidTradeTypeRule;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.validator.constraints.Length;
@@ -38,7 +38,7 @@ import java.time.LocalDateTime;
  *
  * @author zhangpeng
  */
-@ValidUnifiedOrderRequest
+@ValidTradeTypeRule
 @EqualsAndHashCode(callSuper = true)
 @Data
 @XmlAccessorType(XmlAccessType.FIELD)
