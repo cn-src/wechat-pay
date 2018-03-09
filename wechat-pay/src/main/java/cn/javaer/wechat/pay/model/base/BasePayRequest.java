@@ -14,6 +14,7 @@
 package cn.javaer.wechat.pay.model.base;
 
 import cn.javaer.wechat.pay.support.SignIgnore;
+import cn.javaer.wechat.pay.support.SignType;
 import lombok.Getter;
 import lombok.Setter;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -66,7 +67,7 @@ public abstract class BasePayRequest {
      * 签名类型.
      */
     @XmlElement(name = "sign_type")
-    private String signType;
+    private SignType signType;
 
     @Override
     public String toString() {
