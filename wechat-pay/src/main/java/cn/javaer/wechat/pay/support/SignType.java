@@ -13,11 +13,18 @@
 
 package cn.javaer.wechat.pay.support;
 
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlType;
+
 /**
  * @author zhangpeng
  */
+@XmlType
+@XmlEnum
 public enum SignType {
-    MD5("MD5"), HMAC_SHA256("HMAC-SHA256");
+    @XmlEnumValue("MD5") MD5("MD5"),
+    @XmlEnumValue("HMAC-SHA256") HMAC_SHA256("HMAC-SHA256");
     private final String value;
 
     SignType(final String value) {
