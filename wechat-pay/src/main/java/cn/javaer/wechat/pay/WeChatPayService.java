@@ -41,6 +41,7 @@ import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.Set;
 import java.util.function.Function;
 
@@ -51,9 +52,9 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
  */
 public class WeChatPayService {
     /**
-     * 异常标志 "<" 内容为 xml 则标示出现异常.
+     * 异常标志,内容为 xml 则标示出现异常.
      */
-    private static final int EXCEPTION_TAG = 60;
+    private static final byte[] XML_TAG = {'<', 'x', 'm', 'l', '>'};
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
@@ -225,7 +226,8 @@ public class WeChatPayService {
         configureAndSign(request);
         validate(request);
         byte[] data = this.client.downloadBill(request);
-        if (data[0] == EXCEPTION_TAG) {
+        final byte[] xmlTagData = {data[0], data[1], data[2], data[3], data[4]};
+        if (Arrays.equals(xmlTagData, XML_TAG)) {
             throw new WeChatPayException(new String(data, StandardCharsets.UTF_8));
         } else if (TarType.GZIP.equals(request.getTarType())) {
             data = CodecUtils.unCompress(data);
