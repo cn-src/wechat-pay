@@ -23,7 +23,7 @@ import java.time.LocalDate;
 public class DownloadBillSample {
     public static void main(final String[] args) throws Exception {
         WeChatPayServiceFactory.init();
-        final byte[] response = WeChatPayServiceFactory.weChatPayService().downloadBill(LocalDate.now().minusDays(1), BillType.ALL);
+        final byte[] response = WeChatPayServiceFactory.weChatPayService().downloadBill(LocalDate.of(2018, 3, 7), BillType.ALL);
         System.out.println(new String(response, "UTF-8"));
     }
 }
