@@ -36,7 +36,7 @@ public class Refund {
     private String refundId;
 
     /**
-     * 退款渠道. TODO
+     * 退款渠道.
      */
     private String refundChannel;
 
