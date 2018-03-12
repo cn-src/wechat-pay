@@ -14,6 +14,7 @@
 package cn.javaer.wechat.pay.model.notify;
 
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
+import cn.javaer.wechat.pay.util.CodecUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -49,11 +50,9 @@ public class RefundNotifyResult extends BasePayResponse {
     private ReqInfo reqInfo;
 
 
-    @Override
-    public void processResponse() {
+    public void processResponse(final String mchKey) {
         // 解密字段
-        // TODO
-//        this.reqInfo = CodecUtils.unmarshal(CodecUtils.decrypt(this.ciphertext), ReqInfo.class);
+        this.reqInfo = CodecUtils.unmarshal(CodecUtils.decrypt(this.ciphertext, mchKey), ReqInfo.class);
     }
 
     @Getter
