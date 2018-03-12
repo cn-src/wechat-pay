@@ -88,18 +88,18 @@
                 <executions>
                     <execution>
                         <id>generate-assertions</id>
-                        <phase>generate-sources</phase>
+                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>generate-assertions</goal>
                         </goals>
+                        <configuration>
+                            <packages>
+                                <package>cn.javaer.wechat.pay.model</package>
+                            </packages>
+                            <entryPointClassPackage>cn.javaer.wechat.test</entryPointClassPackage>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <packages>
-                        <package>cn.javaer.wechat.pay.model</package>
-                    </packages>
-                    <entryPointClassPackage>cn.javaer.wechat.test</entryPointClassPackage>
-                </configuration>
             </plugin>
         </plugins>
     </build>
