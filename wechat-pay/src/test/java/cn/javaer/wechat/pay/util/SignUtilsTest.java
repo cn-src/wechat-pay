@@ -64,6 +64,6 @@ public class SignUtilsTest {
         final Field field = SignUtils.class.getDeclaredField("CACHE_FOR_SIGN");
         field.setAccessible(true);
         final Map<Class, List<Field>> cache = (Map<Class, List<Field>>) field.get(null);
-        assertThat(cache).hasSize(1);
+        assertThat(cache).containsKey(UnifiedOrderResponse.class);
     }
 }
