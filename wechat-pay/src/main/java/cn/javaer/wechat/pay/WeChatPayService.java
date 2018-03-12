@@ -29,7 +29,9 @@ import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.BillType;
 import cn.javaer.wechat.pay.model.base.JsParams;
+import cn.javaer.wechat.pay.model.base.TarType;
 import cn.javaer.wechat.pay.model.base.TradeType;
+import cn.javaer.wechat.pay.util.CodecUtils;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import cn.javaer.wechat.pay.util.SignUtils;
 
@@ -206,22 +208,36 @@ public class WeChatPayService {
      * @return 字节数据
      */
     public byte[] downloadBill(final LocalDate queryDate, final BillType billType) {
+        if (LocalDate.now().equals(queryDate)) {
+            throw new IllegalArgumentException("Cannot download today's bill");
+        }
         final DownloadBillRequest request = new DownloadBillRequest();
+        request.setTarType(TarType.GZIP);
         request.setBillDate(queryDate);
         request.setBillType(billType);
-        return this.client.downloadBill(request);
+        configureAndSign(request);
+        validate(request);
+        byte[] data = this.client.downloadBill(request);
+        if (TarType.GZIP.equals(request.getTarType())) {
+            data = CodecUtils.unCompress(data);
+        }
+        return data;
     }
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(
             final Function<T, R> fun, final T request) {
         configureAndSign(request);
-        final Set<ConstraintViolation<T>> violationSet = this.validator.validate(request);
-        if (violationSet.size() > 0) {
-            throw new ValidationException(violationSet.iterator().next().getMessage());
-        }
+        validate(request);
         final R response = fun.apply(request);
         processAndCheck(response);
         return response;
+    }
+
+    private void validate(final BasePayRequest request) {
+        final Set<ConstraintViolation<BasePayRequest>> violationSet = this.validator.validate(request);
+        if (violationSet.size() > 0) {
+            throw new ValidationException(violationSet.iterator().next().getMessage());
+        }
     }
 
     private void configureAndSign(final BasePayRequest request) {

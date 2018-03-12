@@ -27,14 +27,17 @@ import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.util.CodecUtils;
 import cn.javaer.wechat.pay.util.ObjectUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 
 import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotEmpty;
 import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
@@ -96,24 +99,23 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
     @Override
     public byte[] downloadBill(final DownloadBillRequest request) {
         checkNotNull(request, "DownloadBillRequest");
-
         final HttpPost httpPost = new HttpPost();
         try {
             httpPost.setURI(new URI(ObjectUtils.fullApiUrl(this.basePath, WeChatPayClient.DOWNLOAD_BILL_PATH)));
-            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), "UTF-8"));
-            // TODO GZIP
-            return this.httpClient.execute(httpPost, new BasicResponseHandler()).getBytes();
+            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), StandardCharsets.UTF_8));
+            final HttpResponse httpResponse = this.httpClient.execute(httpPost);
+            return EntityUtils.toByteArray(httpResponse.getEntity());
         } catch (final URISyntaxException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     private <Q, S extends BasePayResponse> S doPost(final String apiPath, final Q request, final Class<S> responseClass) {
-        final HttpPost httpPost = new HttpPost();
         final String responseStr;
         try {
+            final HttpPost httpPost = new HttpPost();
             httpPost.setURI(new URI(ObjectUtils.fullApiUrl(this.basePath, apiPath)));
-            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), "UTF-8"));
+            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), StandardCharsets.UTF_8));
             responseStr = this.httpClient.execute(httpPost, new BasicResponseHandler());
         } catch (final URISyntaxException | IOException e) {
             throw new RuntimeException(e);
