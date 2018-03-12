@@ -23,6 +23,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
+import static cn.javaer.wechat.pay.model.base.BasePayResponse.SUCCESS;
+import static cn.javaer.wechat.test.Assertions.assertThat;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
 import static com.github.tomakehurst.wiremock.client.WireMock.stubFor;
@@ -39,7 +41,7 @@ public class WeChatPayHttpComponentsClientTest {
     private WeChatPayHttpComponentsClient client;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         final HttpClient httpClient = HttpClientBuilder.create().build();
         this.client = new WeChatPayHttpComponentsClient("http://localhost:" + this.wireMockRule.port(), httpClient);
     }
@@ -57,7 +59,6 @@ public class WeChatPayHttpComponentsClientTest {
                                 "    <appid>wx2421b1c4370ec43b</appid>\n" +
                                 "    <mch_id>10000100</mch_id>\n" +
                                 "    <nonce_str>IITRi8Iabbblz1Jc</nonce_str>\n" +
-                                "    <openid>oUpF8uMuAJO_M2pxb1Q9zNjWeS6o</openid>\n" +
                                 "    <sign>7921E432F65EB8ED0CE9755F0E86D72F</sign>\n" +
                                 "    <result_code>SUCCESS</result_code>\n" +
                                 "    <prepay_id>wx201411101639507cbf6ffd8b0779950874</prepay_id>\n" +
@@ -72,7 +73,17 @@ public class WeChatPayHttpComponentsClientTest {
         request.setTotalFee(1);
         request.setSpbillCreateIp("127.0.0.1");
         final UnifiedOrderResponse response = this.client.unifiedOrder(request);
-        System.out.println(response);
+        assertThat(response)
+                .hasReturnCode(SUCCESS)
+                .hasReturnMsg("OK")
+                .hasAppId("wx2421b1c4370ec43b")
+                .hasMchId("10000100")
+                .hasNonceStr("IITRi8Iabbblz1Jc")
+                .hasSign("7921E432F65EB8ED0CE9755F0E86D72F")
+                .hasResultCode(SUCCESS)
+                .hasPrepayId("wx201411101639507cbf6ffd8b0779950874")
+                .hasTradeType("JSAPI")
+        ;
     }
 
     @Test
