@@ -50,6 +50,10 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
  * @author zhangpeng
  */
 public class WeChatPayService {
+    /**
+     * 异常标志 "<" 内容为 xml 则标示出现异常.
+     */
+    private static final int EXCEPTION_TAG = 60;
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
@@ -221,7 +225,7 @@ public class WeChatPayService {
         configureAndSign(request);
         validate(request);
         byte[] data = this.client.downloadBill(request);
-        if (data[0] == 60) {
+        if (data[0] == EXCEPTION_TAG) {
             throw new WeChatPayException(new String(data, StandardCharsets.UTF_8));
         } else if (TarType.GZIP.equals(request.getTarType())) {
             data = CodecUtils.unCompress(data);
