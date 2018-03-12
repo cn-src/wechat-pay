@@ -13,13 +13,11 @@
 
 package cn.javaer.wechat.pay.model;
 
-import cn.javaer.wechat.pay.model.base.BasePayResponse;
+import cn.javaer.wechat.pay.model.base.BillResponseItem;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * 微信支付-下载对账单-请求.
@@ -28,12 +26,27 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Getter
 @Setter
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "xml")
-public class DownloadBillResponse extends BasePayResponse {
-    private byte[] data;
+public class DownloadBillResponse {
 
-    public DownloadBillResponse(final byte[] data) {
-        this.data = data;
-    }
+    private List<BillResponseItem> billResponseItems;
+    /**
+     * 总交易单数
+     */
+    private Integer totalRecord;
+    /**
+     * 总交易额
+     */
+    private String totalFee;
+    /**
+     * 总退款金额
+     */
+    private String totalRefundFee;
+    /**
+     * 总代金券或立减优惠退款金额
+     */
+    private String totalCouponFee;
+    /**
+     * 手续费总金额
+     */
+    private String totalPoundageFee;
 }
