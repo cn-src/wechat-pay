@@ -79,6 +79,30 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
+                <version>2.1.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-assertions</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>generate-assertions</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <packages>
+                        <package>cn.javaer.wechat.pay.model</package>
+                    </packages>
+                    <entryPointClassPackage>cn.javaer.wechat.test</entryPointClassPackage>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <name>wechat-pay</name>
     <description>WeChat pay</description>
