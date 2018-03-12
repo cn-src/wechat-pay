@@ -143,7 +143,7 @@ public class CodecUtils {
     }
 
     /**
-     * 判断数据是否为 GZIP 压缩数据, 【下载对账单】微信不会对异常信息进行 GZIP.
+     * 判断数据是否为 GZIP 压缩数据, 【下载对账单】微信不会对异常信息进行 GZIP, 但对正常的结果会进行 GZIP（如果请求中声明了）.
      *
      * @param bytes data
      *
