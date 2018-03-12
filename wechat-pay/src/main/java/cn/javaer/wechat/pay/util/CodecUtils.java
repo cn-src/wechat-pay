@@ -120,7 +120,7 @@ public class CodecUtils {
             throw new RuntimeException(e);
         }
     }
-    
+
     /**
      * jaxb xml 转 pojo.
      *
@@ -139,6 +139,21 @@ public class CodecUtils {
             return (T) unmarshaller.unmarshal(reader);
         } catch (final JAXBException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * 判断数据是否为 GZIP 压缩数据, 【下载对账单】微信不会对异常信息进行 GZIP.
+     *
+     * @param bytes data
+     *
+     * @return isCompressed
+     */
+    public static boolean isCompressed(final byte[] bytes) {
+        if ((bytes == null) || (bytes.length < 2)) {
+            return false;
+        } else {
+            return ((bytes[0] == (byte) (GZIPInputStream.GZIP_MAGIC)) && (bytes[1] == (byte) (GZIPInputStream.GZIP_MAGIC >> 8)));
         }
     }
 
