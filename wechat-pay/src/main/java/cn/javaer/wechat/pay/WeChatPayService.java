@@ -229,7 +229,7 @@ public class WeChatPayService {
         }
         final String dataStr = new String(data, StandardCharsets.UTF_8);
         if (dataStr.startsWith("<xml>")) {
-            throw new WeChatPayException(new String(data, StandardCharsets.UTF_8));
+            throw new WeChatPayException(dataStr);
         }
         final DownloadBillResponse response = new DownloadBillResponse();
         return response;
