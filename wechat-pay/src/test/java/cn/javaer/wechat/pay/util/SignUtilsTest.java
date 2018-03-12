@@ -11,11 +11,9 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay;
+package cn.javaer.wechat.pay.util;
 
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
-import cn.javaer.wechat.pay.util.ObjectUtils;
-import cn.javaer.wechat.pay.util.SignUtils;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -28,21 +26,9 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author zhangpeng
  */
-public class ObjectUtilsTest {
-
+public class SignUtilsTest {
     @Test
-    public void fullApiUrl() {
-        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com", "/demo"));
-        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com", "/demo/"));
-        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com", "demo/"));
-
-        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com/", "/demo"));
-        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com/", "/demo/"));
-        assertEquals("http://demo.com/demo", ObjectUtils.fullApiUrl("http://demo.com/", "demo/"));
-    }
-
-    @Test
-    public void sign() {
+    public void generateSign() {
         final UnifiedOrderResponse response = new UnifiedOrderResponse();
         response.setReturnCode("SUCCESS");
         response.setReturnMsg("OK");
@@ -58,8 +44,9 @@ public class ObjectUtilsTest {
         assertEquals("BC884153761883FE608EA956BD05A6F5", SignUtils.generateSign(response, "key"));
     }
 
+    @SuppressWarnings("unchecked")
     @Test
-    public void sign4Cache() throws Exception {
+    public void generateSign4Cache() throws Exception {
         final UnifiedOrderResponse response = new UnifiedOrderResponse();
         response.setReturnCode("SUCCESS");
         response.setReturnMsg("OK");
