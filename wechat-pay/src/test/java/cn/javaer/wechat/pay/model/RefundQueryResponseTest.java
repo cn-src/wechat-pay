@@ -85,7 +85,7 @@ public class RefundQueryResponseTest {
                 .hasCashFee(90)
                 .hasRefundCount(21);
 
-        response.beforeSign();
+        response.processResponse();
 
         assertThat(response.getOtherParams())
                 .containsEntry("out_refund_no_0", "out_refund_no_0")

@@ -39,7 +39,7 @@ public class SignUtilsTest {
         response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
         response.setTradeType("JSAPI");
 
-        response.beforeSign();
+        response.processResponse();
 
         assertEquals("BC884153761883FE608EA956BD05A6F5", SignUtils.generateSign(response, "key"));
     }

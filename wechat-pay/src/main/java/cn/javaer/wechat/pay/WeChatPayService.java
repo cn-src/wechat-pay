@@ -248,7 +248,7 @@ public class WeChatPayService {
     }
 
     private void processAndCheck(final BasePayResponse response) {
-        response.beforeSign();
+        response.processResponse();
         ObjectUtils.checkSign(response, this.configurator.getMchKey());
         ObjectUtils.checkSuccessful(response);
     }

@@ -50,7 +50,7 @@ public class RefundNotifyResult extends BasePayResponse {
 
 
     @Override
-    public void beforeSign() {
+    public void processResponse() {
         // 解密字段
         // TODO
 //        this.reqInfo = CodecUtils.unmarshal(CodecUtils.decrypt(this.ciphertext), ReqInfo.class);

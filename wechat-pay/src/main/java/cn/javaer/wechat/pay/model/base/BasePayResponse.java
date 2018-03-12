@@ -66,7 +66,7 @@ public abstract class BasePayResponse {
     private String errCodeDes;
 
     /**
-     * 签名之前的处理, 子类可覆盖实现完成各自特定处理.
+     * 处理响应, 子类可覆盖实现完成各自特定处理.
      */
-    public void beforeSign() {}
+    public void processResponse() {}
 }

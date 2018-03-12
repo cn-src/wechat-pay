@@ -34,7 +34,7 @@ public class AnyElementsDomHandlerTest {
         final OrderQueryResponse response = CodecUtils.unmarshal(
                 "<xml><sign>d</sign><nonce_str>nonce_str_value</nonce_str><coupon_type_0>CASH</coupon_type_0></xml>",
                 OrderQueryResponse.class);
-        response.beforeSign();
+        response.processResponse();
 
         final List<Coupon> coupons = response.getCoupons();
         assertThat(coupons)

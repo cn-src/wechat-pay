@@ -72,7 +72,7 @@ public class RefundQueryResponse extends BasePayResponse {
     private List<Refund> refunds;
 
     @Override
-    public void beforeSign() {
+    public void processResponse() {
         if (null == this.refunds && null != this.otherParams) {
             final Map<String, Refund> refundsMap =
                     ObjectUtils.beansMapFrom(this.otherParams, createRefundMapping(), Refund::new);

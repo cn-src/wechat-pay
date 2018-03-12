@@ -91,7 +91,7 @@ public class RefundResponse extends BasePayResponse {
     private List<Coupon> refundCoupons;
 
     @Override
-    public void beforeSign() {
+    public void processResponse() {
         if (null == this.refundCoupons && null != this.otherParams) {
             final Map<String, BiConsumer<String, Coupon>> mappingMap = new HashMap<>(3);
             mappingMap.put("coupon_refund_id_", (val, coupon) -> coupon.setId(val));
