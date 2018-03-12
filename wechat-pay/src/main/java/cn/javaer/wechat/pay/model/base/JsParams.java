@@ -15,8 +15,12 @@ package cn.javaer.wechat.pay.model.base;
 
 import cn.javaer.wechat.pay.support.SignType;
 import cn.javaer.wechat.pay.util.ObjectUtils;
+import cn.javaer.wechat.pay.util.SignUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 /**
  * JSAPI 支付需要的参数.
@@ -44,14 +48,20 @@ public class JsParams {
      *
      * @return the js params
      */
-    public static JsParams create(final String prepayId, final SignType signType, final String appId) {
+    public static JsParams create(final String prepayId, final SignType signType, final String appId, final String mchKey) {
         final JsParams params = new JsParams();
         params.appId = appId;
         params.timeStamp = String.valueOf(System.currentTimeMillis() / 1000);
         params.nonceStr = ObjectUtils.uuid32();
         params.packageStr = "prepay_id=" + prepayId;
         params.signType = signType == null ? SignType.MD5 : signType;
-        params.paySign = "";  // TODO
+        final SortedMap<String, String> paramsMap = new TreeMap<>();
+        paramsMap.put("appId", params.appId);
+        paramsMap.put("timeStamp", params.timeStamp);
+        paramsMap.put("nonceStr", params.nonceStr);
+        paramsMap.put("package", params.packageStr);
+        paramsMap.put("signType", params.signType.toString());
+        params.paySign = SignUtils.generateSign(paramsMap, mchKey);
         return params;
     }
 }

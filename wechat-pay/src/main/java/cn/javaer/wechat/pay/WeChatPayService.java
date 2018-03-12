@@ -105,7 +105,8 @@ public class WeChatPayService {
         request.setSpbillCreateIp(spbillCreateIp);
         request.setOpenid(openid);
         final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
-        return JsParams.create(response.getPrepayId(), request.getSignType(), request.getAppId());
+        return JsParams.create(response.getPrepayId(), request.getSignType(), request.getAppId(),
+                this.configurator.getMchKey());
     }
 
     /**
