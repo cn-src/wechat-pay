@@ -23,10 +23,11 @@ import java.time.format.DateTimeFormatter;
  * @author zhangpeng
  */
 public class LocalDateTimeXmlAdapter extends XmlAdapter<String, LocalDateTime> {
+    public static final LocalDateTimeXmlAdapter INSTANCE = new LocalDateTimeXmlAdapter();
     private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
 
     @Override
-    public LocalDateTime unmarshal(final String value) throws Exception {
+    public LocalDateTime unmarshal(final String value) {
         if (null == value) {
             return null;
         } else {
@@ -35,7 +36,7 @@ public class LocalDateTimeXmlAdapter extends XmlAdapter<String, LocalDateTime> {
     }
 
     @Override
-    public String marshal(final LocalDateTime value) throws Exception {
+    public String marshal(final LocalDateTime value) {
         if (null == value) {
             return null;
         } else {

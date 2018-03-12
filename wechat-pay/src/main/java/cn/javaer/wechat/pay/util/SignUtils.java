@@ -15,11 +15,16 @@ package cn.javaer.wechat.pay.util;
 
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
+import cn.javaer.wechat.pay.support.LocalDateTimeXmlAdapter;
+import cn.javaer.wechat.pay.support.LocalDateXmlAdapter;
 import cn.javaer.wechat.pay.support.SignIgnore;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.lang.reflect.Field;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -102,8 +107,16 @@ public class SignUtils {
                 if (null != field.getAnnotation(SignIgnore.class)) {
                     continue;
                 }
+                Object value = field.get(obj);
+                final XmlJavaTypeAdapter typeAdapter = field.getAnnotation(XmlJavaTypeAdapter.class);
+                if (null != typeAdapter) {
+                    if (LocalDateTimeXmlAdapter.class.equals(typeAdapter.value())) {
+                        value = LocalDateTimeXmlAdapter.INSTANCE.marshal((LocalDateTime) value);
+                    } else if (LocalDateXmlAdapter.class.equals(typeAdapter.value())) {
+                        value = LocalDateXmlAdapter.INSTANCE.marshal((LocalDate) value);
+                    }
+                }
                 final String name = field.getAnnotation(XmlElement.class).name();
-                final Object value = field.get(obj);
                 final String valueStr = value == null ? null : value.toString();
                 if (name.isEmpty()) {
                     continue;
