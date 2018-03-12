@@ -17,6 +17,7 @@ import cn.javaer.wechat.pay.client.WeChatPayClient;
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 import cn.javaer.wechat.pay.model.DownloadBillRequest;
+import cn.javaer.wechat.pay.model.DownloadBillResponse;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.pay.model.RefundQueryRequest;
@@ -38,6 +39,7 @@ import cn.javaer.wechat.pay.util.SignUtils;
 import javax.validation.ConstraintViolation;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.function.Function;
@@ -208,7 +210,7 @@ public class WeChatPayService {
      *
      * @return 字节数据
      */
-    public byte[] downloadBill(final LocalDate queryDate, final BillType billType) {
+    public DownloadBillResponse downloadBill(final LocalDate queryDate, final BillType billType) {
         if (LocalDate.now().equals(queryDate)) {
             throw new IllegalArgumentException("Cannot download today's bill");
         }
@@ -219,10 +221,14 @@ public class WeChatPayService {
         configureAndSign(request);
         validate(request);
         byte[] data = this.client.downloadBill(request);
-        if (TarType.GZIP.equals(request.getTarType())) {
+        if (data[0] == 60) {
+            throw new WeChatPayException(new String(data, StandardCharsets.UTF_8));
+        } else if (TarType.GZIP.equals(request.getTarType())) {
             data = CodecUtils.unCompress(data);
         }
-        return data;
+        final String dataStr = new String(data, StandardCharsets.UTF_8);
+        final DownloadBillResponse response = new DownloadBillResponse();
+        return response;
     }
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(
