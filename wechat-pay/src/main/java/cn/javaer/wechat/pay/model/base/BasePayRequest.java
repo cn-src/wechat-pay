@@ -21,6 +21,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 
 /**
@@ -30,6 +32,7 @@ import javax.xml.bind.annotation.XmlElement;
  */
 @Getter
 @Setter
+@XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BasePayRequest {
     /**
      * 公众账号ID.
