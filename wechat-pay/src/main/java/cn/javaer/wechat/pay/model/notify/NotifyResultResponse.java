@@ -11,7 +11,7 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay.model;
+package cn.javaer.wechat.pay.model.notify;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -18,7 +18,6 @@ import cn.javaer.wechat.pay.util.CodecUtils;
 import org.junit.Test;
 
 import static cn.javaer.wechat.test.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 /**
