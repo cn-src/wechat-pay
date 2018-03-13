@@ -14,7 +14,9 @@
 package cn.javaer.wechat.pay.util;
 
 import cn.javaer.wechat.pay.WeChatPayException;
+import cn.javaer.wechat.pay.model.DownloadBillResponse;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
+import cn.javaer.wechat.pay.model.base.BillResponseItem;
 import cn.javaer.wechat.pay.model.base.Coupon;
 
 import java.lang.annotation.Annotation;
@@ -248,6 +250,128 @@ public class ObjectUtils {
         mappingMap.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
 
         return beansFrom(params, mappingMap, Coupon::new);
+    }
+
+    public static DownloadBillResponse billResponseItemsFrom(final String str) {
+        final String[] lines = str.split("\n");
+        final String[] columns = lines[0].split(",");
+        final List<BillResponseItem> items = new ArrayList<>(lines.length - 3);
+        for (int i = 1; i < lines.length - 2; i++) {
+            final BillResponseItem item = new BillResponseItem();
+            items.add(item);
+            final String[] cells = lines[i].substring(1).split(",`");
+            for (int j = 0; j < columns.length; j++) {
+                setItem(item, columns[j], cells[j]);
+            }
+        }
+
+        final DownloadBillResponse response = new DownloadBillResponse();
+        final String[] countColumns = lines[lines.length - 2].split(",");
+        for (int i = 0; i < countColumns.length; i++) {
+            final String[] cells = lines[lines.length - 1].substring(1).split(",`");
+            set(response, countColumns[i], cells[i]);
+        }
+        response.setBillResponseItems(items);
+        return response;
+    }
+
+    private static void set(final DownloadBillResponse response, final String columnName, final String value) {
+        switch (columnName) {
+            case "总交易单数":
+                response.setTotalRecord(Integer.valueOf(value));
+                break;
+            case "总交易额":
+                response.setTotalFee(value);
+                break;
+            case "总退款金额":
+                response.setTotalRefundFee(value);
+                break;
+            case "总企业红包退款金额":
+                response.setTotalCouponFee(value);
+                break;
+            case "手续费总金额":
+                response.setTotalPoundageFee(value);
+                break;
+            default:
+        }
+    }
+
+    private static void setItem(final BillResponseItem item, final String columnName, final String value) {
+        switch (columnName) {
+            case "交易时间":
+                item.setTradeTime(value);
+                break;
+            case "公众账号ID":
+                item.setAppId(value);
+                break;
+            case "商户号":
+                item.setMchId(value);
+                break;
+            case "子商户号":
+                item.setSubMchId(value);
+                break;
+            case "设备号":
+                item.setDeviceInfo(value);
+                break;
+            case "微信订单号":
+                item.setTransactionId(value);
+                break;
+            case "商户订单号":
+                item.setOutTradeNo(value);
+                break;
+            case "用户标识":
+                item.setOpenId(value);
+                break;
+            case "交易类型":
+                item.setTradeType(value);
+                break;
+            case "交易状态":
+                item.setTradeState(value);
+                break;
+            case "付款银行":
+                item.setBankType(value);
+                break;
+            case "货币种类":
+                item.setFeeType(value);
+                break;
+            case "总金额":
+                item.setTotalFee(value);
+                break;
+            case "企业红包金额":
+                item.setCouponFee(value);
+                break;
+            case "微信退款单号":
+                item.setRefundId(value);
+                break;
+            case "商户退款单号":
+                item.setOutRefundNo(value);
+                break;
+            case "退款金额":
+                item.setSettlementRefundFee(value);
+                break;
+            case "企业红包退款金额":
+                item.setCouponRefundFee(value);
+                break;
+            case "退款类型":
+                item.setRefundChannel(value);
+                break;
+            case "退款状态":
+                item.setRefundState(value);
+                break;
+            case "商品名称":
+                item.setBody(value);
+                break;
+            case "商户数据包":
+                item.setAttach(value);
+                break;
+            case "手续费":
+                item.setPoundage(value);
+                break;
+            case "费率":
+                item.setPoundageRate(value);
+                break;
+            default:
+        }
     }
 
 }

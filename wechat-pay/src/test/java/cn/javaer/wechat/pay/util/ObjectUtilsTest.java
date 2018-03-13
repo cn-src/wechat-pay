@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.util;
 
+import cn.javaer.wechat.pay.model.DownloadBillResponse;
 import cn.javaer.wechat.pay.model.base.Coupon;
 import org.junit.Test;
 
@@ -73,5 +74,23 @@ public class ObjectUtilsTest {
                 .hasId("16BE80B8FD1044069950ADAEDEB812C5")
                 .hasType(Coupon.Type.NO_CASH)
                 .hasFee(1);
+    }
+
+    @Test
+    public void billResponseItemsFrom() {
+        final String data = "交易时间,公众账号ID,商户号,子商户号,设备号,微信订单号,商户订单号,用户标识,交易类型,交易状态,付款银行,货币种类,总金额,企业红包金额,微信退款单号,商户退款单号,退款金额,企业红包退款金额,退款类型,退款状态,商品名称,商户数据包,手续费,费率\n" +
+                "`2014-11-1016：33：45,`wx2421b1c4370ec43b,`10000100,`0,`1000,`1001690740201411100005734289,`1415640626,`085e9858e3ba5186aafcbaed1,`MICROPAY,`SUCCESS,`CFT,`CNY,`0.01,`0.0,`0,`0,`0,`0,`,`,`被扫支付测试,`订单额外描述,`0,`0.60%\n" +
+                "`2014-11-1016：46：14,`wx2421b1c4370ec43b,`10000100,`0,`1000,`1002780740201411100005729794,`1415635270,`085e9858e90ca40c0b5aee463,`MICROPAY,`SUCCESS,`CFT,`CNY,`0.01,`0.0,`0,`0,`0,`0,`,`,`被扫支付测试,`订单额外描述,`0,`0.60%\n" +
+                "总交易单数,总交易额,总退款金额,总企业红包退款金额,手续费总金额\n" +
+                "`2,`0.02,`0.0,`0.0,`0";
+        final DownloadBillResponse response = ObjectUtils.billResponseItemsFrom(data);
+        assertThat(response)
+                .hasTotalRecord(2)
+                .hasTotalFee("0.02")
+                .hasTotalRefundFee("0.0")
+                .hasTotalCouponFee("0.0")
+                .hasTotalPoundageFee("0");
+        assertThat(response.getBillResponseItems()).hasSize(2);
+
     }
 }
