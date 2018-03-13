@@ -49,7 +49,7 @@ public class WeChatPayConfigurator {
      * 支付结果通知 url
      */
     @NonNull
-    private String notifyUrl;
+    private String paymentNotifyUrl;
 
     /**
      * api 证书路径
