@@ -83,7 +83,7 @@ public class ObjectUtilsTest {
                 "`2014-11-1016：46：14,`wx2421b1c4370ec43b,`10000100,`0,`1000,`1002780740201411100005729794,`1415635270,`085e9858e90ca40c0b5aee463,`MICROPAY,`SUCCESS,`CFT,`CNY,`0.01,`0.0,`0,`0,`0,`0,`,`,`被扫支付测试,`订单额外描述,`0,`0.60%\n" +
                 "总交易单数,总交易额,总退款金额,总企业红包退款金额,手续费总金额\n" +
                 "`2,`0.02,`0.0,`0.0,`0";
-        final DownloadBillResponse response = ObjectUtils.billResponseItemsFrom(data);
+        final DownloadBillResponse response = ObjectUtils.billResponseFrom(data);
         assertThat(response)
                 .hasTotalRecord(2)
                 .hasTotalFee("0.02")

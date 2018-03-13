@@ -252,7 +252,7 @@ public class ObjectUtils {
         return beansFrom(params, mappingMap, Coupon::new);
     }
 
-    public static DownloadBillResponse billResponseItemsFrom(final String str) {
+    public static DownloadBillResponse billResponseFrom(final String str) {
         final String[] lines = str.split("\n");
         final String[] columns = lines[0].split(",");
         final List<BillResponseItem> items = new ArrayList<>(lines.length - 3);

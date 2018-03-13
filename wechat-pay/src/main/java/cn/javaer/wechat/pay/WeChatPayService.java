@@ -231,7 +231,7 @@ public class WeChatPayService {
         if (dataStr.startsWith("<xml>")) {
             throw new WeChatPayException(dataStr);
         }
-        return ObjectUtils.billResponseItemsFrom(dataStr);
+        return ObjectUtils.billResponseFrom(dataStr);
     }
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(
