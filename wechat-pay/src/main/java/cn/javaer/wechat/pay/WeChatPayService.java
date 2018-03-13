@@ -81,7 +81,7 @@ public class WeChatPayService {
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
         request.setProductId(ObjectUtils.uuid32());
         request.setTradeType(TradeType.NATIVE);
-        request.setNotifyUrl(this.configurator.getNotifyUrl());
+        request.setNotifyUrl(this.configurator.getPaymentNotifyUrl());
         request.setOutTradeNo(outTradeNo);
         request.setBody(body);
         request.setTotalFee(totalFee);
@@ -103,7 +103,7 @@ public class WeChatPayService {
     public JsParams unifiedOrderWithJsApi(final String outTradeNo, final String body, final int totalFee, final String spbillCreateIp, final String openid) {
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
         request.setTradeType(TradeType.JSAPI);
-        request.setNotifyUrl(this.configurator.getNotifyUrl());
+        request.setNotifyUrl(this.configurator.getPaymentNotifyUrl());
         request.setOutTradeNo(outTradeNo);
         request.setBody(body);
         request.setTotalFee(totalFee);
