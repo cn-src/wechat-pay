@@ -97,6 +97,12 @@
                                 <package>cn.javaer.wechat.pay.model</package>
                             </packages>
                             <entryPointClassPackage>cn.javaer.wechat.test</entryPointClassPackage>
+                            <templates>
+                                <templatesDirectory>${project.basedir}/src/test/resources/templates/
+                                </templatesDirectory>
+                                <assertionsEntryPointClass>standard_assertions_entry_point_class_template.txt
+                                </assertionsEntryPointClass>
+                            </templates>
                         </configuration>
                     </execution>
                 </executions>
