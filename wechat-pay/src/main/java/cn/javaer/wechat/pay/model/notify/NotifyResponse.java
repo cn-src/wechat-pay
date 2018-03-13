@@ -32,8 +32,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @AllArgsConstructor
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class NotifyResultResponse {
-    public static final NotifyResultResponse SUCCESS = new NotifyResultResponse("SUCCESS", "OK");
+public class NotifyResponse {
+    public static final NotifyResponse SUCCESS = new NotifyResponse("SUCCESS", "OK");
 
     @XmlElement(name = "return_code")
     private String returnCode;
