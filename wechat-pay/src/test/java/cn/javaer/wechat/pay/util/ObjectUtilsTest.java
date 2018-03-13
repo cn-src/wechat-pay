@@ -24,7 +24,6 @@ import java.util.TreeMap;
 import java.util.function.BiConsumer;
 
 import static cn.javaer.wechat.test.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 /**
