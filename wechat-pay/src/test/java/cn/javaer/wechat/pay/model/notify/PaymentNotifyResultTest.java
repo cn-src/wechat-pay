@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.tuple;
 /**
  * @author zhangpeng
  */
-public class PayNotifyResultTest {
+public class PaymentNotifyResultTest {
 
     //language=xml
     private final String testData = "<xml>\n" +
@@ -71,7 +71,7 @@ public class PayNotifyResultTest {
 
     @Test
     public void beforeSign() {
-        final PayNotifyResult notifyResult = CodecUtils.unmarshal(this.testData, PayNotifyResult.class);
+        final PaymentNotifyResult notifyResult = CodecUtils.unmarshal(this.testData, PaymentNotifyResult.class);
         assertThat(notifyResult)
                 .hasAppId("wx2421b1c4370ec43b")
                 .hasAttach("支付测试")

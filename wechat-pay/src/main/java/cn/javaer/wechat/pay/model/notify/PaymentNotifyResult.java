@@ -37,7 +37,7 @@ import java.util.List;
 @ToString(callSuper = true, exclude = {"coupons"})
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class PayNotifyResult extends BasePayResponse {
+public class PaymentNotifyResult extends BasePayResponse {
 
     @XmlElement(name = "device_info")
     private String deviceInfo;
