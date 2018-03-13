@@ -33,5 +33,10 @@ public class WeChatPayProperties extends WeChatPayConfigurator {
     /**
      * 接收支付结果通知 Controller 的 path.
      */
-    private String notifyResultPath = PAYMENT_NOTIFY_PATH;
+    private String paymentNotifyPath = PAYMENT_NOTIFY_PATH;
+
+    /**
+     * 接收退款结果通知 Controller 的 path.
+     */
+    private String refundNotifyPath = REFUND_NOTIFY_PATH;
 }
