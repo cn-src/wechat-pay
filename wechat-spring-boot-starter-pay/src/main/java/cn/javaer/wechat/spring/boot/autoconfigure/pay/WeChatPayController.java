@@ -15,7 +15,9 @@ package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
 import cn.javaer.wechat.pay.model.NotifyResultResponse;
 import cn.javaer.wechat.pay.model.notify.PayNotifyResult;
+import cn.javaer.wechat.pay.model.notify.RefundNotifyResult;
 import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayNotifyResultEvent;
+import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayRefundNotifyResultEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,10 +40,20 @@ public class WeChatPayController {
     /**
      * 接收支付结果通知, 将其发布为事件.
      */
-    @RequestMapping(path = "${wechat.pay.notifyResultPath:" + WeChatPayProperties.NOTIFY_RESULT_PATH + "}",
+    @RequestMapping(path = "${wechat.pay.paymentNotifyPath:" + WeChatPayProperties.PAYMENT_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResultResponse notifyResult(@RequestBody final PayNotifyResult payNotifyResult) {
         this.publisher.publishEvent(new WeChatPayNotifyResultEvent(payNotifyResult));
+        return NotifyResultResponse.SUCCESS;
+    }
+
+    /**
+     * 接收退款结果通知, 将其发布为事件.
+     */
+    @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + WeChatPayProperties.REFUND_NOTIFY_PATH + "}",
+            consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
+    public NotifyResultResponse refundNotifyResult(@RequestBody final RefundNotifyResult payNotifyResult) {
+        this.publisher.publishEvent(new WeChatPayRefundNotifyResultEvent(payNotifyResult));
         return NotifyResultResponse.SUCCESS;
     }
 }
