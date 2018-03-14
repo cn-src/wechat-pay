@@ -77,7 +77,7 @@ public class WeChatPayService {
      *
      * @return 二维码链接
      */
-    public String unifiedOrderWithNative(final String outTradeNo, final String body, final int totalFee, final String spbillCreateIp) {
+    public String unifiedOrderWithNative(final String outTradeNo, final String body, final int totalFee, final String ip) {
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
         request.setProductId(ObjectUtils.uuid32());
         request.setTradeType(TradeType.NATIVE);
@@ -85,7 +85,7 @@ public class WeChatPayService {
         request.setOutTradeNo(outTradeNo);
         request.setBody(body);
         request.setTotalFee(totalFee);
-        request.setSpbillCreateIp(spbillCreateIp);
+        request.setSpbillCreateIp(ip);
         final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
         return response.getCodeUrl();
     }
