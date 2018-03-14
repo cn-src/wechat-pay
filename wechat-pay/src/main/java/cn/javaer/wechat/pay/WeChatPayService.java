@@ -100,14 +100,14 @@ public class WeChatPayService {
      *
      * @return UnifiedOrderRequest
      */
-    public JsParams unifiedOrderWithJsApi(final String outTradeNo, final String body, final int totalFee, final String spbillCreateIp, final String openid) {
+    public JsParams unifiedOrderWithJsApi(final String outTradeNo, final String body, final int totalFee, final String ip, final String openid) {
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
         request.setTradeType(TradeType.JSAPI);
         request.setNotifyUrl(this.configurator.getPaymentNotifyUrl());
         request.setOutTradeNo(outTradeNo);
         request.setBody(body);
         request.setTotalFee(totalFee);
-        request.setSpbillCreateIp(spbillCreateIp);
+        request.setSpbillCreateIp(ip);
         request.setOpenid(openid);
         final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
         return JsParams.create(response.getPrepayId(), request.getSignType(), request.getAppId(),
