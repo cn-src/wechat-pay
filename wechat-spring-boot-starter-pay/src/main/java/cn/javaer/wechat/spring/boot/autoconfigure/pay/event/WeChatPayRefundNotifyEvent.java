@@ -21,12 +21,12 @@ import cn.javaer.wechat.pay.model.notify.RefundNotifyResult;
  * @author zhangpeng
  */
 
-public class WeChatPayRefundNotifyResultEvent {
+public class WeChatPayRefundNotifyEvent {
 
     private final RefundNotifyResult refundNotifyResult;
 
 
-    public WeChatPayRefundNotifyResultEvent(final RefundNotifyResult refundNotifyResult) {
+    public WeChatPayRefundNotifyEvent(final RefundNotifyResult refundNotifyResult) {
         this.refundNotifyResult = refundNotifyResult;
         // TODO
     }
