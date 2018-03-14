@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "xml")
-public class RefundNotifyResult extends BasePayResponse {
+public class RefundNotify extends BasePayResponse {
 
     /**
      * 加密信息.

@@ -13,7 +13,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay.event;
 
-import cn.javaer.wechat.pay.model.notify.PaymentNotifyResult;
+import cn.javaer.wechat.pay.model.notify.PaymentNotify;
 
 /**
  * 微信支付-支付结果通知事件.
@@ -23,23 +23,23 @@ import cn.javaer.wechat.pay.model.notify.PaymentNotifyResult;
 
 public class WeChatPayPaymentNotifyEvent {
 
-    private final PaymentNotifyResult paymentNotifyResult;
+    private final PaymentNotify paymentNotify;
     private boolean successful;
 
 
-    public WeChatPayPaymentNotifyEvent(final PaymentNotifyResult paymentNotifyResult) {
-        this.paymentNotifyResult = paymentNotifyResult;
+    public WeChatPayPaymentNotifyEvent(final PaymentNotify paymentNotify) {
+        this.paymentNotify = paymentNotify;
         // TODO
-//        this.successful = paymentNotifyResult.isSuccessful();
+//        this.successful = paymentNotify.isSuccessful();
     }
 
     /**
      * 获取支付结果通知事件的响应.
      *
-     * @return PaymentNotifyResult
+     * @return PaymentNotify
      */
-    public PaymentNotifyResult getPaymentNotifyResult() {
-        return this.paymentNotifyResult;
+    public PaymentNotify getPaymentNotify() {
+        return this.paymentNotify;
     }
 
     /**

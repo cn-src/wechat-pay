@@ -13,7 +13,7 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay.event;
 
-import cn.javaer.wechat.pay.model.notify.RefundNotifyResult;
+import cn.javaer.wechat.pay.model.notify.RefundNotify;
 
 /**
  * 微信支付-退款结果通知事件.
@@ -23,11 +23,11 @@ import cn.javaer.wechat.pay.model.notify.RefundNotifyResult;
 
 public class WeChatPayRefundNotifyEvent {
 
-    private final RefundNotifyResult refundNotifyResult;
+    private final RefundNotify refundNotify;
 
 
-    public WeChatPayRefundNotifyEvent(final RefundNotifyResult refundNotifyResult) {
-        this.refundNotifyResult = refundNotifyResult;
+    public WeChatPayRefundNotifyEvent(final RefundNotify refundNotify) {
+        this.refundNotify = refundNotify;
         // TODO
     }
 }
