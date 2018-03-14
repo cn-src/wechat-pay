@@ -13,7 +13,7 @@
 
 package cn.javaer.wechat.pay.model;
 
-import cn.javaer.wechat.pay.model.base.BillResponseItem;
+import cn.javaer.wechat.pay.model.base.BillItem;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -28,7 +28,7 @@ import java.util.List;
 @Setter
 public class DownloadBillResponse {
 
-    private List<BillResponseItem> billResponseItems;
+    private List<BillItem> billItems;
     /**
      * 总交易单数
      */

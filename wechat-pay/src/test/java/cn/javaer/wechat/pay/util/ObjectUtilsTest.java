@@ -89,7 +89,7 @@ public class ObjectUtilsTest {
                 .hasTotalRefundFee("0.0")
                 .hasTotalCouponFee("0.0")
                 .hasTotalPoundageFee("0");
-        assertThat(response.getBillResponseItems()).hasSize(2);
+        assertThat(response.getBillItems()).hasSize(2);
 
     }
 }

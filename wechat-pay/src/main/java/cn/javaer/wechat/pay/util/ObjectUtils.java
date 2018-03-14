@@ -16,7 +16,7 @@ package cn.javaer.wechat.pay.util;
 import cn.javaer.wechat.pay.WeChatPayException;
 import cn.javaer.wechat.pay.model.DownloadBillResponse;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
-import cn.javaer.wechat.pay.model.base.BillResponseItem;
+import cn.javaer.wechat.pay.model.base.BillItem;
 import cn.javaer.wechat.pay.model.base.Coupon;
 
 import java.lang.annotation.Annotation;
@@ -255,9 +255,9 @@ public class ObjectUtils {
     public static DownloadBillResponse billResponseFrom(final String str) {
         final String[] lines = str.split("\n");
         final String[] columns = lines[0].split(",");
-        final List<BillResponseItem> items = new ArrayList<>(lines.length - 3);
+        final List<BillItem> items = new ArrayList<>(lines.length - 3);
         for (int i = 1; i < lines.length - 2; i++) {
-            final BillResponseItem item = new BillResponseItem();
+            final BillItem item = new BillItem();
             items.add(item);
             final String[] cells = lines[i].substring(1).split(",`");
             for (int j = 0; j < columns.length; j++) {
@@ -271,7 +271,7 @@ public class ObjectUtils {
             final String[] cells = lines[lines.length - 1].substring(1).split(",`");
             set(response, countColumns[i], cells[i]);
         }
-        response.setBillResponseItems(items);
+        response.setBillItems(items);
         return response;
     }
 
@@ -296,7 +296,7 @@ public class ObjectUtils {
         }
     }
 
-    private static void setItem(final BillResponseItem item, final String columnName, final String value) {
+    private static void setItem(final BillItem item, final String columnName, final String value) {
         switch (columnName) {
             case "交易时间":
                 item.setTradeTime(value);

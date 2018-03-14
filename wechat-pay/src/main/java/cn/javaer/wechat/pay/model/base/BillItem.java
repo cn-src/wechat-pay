@@ -23,7 +23,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class BillResponseItem {
+public class BillItem {
     /**
      * 交易时间
      */
