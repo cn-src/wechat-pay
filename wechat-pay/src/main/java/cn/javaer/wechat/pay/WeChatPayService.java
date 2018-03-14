@@ -50,9 +50,6 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
  * @author zhangpeng
  */
 public class WeChatPayService {
-    /**
-     * 异常标志,内容为 xml 则标示出现异常.
-     */
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
@@ -98,7 +95,7 @@ public class WeChatPayService {
      * @param outTradeNo 商户订单号
      * @param totalFee 待支付的金额
      *
-     * @return UnifiedOrderRequest
+     * @return JsParams js 调用所需参数
      */
     public JsParams unifiedOrderWithJsApi(final String outTradeNo, final String body, final int totalFee, final String ip, final String openid) {
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
