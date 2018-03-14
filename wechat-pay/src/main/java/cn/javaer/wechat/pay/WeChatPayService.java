@@ -112,11 +112,11 @@ public class WeChatPayService {
     }
 
     /**
-     * 查询订单, 根据商户订单号查询(outTradeNo).
+     * 查询订单.
      *
      * @param outTradeNo 商户订单号
      *
-     * @return OrderQueryRequest
+     * @return OrderQueryResponse
      */
     public OrderQueryResponse orderQueryWithOutTradeNo(final String outTradeNo) {
         final OrderQueryRequest request = new OrderQueryRequest();
@@ -125,7 +125,7 @@ public class WeChatPayService {
     }
 
     /**
-     * create CloseOrderRequest.
+     * 关闭订单.
      *
      * @param outTradeNo 商户订单号
      *
@@ -138,7 +138,7 @@ public class WeChatPayService {
     }
 
     /**
-     * create RefundRequest.
+     * 申请退款.
      *
      * @param outTradeNo 商户订单号
      * @param outRefundNo 商户退款单号, 同一退款单号多次请求只退一笔
@@ -146,7 +146,7 @@ public class WeChatPayService {
      * @param refundFee 退款金额
      * @param refundDesc 退款原因, 发给用户的退款消息中体现退款原因
      *
-     * @return RefundRequest
+     * @return RefundResponse
      */
     public RefundResponse refund(final String outTradeNo,
                                  final String outRefundNo,
@@ -208,7 +208,7 @@ public class WeChatPayService {
     /**
      * 下载对账单.
      *
-     * @return 字节数据
+     * @return DownloadBillResponse
      */
     public DownloadBillResponse downloadBill(final LocalDate queryDate, final BillType billType) {
         if (LocalDate.now().equals(queryDate)) {
