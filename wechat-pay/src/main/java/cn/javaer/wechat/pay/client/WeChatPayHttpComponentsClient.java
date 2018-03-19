@@ -66,6 +66,18 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         this.httpClient = httpClient;
     }
 
+    /**
+     * Instantiates a new WeChatPayHttpComponentsClient.
+     *
+     * @param httpClient httpClient
+     */
+    public WeChatPayHttpComponentsClient(final HttpClient httpClient) {
+        checkNotNull(httpClient, "httpClient");
+
+        this.basePath = WeChatPayClient.BASE_PATH;
+        this.httpClient = httpClient;
+    }
+
     @Override
     public UnifiedOrderResponse unifiedOrder(final UnifiedOrderRequest request) {
         checkNotNull(request, "UnifiedOrderRequest");
