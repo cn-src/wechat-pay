@@ -32,6 +32,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 /**
+ * The type ObjectUtils.
+ *
  * @author zhangpeng
  */
 public class ObjectUtils {
@@ -49,18 +51,6 @@ public class ObjectUtils {
     }
 
     /**
-     * 校验对象不能为 null.
-     *
-     * @param obj the obj
-     * @param argumentName 参数名
-     */
-    public static void checkNotNull(final Object obj, final String argumentName) {
-        if (null == obj) {
-            throw new IllegalArgumentException("'" + argumentName + "' must be not null");
-        }
-    }
-
-    /**
      * 校验字符串不能为空.
      *
      * @param str the str
@@ -73,6 +63,19 @@ public class ObjectUtils {
     }
 
     /**
+     * 校验对象不能为 null.
+     *
+     * @param obj the obj
+     * @param argumentName 参数名
+     */
+    public static void checkNotNull(final Object obj, final String argumentName) {
+        if (null == obj) {
+            throw new IllegalArgumentException("'" + argumentName + "' must be not null");
+        }
+    }
+
+
+    /**
      * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
      *
      * @param clazz the {@link Class} to query
@@ -83,7 +86,8 @@ public class ObjectUtils {
      * @throws IllegalArgumentException if the class or annotation are {@code null}
      * @since 3.4
      */
-    public static List<Field> getFieldsListWithAnnotation(final Class<?> clazz, final Class<? extends Annotation> annotationCls) {
+    public static List<Field> getFieldsListWithAnnotation(final Class<?> clazz,
+                                                          final Class<? extends Annotation> annotationCls) {
         checkNotNull(clazz, "The class must not be null");
         checkNotNull(annotationCls, "The annotation class must not be null");
 
@@ -252,6 +256,13 @@ public class ObjectUtils {
         return beansFrom(params, mappingMap, Coupon::new);
     }
 
+    /**
+     * 下载对账单(DownloadBillResponse) 解析.
+     *
+     * @param str string data
+     *
+     * @return DownloadBillResponse
+     */
     public static DownloadBillResponse billResponseFrom(final String str) {
         final String[] lines = str.split("\n");
         final String[] columns = lines[0].split(",");

@@ -48,7 +48,10 @@ public class JsParams {
      *
      * @return the js params
      */
-    public static JsParams create(final String prepayId, final SignType signType, final String appId, final String mchKey) {
+    public static JsParams create(final String prepayId,
+                                  final SignType signType,
+                                  final String appId,
+                                  final String mchKey) {
         final JsParams params = new JsParams();
         params.appId = appId;
         params.timeStamp = String.valueOf(System.currentTimeMillis() / 1000);

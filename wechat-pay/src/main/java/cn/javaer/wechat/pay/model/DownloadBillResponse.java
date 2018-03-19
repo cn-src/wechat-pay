@@ -30,23 +30,23 @@ public class DownloadBillResponse {
 
     private List<BillItem> billItems;
     /**
-     * 总交易单数
+     * 总交易单数.
      */
     private Integer totalRecord;
     /**
-     * 总交易额
+     * 总交易额.
      */
     private String totalFee;
     /**
-     * 总退款金额
+     * 总退款金额.
      */
     private String totalRefundFee;
     /**
-     * 总代金券或立减优惠退款金额
+     * 总代金券或立减优惠退款金额.
      */
     private String totalCouponFee;
     /**
-     * 手续费总金额
+     * 手续费总金额.
      */
     private String totalPoundageFee;
 }

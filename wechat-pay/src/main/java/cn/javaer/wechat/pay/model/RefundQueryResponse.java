@@ -93,8 +93,7 @@ public class RefundQueryResponse extends BasePayResponse {
 
     private Map<String, BiConsumer<String, Coupon>> createCouponMapping(final String key) {
         final Map<String, BiConsumer<String, Coupon>> couponMapping = new HashMap<>(3);
-        couponMapping.put("coupon_type_" + key + "_",
-                (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
+        couponMapping.put("coupon_type_" + key + "_", (val, coupon) -> coupon.setType(Coupon.Type.valueOf(val)));
         couponMapping.put("coupon_refund_id_" + key + "_", (val, coupon) -> coupon.setId(val));
         couponMapping.put("coupon_refund_fee_" + key + "_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
         return couponMapping;

@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
+ * {@link OnlyOneNotNull} 校验器.
+ *
  * @author zhangpeng
  */
 public class OnlyOneNotNullValidator implements ConstraintValidator<OnlyOneNotNull, Object> {

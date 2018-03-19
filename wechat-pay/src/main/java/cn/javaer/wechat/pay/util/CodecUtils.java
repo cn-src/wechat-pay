@@ -109,6 +109,13 @@ public class CodecUtils {
         }
     }
 
+    /**
+     * jaxb Object to xml String.
+     *
+     * @param obj Object
+     *
+     * @return xml String
+     */
     public static String marshal(final Object obj) {
         try {
             final JAXBContext context = JAXBContext.newInstance(obj.getClass());
@@ -153,7 +160,8 @@ public class CodecUtils {
         if ((bytes == null) || (bytes.length < 2)) {
             return false;
         } else {
-            return ((bytes[0] == (byte) (GZIPInputStream.GZIP_MAGIC)) && (bytes[1] == (byte) (GZIPInputStream.GZIP_MAGIC >> 8)));
+            return ((bytes[0] == (byte) (GZIPInputStream.GZIP_MAGIC))
+                    && (bytes[1] == (byte) (GZIPInputStream.GZIP_MAGIC >> 8)));
         }
     }
 

@@ -24,7 +24,10 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * 自定义 Validator 校验, 检查被 {@link OnlyOne}标注的多个属性只能一个有值.
+ *
  * @author zhangpeng
+ * @see OnlyOne
  */
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)
@@ -32,9 +35,24 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface OnlyOneNotNull {
 
+    /**
+     * 错误消息模板.
+     *
+     * @return message
+     */
     String message() default "#default";
 
+    /**
+     * 校验组.
+     *
+     * @return groups
+     */
     Class<?>[] groups() default {};
 
+    /**
+     * payload.
+     *
+     * @return payload
+     */
     Class<? extends Payload>[] payload() default {};
 }

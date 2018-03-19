@@ -30,6 +30,8 @@ import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 
 /**
+ * HttpClient 创建工厂.
+ *
  * @author zhangpeng
  */
 public class HttpClientFactory {
@@ -41,6 +43,12 @@ public class HttpClientFactory {
         this.certificatePath = certificatePath;
     }
 
+
+    /**
+     * Build HttpClient.
+     *
+     * @return the http client
+     */
     public HttpClient build() {
 
         try {
