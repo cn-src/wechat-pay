@@ -26,7 +26,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class WeChatPayConfigurator {
-
+    public static final String PAYMENT_NOTIFY_PATH = "/public/wechat/pay/payment_notify";
+    public static final String REFUND_NOTIFY_PATH = "/public/wechat/pay/refund_notify";
     /**
      * 公众号 ID
      */
@@ -62,4 +63,13 @@ public class WeChatPayConfigurator {
      */
     private String basePath = WeChatPayClient.BASE_PATH;
 
+    /**
+     * 接收支付结果通知 Controller 的 path.
+     */
+    private String paymentNotifyPath = PAYMENT_NOTIFY_PATH;
+
+    /**
+     * 接收退款结果通知 Controller 的 path.
+     */
+    private String refundNotifyPath = REFUND_NOTIFY_PATH;
 }

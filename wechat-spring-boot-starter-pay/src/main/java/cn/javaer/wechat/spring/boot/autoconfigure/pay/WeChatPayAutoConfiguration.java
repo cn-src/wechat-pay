@@ -13,16 +13,19 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
+import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayService;
 import cn.javaer.wechat.pay.client.HttpClientFactory;
 import cn.javaer.wechat.pay.client.WeChatPayClient;
 import cn.javaer.wechat.pay.client.WeChatPayHttpComponentsClient;
+import cn.javaer.wechat.pay.spring.WeChatPayController;
 import org.apache.http.client.HttpClient;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.web.WebClientAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
@@ -41,13 +44,8 @@ import javax.validation.Validator;
 @ConditionalOnClass(WeChatPayClient.class)
 @ConditionalOnWebApplication
 @AutoConfigureAfter({WebClientAutoConfiguration.class})
-@EnableConfigurationProperties(WeChatPayProperties.class)
+@EnableConfigurationProperties(WeChatPayConfigurator.class)
 public class WeChatPayAutoConfiguration {
-    private final WeChatPayProperties weChatPayProperties;
-
-    public WeChatPayAutoConfiguration(final WeChatPayProperties weChatPayProperties) {
-        this.weChatPayProperties = weChatPayProperties;
-    }
 
     /**
      * WeChatPayClient 配置.
@@ -56,22 +54,28 @@ public class WeChatPayAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayClient weChatPayClient() {
+    public WeChatPayClient weChatPayClient(final WeChatPayConfigurator configurator) {
         final HttpClient httpClient = new HttpClientFactory(
-                this.weChatPayProperties.getMchId(), this.weChatPayProperties.getCertificatePath()).build();
-        return new WeChatPayHttpComponentsClient(this.weChatPayProperties.getBasePath(), httpClient);
+                configurator.getMchId(), configurator.getCertificatePath()).build();
+        return new WeChatPayHttpComponentsClient(configurator.getBasePath(), httpClient);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayService weChatPayService() {
+    public WeChatPayService weChatPayService(final WeChatPayConfigurator configurator) {
         final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        return new WeChatPayService(weChatPayClient(), this.weChatPayProperties, validator);
+        return new WeChatPayService(weChatPayClient(configurator), configurator, validator);
     }
 
     @Bean
     @ConditionalOnMissingBean
     public WeChatPayController weChatPayController(final ApplicationEventPublisher publisher) {
         return new WeChatPayController(publisher);
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "wechat.pay")
+    public WeChatPayConfigurator weChatPayConfigurator() {
+        return new WeChatPayConfigurator();
     }
 }

@@ -11,13 +11,14 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.spring.boot.autoconfigure.pay;
+package cn.javaer.wechat.pay.spring;
 
+import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.model.notify.NotifyResponse;
 import cn.javaer.wechat.pay.model.notify.PaymentNotify;
 import cn.javaer.wechat.pay.model.notify.RefundNotify;
-import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayPaymentNotifyEvent;
-import cn.javaer.wechat.spring.boot.autoconfigure.pay.event.WeChatPayRefundNotifyEvent;
+import cn.javaer.wechat.pay.spring.event.WeChatPayPaymentNotifyEvent;
+import cn.javaer.wechat.pay.spring.event.WeChatPayRefundNotifyEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,7 +41,7 @@ public class WeChatPayController {
     /**
      * 接收支付结果通知, 将其发布为事件.
      */
-    @RequestMapping(path = "${wechat.pay.paymentNotifyPath:" + WeChatPayProperties.PAYMENT_NOTIFY_PATH + "}",
+    @RequestMapping(path = "${wechat.pay.paymentNotifyPath:" + WeChatPayConfigurator.PAYMENT_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResponse notifyResult(@RequestBody final PaymentNotify paymentNotify) {
         this.publisher.publishEvent(new WeChatPayPaymentNotifyEvent(paymentNotify));
@@ -50,7 +51,7 @@ public class WeChatPayController {
     /**
      * 接收退款结果通知, 将其发布为事件.
      */
-    @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + WeChatPayProperties.REFUND_NOTIFY_PATH + "}",
+    @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + WeChatPayConfigurator.REFUND_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResponse refundNotifyResult(@RequestBody final RefundNotify payNotifyResult) {
         this.publisher.publishEvent(new WeChatPayRefundNotifyEvent(payNotifyResult));
