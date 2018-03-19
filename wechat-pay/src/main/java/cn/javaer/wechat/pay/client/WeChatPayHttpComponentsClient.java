@@ -122,7 +122,9 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         }
     }
 
-    private <Q, S extends BasePayResponse> S doPost(final String apiPath, final Q request, final Class<S> responseClass) {
+    private <Q, S extends BasePayResponse> S doPost(
+            final String apiPath, final Q request, final Class<S> responseClass) {
+
         final String responseStr;
         try {
             final HttpPost httpPost = new HttpPost();

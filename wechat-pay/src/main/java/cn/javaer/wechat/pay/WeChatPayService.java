@@ -74,7 +74,9 @@ public class WeChatPayService {
      *
      * @return 二维码链接
      */
-    public String unifiedOrderWithNative(final String outTradeNo, final String body, final int totalFee, final String ip) {
+    public String unifiedOrderWithNative(
+            final String outTradeNo, final String body, final int totalFee, final String ip) {
+
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
         request.setProductId(ObjectUtils.uuid32());
         request.setTradeType(TradeType.NATIVE);
@@ -97,7 +99,9 @@ public class WeChatPayService {
      *
      * @return JsParams js 调用所需参数
      */
-    public JsParams unifiedOrderWithJsApi(final String outTradeNo, final String body, final int totalFee, final String ip, final String openid) {
+    public JsParams unifiedOrderWithJsApi(
+            final String outTradeNo, final String body, final int totalFee, final String ip, final String openid) {
+
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
         request.setTradeType(TradeType.JSAPI);
         request.setNotifyUrl(this.configurator.getPaymentNotifyUrl());
