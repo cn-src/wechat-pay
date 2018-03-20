@@ -40,7 +40,7 @@ import java.util.List;
 public class OrderQueryResponse extends BasePayResponse {
 
     @XmlElement(name = "openid")
-    private String openid;
+    private String openId;
 
     @XmlElement(name = "is_subscribe")
     private String isSubscribe;
