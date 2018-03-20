@@ -255,7 +255,7 @@ public class WeChatPayService {
 
     private void validate(final BasePayRequest request) {
         final Set<ConstraintViolation<BasePayRequest>> violationSet = this.validator.validate(request);
-        if (violationSet.size() > 0) {
+        if (!violationSet.isEmpty()) {
             throw new ValidationException(violationSet.iterator().next().getMessage());
         }
     }
