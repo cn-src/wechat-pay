@@ -1,8 +1,12 @@
 language: java
+addons:
+  sonarcloud:
+    organization: "cn-src"
 jdk:
   - oraclejdk8
 script:
-  - mvn clean test jacoco:report coveralls:report
+  - mvn clean test jacoco:report sonar:sonar
 cache:
   directories:
     - "$HOME/.m2/repository"
+    - "$HOME/.sonar/cache"
