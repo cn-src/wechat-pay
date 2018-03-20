@@ -51,11 +51,11 @@ public class HttpClientFactory {
      */
     public HttpClient build() {
 
-        try {
+        try (final FileInputStream stream = new FileInputStream(this.certificatePath)) {
             // 配置证书
             final KeyStore keystore = KeyStore.getInstance("PKCS12");
             final char[] keyArray = this.key.toCharArray();
-            keystore.load(new FileInputStream(this.certificatePath), keyArray);
+            keystore.load(stream, keyArray);
 
             // ssl
             final SSLContext sslContext = SSLContexts.custom()

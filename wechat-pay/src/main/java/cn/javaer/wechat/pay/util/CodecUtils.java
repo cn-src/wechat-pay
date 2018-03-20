@@ -32,6 +32,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UncheckedIOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
@@ -71,7 +72,7 @@ public class CodecUtils {
         final String keyStr = DigestUtils.md5Hex(mchKey);
 
         try {
-            final Key key = new SecretKeySpec(keyStr.getBytes(), "AES");
+            final Key key = new SecretKeySpec(keyStr.getBytes(StandardCharsets.UTF_8), "AES");
             final Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding");
             cipher.init(Cipher.DECRYPT_MODE, key);
             final byte[] bytes = cipher.doFinal(decode);
