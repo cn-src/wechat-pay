@@ -99,7 +99,7 @@ public class ObjectUtils {
             final Field[] declaredFields = currentClass.getDeclaredFields();
             for (final Field field : declaredFields) {
                 if (field.getAnnotation(annotationCls) != null) {
-                    AccessController.doPrivileged((PrivilegedAction) () -> {
+                    AccessController.doPrivileged((PrivilegedAction<?>) () -> {
                         field.setAccessible(true);
                         return null;
                     });
