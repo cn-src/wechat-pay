@@ -1,8 +1,15 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/cn.javaer/wechat-pay/badge.svg)](https://maven-badges.herokuapp.com/maven-central/cn.javaer/wechat-pay)
 [![Build Status](https://travis-ci.org/cn-src/wechat-pay.svg?branch=master)](https://travis-ci.org/cn-src/wechat-pay)
-[![Coverage Status](https://coveralls.io/repos/github/cn-src/wechat-pay/badge.svg?branch=master)](https://coveralls.io/github/cn-src/wechat-pay?branch=master)
 [![Libraries.io for GitHub](https://img.shields.io/librariesio/github/cn-src/wechat-pay.svg)](https://libraries.io/github/cn-src/wechat-pay)
+
+[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
+[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
+[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=coverage)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
+[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=bugs)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
+[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=code_smells)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
+[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
+[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=ncloc)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
 
 # wechat-pay
 微信支付
