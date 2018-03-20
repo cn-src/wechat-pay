@@ -21,6 +21,8 @@ import cn.javaer.wechat.pay.model.base.Coupon;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -97,7 +99,10 @@ public class ObjectUtils {
             final Field[] declaredFields = currentClass.getDeclaredFields();
             for (final Field field : declaredFields) {
                 if (field.getAnnotation(annotationCls) != null) {
-                    field.setAccessible(true);
+                    AccessController.doPrivileged((PrivilegedAction) () -> {
+                        field.setAccessible(true);
+                        return null;
+                    });
                     annotatedFields.add(field);
                 }
             }
