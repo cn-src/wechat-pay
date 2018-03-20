@@ -47,6 +47,8 @@ import java.util.function.Function;
 import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
 
 /**
+ * 微信支付服务.
+ *
  * @author zhangpeng
  */
 public class WeChatPayService {
@@ -54,6 +56,13 @@ public class WeChatPayService {
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
 
+    /**
+     * Instantiates a new WeChatPayService.
+     *
+     * @param client WeChatPayClient
+     * @param configurator WeChatPayConfigurator
+     * @param validator Validator
+     */
     public WeChatPayService(final WeChatPayClient client, final WeChatPayConfigurator configurator,
                             final Validator validator) {
         checkNotNull(client, "client");
