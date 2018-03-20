@@ -20,6 +20,8 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 /**
+ * 支付类型的下单参数规则自定义校验器.
+ *
  * @author zhangpeng
  */
 public class ValidTradeTypeRuleValidator implements ConstraintValidator<ValidTradeTypeRule, UnifiedOrderRequest> {

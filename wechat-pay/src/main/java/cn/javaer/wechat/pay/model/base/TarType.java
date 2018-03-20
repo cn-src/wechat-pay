@@ -14,6 +14,8 @@
 package cn.javaer.wechat.pay.model.base;
 
 /**
+ * 压缩类型.
+ *
  * @author zhangpeng
  */
 public enum TarType {

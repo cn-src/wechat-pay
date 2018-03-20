@@ -28,38 +28,39 @@ import lombok.Setter;
 public class WeChatPayConfigurator {
     public static final String PAYMENT_NOTIFY_PATH = "/public/wechat/pay/payment_notify";
     public static final String REFUND_NOTIFY_PATH = "/public/wechat/pay/refund_notify";
+
     /**
-     * 公众号 ID
+     * 公众号 ID.
      */
     @NonNull
     private String appId;
 
     /**
-     * 商户号 ID
+     * 商户号 ID.
      */
     @NonNull
     private String mchId;
 
     /**
-     * 商户号 key
+     * 商户号 key.
      */
     @NonNull
     private String mchKey;
 
     /**
-     * 支付结果通知 url
+     * 支付结果通知 url.
      */
     @NonNull
     private String paymentNotifyUrl;
 
     /**
-     * api 证书路径
+     * api 证书路径.
      */
     @NonNull
     private String certificatePath;
 
     /**
-     * 微信支付 api base path
+     * 微信支付 api base path.
      */
     private String basePath = WeChatPayClient.BASE_PATH;
 

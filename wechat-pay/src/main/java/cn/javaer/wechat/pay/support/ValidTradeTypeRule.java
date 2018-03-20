@@ -24,6 +24,8 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 /**
+ * 支付类型的下单参数规则.
+ *
  * @author zhangpeng
  */
 @Target({TYPE, ANNOTATION_TYPE})
@@ -31,9 +33,24 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Constraint(validatedBy = {ValidTradeTypeRuleValidator.class})
 @Documented
 public @interface ValidTradeTypeRule {
+    /**
+     * 异常消息模板.
+     *
+     * @return message string
+     */
     String message() default "#default";
 
+    /**
+     * 校验组.
+     *
+     * @return the class
+     */
     Class<?>[] groups() default {};
 
+    /**
+     * Payload.
+     *
+     * @return the class
+     */
     Class<? extends Payload>[] payload() default {};
 }

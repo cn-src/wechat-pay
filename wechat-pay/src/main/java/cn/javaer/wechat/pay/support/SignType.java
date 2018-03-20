@@ -18,6 +18,8 @@ import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 /**
+ * 签名类型.
+ *
  * @author zhangpeng
  */
 @XmlType

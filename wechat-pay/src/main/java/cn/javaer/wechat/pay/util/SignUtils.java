@@ -35,6 +35,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotEmpty;
 
 /**
+ * 签名工具.
+ *
  * @author zhangpeng
  */
 public class SignUtils {
