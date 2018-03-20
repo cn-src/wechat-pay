@@ -57,10 +57,7 @@ public class OnlyOneNotNullValidator implements ConstraintValidator<OnlyOneNotNu
             throw new RuntimeException(e);
         }
 
-        if (count != 1) {
-            return false;
-        }
-        return false;
+        return count == 1;
     }
 
 }
