@@ -47,11 +47,12 @@ import java.util.zip.GZIPInputStream;
  */
 public class CodecUtils {
 
-
     static {
         // 对加解密中 PKCS7Padding 模式的支持
         Security.addProvider(new BouncyCastleProvider());
     }
+
+    private CodecUtils() { }
 
     /**
      * 解密，如：解密【退款结果通知】中的加密信息 req_info 字段.

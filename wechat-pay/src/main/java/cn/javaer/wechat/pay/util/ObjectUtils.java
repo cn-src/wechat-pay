@@ -39,6 +39,7 @@ import java.util.function.Supplier;
  * @author zhangpeng
  */
 public class ObjectUtils {
+    private ObjectUtils() { }
 
     /**
      * 校验字符串不能为空.

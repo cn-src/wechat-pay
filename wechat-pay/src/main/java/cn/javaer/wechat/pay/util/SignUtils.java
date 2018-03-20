@@ -42,6 +42,8 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotEmpty;
 public class SignUtils {
     private static final Map<Class, List<Field>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();
 
+    private SignUtils() {}
+
     /**
      * 微信支付-生成签名.
      *
