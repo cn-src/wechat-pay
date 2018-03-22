@@ -23,13 +23,9 @@ import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 public class WeChatPayUnifiedOrderEvent {
 
     private final UnifiedOrderResponse unifiedOrderResponse;
-    private boolean successful;
-
 
     public WeChatPayUnifiedOrderEvent(final UnifiedOrderResponse unifiedOrderResponse) {
         this.unifiedOrderResponse = unifiedOrderResponse;
-        // TODO
-//        this.successful = unifiedOrderResponse.isSuccessful();
     }
 
     /**
@@ -39,14 +35,5 @@ public class WeChatPayUnifiedOrderEvent {
      */
     public UnifiedOrderResponse getUnifiedOrderResponse() {
         return this.unifiedOrderResponse;
-    }
-
-    /**
-     * 判断下单是否成功.
-     *
-     * @return 成功为 true
-     */
-    public boolean isPlaceOrderSuccessful() {
-        return this.successful;
     }
 }

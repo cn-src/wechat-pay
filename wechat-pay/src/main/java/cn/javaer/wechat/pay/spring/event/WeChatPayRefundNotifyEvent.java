@@ -28,6 +28,9 @@ public class WeChatPayRefundNotifyEvent {
 
     public WeChatPayRefundNotifyEvent(final RefundNotify refundNotify) {
         this.refundNotify = refundNotify;
-        // TODO
+    }
+
+    public RefundNotify getRefundNotify() {
+        return this.refundNotify;
     }
 }

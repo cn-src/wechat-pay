@@ -24,13 +24,10 @@ import cn.javaer.wechat.pay.model.notify.PaymentNotify;
 public class WeChatPayPaymentNotifyEvent {
 
     private final PaymentNotify paymentNotify;
-    private boolean successful;
-
 
     public WeChatPayPaymentNotifyEvent(final PaymentNotify paymentNotify) {
+        paymentNotify.processResponse();
         this.paymentNotify = paymentNotify;
-        // TODO
-//        this.successful = paymentNotify.isSuccessful();
     }
 
     /**
@@ -40,14 +37,5 @@ public class WeChatPayPaymentNotifyEvent {
      */
     public PaymentNotify getPaymentNotify() {
         return this.paymentNotify;
-    }
-
-    /**
-     * 判断支付结果通知是否支付成功.
-     *
-     * @return 支付成功为 true
-     */
-    public boolean isPaySuccessful() {
-        return this.successful;
     }
 }
