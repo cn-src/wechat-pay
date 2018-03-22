@@ -57,7 +57,7 @@ public class WeChatPayController {
     @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + WeChatPayConfigurator.REFUND_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResponse refundNotifyResult(@RequestBody final RefundNotify payNotifyResult) {
-        this.publisher.publishEvent(new WeChatPayRefundNotifyEvent(payNotifyResult));
+        this.publisher.publishEvent(new WeChatPayRefundNotifyEvent(payNotifyResult, this.configurator.getMchKey()));
         return NotifyResponse.SUCCESS;
     }
 }
