@@ -13,7 +13,9 @@
 
 package cn.javaer.wechat.pay;
 
+import cn.javaer.wechat.pay.client.HttpClientFactory;
 import cn.javaer.wechat.pay.client.WeChatPayClient;
+import cn.javaer.wechat.pay.client.WeChatPayHttpComponentsClient;
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 import cn.javaer.wechat.pay.model.DownloadBillRequest;
@@ -35,6 +37,7 @@ import cn.javaer.wechat.pay.model.base.TradeType;
 import cn.javaer.wechat.pay.util.CodecUtils;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import cn.javaer.wechat.pay.util.SignUtils;
+import org.apache.http.client.HttpClient;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -62,6 +65,28 @@ public class WeChatPayService {
     /**
      * Instantiates a new WeChatPayService.
      *
+     * @param configurator WeChatPayConfigurator
+     */
+    public WeChatPayService(final WeChatPayConfigurator configurator) {
+        this.client = weChatPayClient(configurator);
+        this.configurator = configurator;
+        this.validator = Validation.buildDefaultValidatorFactory().getValidator();
+    }
+
+    /**
+     * Instantiates a new WeChatPayService.
+     *
+     * @param client WeChatPayClient
+     * @param configurator WeChatPayConfigurator
+     */
+    public WeChatPayService(final WeChatPayClient client,
+                            final WeChatPayConfigurator configurator) {
+        this(client, configurator, Validation.buildDefaultValidatorFactory().getValidator());
+    }
+
+    /**
+     * Instantiates a new WeChatPayService.
+     *
      * @param client WeChatPayClient
      * @param configurator WeChatPayConfigurator
      * @param validator Validator
@@ -78,16 +103,6 @@ public class WeChatPayService {
         this.validator = validator;
     }
 
-    /**
-     * Instantiates a new WeChatPayService.
-     *
-     * @param client WeChatPayClient
-     * @param configurator WeChatPayConfigurator
-     */
-    public WeChatPayService(final WeChatPayClient client,
-                            final WeChatPayConfigurator configurator) {
-        this(client, configurator, Validation.buildDefaultValidatorFactory().getValidator());
-    }
 
     /**
      * 统一下单, 扫码支付(NATIVE).
@@ -292,5 +307,12 @@ public class WeChatPayService {
         request.setMchId(this.configurator.getMchId());
         request.setNonceStr(ObjectUtils.uuid32());
         request.setSign(SignUtils.generateSign(request, this.configurator.getMchKey()));
+    }
+
+    private WeChatPayClient weChatPayClient(final WeChatPayConfigurator configurator) {
+        // 避免硬编码对 org.apache.http.client.HttpClient 的依赖
+        final HttpClient httpClient = new HttpClientFactory(
+                configurator.getMchId(), configurator.getCertificatePath()).build();
+        return new WeChatPayHttpComponentsClient(configurator.getBasePath(), httpClient);
     }
 }
