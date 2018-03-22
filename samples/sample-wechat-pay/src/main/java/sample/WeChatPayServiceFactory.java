@@ -15,13 +15,6 @@ package sample;
 
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayService;
-import cn.javaer.wechat.pay.client.HttpClientFactory;
-import cn.javaer.wechat.pay.client.WeChatPayClient;
-import cn.javaer.wechat.pay.client.WeChatPayHttpComponentsClient;
-import org.apache.http.client.HttpClient;
-
-import javax.validation.Validation;
-import javax.validation.Validator;
 
 /**
  * @author zhangpeng
@@ -35,10 +28,8 @@ public class WeChatPayServiceFactory {
         configurator.setMchId(System.getenv("wechat.pay.mchId"));
         configurator.setMchKey(System.getenv("wechat.pay.mchKey"));
         configurator.setPaymentNotifyUrl(System.getenv("wechat.pay.notifyUrl"));
-        final HttpClient httpClient = new HttpClientFactory(configurator.getMchId(), System.getenv("wechat.pay.certificatePath")).build();
-        final WeChatPayClient weChatPayClient = new WeChatPayHttpComponentsClient(configurator.getBasePath(), httpClient);
-        final Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-        weChatPayService = new WeChatPayService(weChatPayClient, configurator, validator);
+        configurator.setCertificatePath(System.getenv("wechat.pay.certificatePath"));
+        weChatPayService = new WeChatPayService(configurator);
     }
 
     public static WeChatPayService weChatPayService() {
