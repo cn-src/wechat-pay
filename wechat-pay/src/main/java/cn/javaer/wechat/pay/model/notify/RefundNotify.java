@@ -15,6 +15,7 @@ package cn.javaer.wechat.pay.model.notify;
 
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.util.CodecUtils;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -41,10 +42,10 @@ public class RefundNotify extends BasePayResponse {
     /**
      * 加密信息.
      */
-    @Getter
-    @Setter
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
     @XmlElement(name = "req_info")
-    private String ciphertext;
+    private String reqInfoText;
 
     @Delegate
     private ReqInfo reqInfo;
@@ -52,7 +53,7 @@ public class RefundNotify extends BasePayResponse {
 
     public void processResponse(final String mchKey) {
         // 解密字段
-        this.reqInfo = CodecUtils.unmarshal(CodecUtils.decrypt(this.ciphertext, mchKey), ReqInfo.class);
+        this.reqInfo = CodecUtils.unmarshal(CodecUtils.decrypt(this.reqInfoText, mchKey), ReqInfo.class);
     }
 
     @Getter
