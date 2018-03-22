@@ -13,7 +13,6 @@
 
 package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.client.WeChatPayClient;
 import cn.javaer.wechat.pay.spring.WeChatPayController;
 import cn.javaer.wechat.pay.spring.WeChatPayServiceFactoryBean;
@@ -22,9 +21,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.boot.autoconfigure.web.WebClientAutoConfiguration;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -38,27 +35,25 @@ import org.springframework.context.annotation.Configuration;
 @ConditionalOnClass(WeChatPayClient.class)
 @ConditionalOnWebApplication
 @AutoConfigureAfter({WebClientAutoConfiguration.class})
-@EnableConfigurationProperties(WeChatPayConfigurator.class)
+@EnableConfigurationProperties(WeChatPayProperties.class)
 public class WeChatPayAutoConfiguration {
+    private final WeChatPayProperties weChatPayProperties;
+
+    public WeChatPayAutoConfiguration(final WeChatPayProperties weChatPayProperties) {
+        this.weChatPayProperties = weChatPayProperties;
+    }
 
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayServiceFactoryBean weChatPayServiceFactoryBean(final WeChatPayConfigurator configurator) {
+    public WeChatPayServiceFactoryBean weChatPayServiceFactoryBean() {
         final WeChatPayServiceFactoryBean factoryBean = new WeChatPayServiceFactoryBean();
-        factoryBean.setWeChatPayConfigurator(configurator);
+        factoryBean.setWeChatPayConfigurator(this.weChatPayProperties);
         return factoryBean;
     }
 
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayController weChatPayController(
-            final ApplicationEventPublisher publisher, final WeChatPayConfigurator configurator) {
-        return new WeChatPayController(publisher, configurator);
-    }
-
-    @Bean
-    @ConfigurationProperties(prefix = "wechat.pay")
-    public WeChatPayConfigurator weChatPayConfigurator() {
-        return new WeChatPayConfigurator();
+    public WeChatPayController weChatPayController() {
+        return new WeChatPayController(this.weChatPayProperties.getMchKey());
     }
 }

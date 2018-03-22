@@ -11,55 +11,20 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay;
+package cn.javaer.wechat.spring.boot.autoconfigure.pay;
 
-import cn.javaer.wechat.pay.client.WeChatPayClient;
+import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
- * 微信支付-配置.
- *
  * @author zhangpeng
  */
 @Getter
 @Setter
-public class WeChatPayConfigurator {
-
-    /**
-     * 公众号 ID.
-     */
-    @NonNull
-    private String appId;
-
-    /**
-     * 商户号 ID.
-     */
-    @NonNull
-    private String mchId;
-
-    /**
-     * 商户号 key.
-     */
-    @NonNull
-    private String mchKey;
-
-    /**
-     * 支付结果通知 url.
-     */
-    @NonNull
-    private String paymentNotifyUrl;
-
-    /**
-     * api 证书路径.
-     */
-    @NonNull
-    private String certificatePath;
-
-    /**
-     * 微信支付 api base path.
-     */
-    private String basePath = WeChatPayClient.BASE_PATH;
-
+@ConfigurationProperties(prefix = "wechat.pay")
+public class WeChatPayProperties extends WeChatPayConfigurator {
+    private String paymentNotifyPath;
+    private String refundNotifyPath;
 }

@@ -13,13 +13,13 @@
 
 package cn.javaer.wechat.pay.spring;
 
-import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.model.notify.NotifyResponse;
 import cn.javaer.wechat.pay.model.notify.PaymentNotify;
 import cn.javaer.wechat.pay.model.notify.RefundNotify;
 import cn.javaer.wechat.pay.spring.event.WeChatPayPaymentNotifyEvent;
 import cn.javaer.wechat.pay.spring.event.WeChatPayRefundNotifyEvent;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,33 +31,49 @@ import org.springframework.web.bind.annotation.RestController;
  * @author zhangpeng
  */
 @RestController
-public class WeChatPayController {
+public class WeChatPayController implements ApplicationEventPublisherAware {
 
-    private final ApplicationEventPublisher publisher;
-    private final WeChatPayConfigurator configurator;
+    private static final String PAYMENT_NOTIFY_PATH = "/public/wechat/pay/payment_notify";
+    private static final String REFUND_NOTIFY_PATH = "/public/wechat/pay/refund_notify";
+    /**
+     * 接收支付结果通知 Controller 的 path.
+     */
+    private final String paymentNotifyPath = PAYMENT_NOTIFY_PATH;
 
-    public WeChatPayController(final ApplicationEventPublisher publisher, final WeChatPayConfigurator configurator) {
-        this.publisher = publisher;
-        this.configurator = configurator;
+    /**
+     * 接收退款结果通知 Controller 的 path.
+     */
+    private final String refundNotifyPath = REFUND_NOTIFY_PATH;
+    private final String mchKey;
+
+    private ApplicationEventPublisher eventPublisher;
+
+    public WeChatPayController(final String mchKey) {
+        this.mchKey = mchKey;
     }
 
     /**
      * 接收支付结果通知, 将其发布为事件.
      */
-    @RequestMapping(path = "${wechat.pay.paymentNotifyPath:" + WeChatPayConfigurator.PAYMENT_NOTIFY_PATH + "}",
+    @RequestMapping(path = "${wechat.pay.paymentNotifyPath:" + PAYMENT_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResponse notifyResult(@RequestBody final PaymentNotify paymentNotify) {
-        this.publisher.publishEvent(new WeChatPayPaymentNotifyEvent(paymentNotify, this.configurator.getMchKey()));
+        this.eventPublisher.publishEvent(new WeChatPayPaymentNotifyEvent(paymentNotify, this.mchKey));
         return NotifyResponse.SUCCESS;
     }
 
     /**
      * 接收退款结果通知, 将其发布为事件.
      */
-    @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + WeChatPayConfigurator.REFUND_NOTIFY_PATH + "}",
+    @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + REFUND_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResponse refundNotifyResult(@RequestBody final RefundNotify payNotifyResult) {
-        this.publisher.publishEvent(new WeChatPayRefundNotifyEvent(payNotifyResult, this.configurator.getMchKey()));
+        this.eventPublisher.publishEvent(new WeChatPayRefundNotifyEvent(payNotifyResult, this.mchKey));
         return NotifyResponse.SUCCESS;
+    }
+
+    @Override
+    public void setApplicationEventPublisher(final ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
     }
 }
