@@ -17,8 +17,8 @@ package cn.javaer.wechat.pay;
  * @author zhangpeng
  */
 public class UncheckedException extends RuntimeException {
-    public UncheckedException(final String message) {
-        super(message);
+    public UncheckedException(final Throwable cause) {
+        super(cause);
     }
 
     public UncheckedException(final String message, final Throwable cause) {

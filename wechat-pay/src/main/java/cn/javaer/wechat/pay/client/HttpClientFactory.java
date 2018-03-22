@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.client;
 
+import cn.javaer.wechat.pay.UncheckedException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.DefaultHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
@@ -67,7 +68,7 @@ public class HttpClientFactory {
             return HttpClients.custom().setSSLSocketFactory(sslsf).build();
         } catch (final IOException | NoSuchAlgorithmException | CertificateException
                 | UnrecoverableKeyException | KeyStoreException | KeyManagementException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedException("HttpClient build fail", e);
         }
     }
 }
