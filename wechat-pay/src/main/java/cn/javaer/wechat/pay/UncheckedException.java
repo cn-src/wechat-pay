@@ -16,12 +16,12 @@ package cn.javaer.wechat.pay;
 /**
  * @author zhangpeng
  */
-public class UncheckedException extends RuntimeException{
-    public UncheckedException(String message) {
+public class UncheckedException extends RuntimeException {
+    public UncheckedException(final String message) {
         super(message);
     }
 
-    public UncheckedException(String message, Throwable cause) {
+    public UncheckedException(final String message, final Throwable cause) {
         super(message, cause);
     }
 }
