@@ -127,7 +127,7 @@ public class CodecUtils {
             marshaller.marshal(obj, writer);
             return writer.toString();
         } catch (final JAXBException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedException(e);
         }
     }
 
@@ -148,7 +148,7 @@ public class CodecUtils {
             final StringReader reader = new StringReader(xmlStr);
             return (T) unmarshaller.unmarshal(reader);
         } catch (final JAXBException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedException(e);
         }
     }
 
