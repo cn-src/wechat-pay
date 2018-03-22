@@ -99,10 +99,6 @@ public class WeChatPayServiceFactoryBean implements FactoryBean<WeChatPayService
         this.weChatPayConfigurator = weChatPayConfigurator;
     }
 
-    public void setWeChatPayService(final WeChatPayService weChatPayService) {
-        this.weChatPayService = weChatPayService;
-    }
-
     public void setWeChatPayClient(final WeChatPayClient weChatPayClient) {
         this.weChatPayClient = weChatPayClient;
     }
