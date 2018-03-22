@@ -37,6 +37,7 @@ import cn.javaer.wechat.pay.util.ObjectUtils;
 import cn.javaer.wechat.pay.util.SignUtils;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.nio.charset.StandardCharsets;
@@ -63,7 +64,8 @@ public class WeChatPayService {
      * @param configurator WeChatPayConfigurator
      * @param validator Validator
      */
-    public WeChatPayService(final WeChatPayClient client, final WeChatPayConfigurator configurator,
+    public WeChatPayService(final WeChatPayClient client,
+                            final WeChatPayConfigurator configurator,
                             final Validator validator) {
         checkNotNull(client, "client");
         checkNotNull(configurator, "configurator");
@@ -72,6 +74,17 @@ public class WeChatPayService {
         this.client = client;
         this.configurator = configurator;
         this.validator = validator;
+    }
+
+    /**
+     * Instantiates a new WeChatPayService.
+     *
+     * @param client WeChatPayClient
+     * @param configurator WeChatPayConfigurator
+     */
+    public WeChatPayService(final WeChatPayClient client,
+                            final WeChatPayConfigurator configurator) {
+        this(client, configurator, Validation.buildDefaultValidatorFactory().getValidator());
     }
 
     /**
