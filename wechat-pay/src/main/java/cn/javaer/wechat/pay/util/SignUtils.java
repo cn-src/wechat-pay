@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.util;
 
+import cn.javaer.wechat.pay.UncheckedException;
 import cn.javaer.wechat.pay.model.base.BasePayRequest;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.support.LocalDateTimeXmlAdapter;
@@ -131,7 +132,7 @@ public class SignUtils {
                 params.put(name, valueStr);
             }
         } catch (final IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedException(e);
         }
         return params;
     }
