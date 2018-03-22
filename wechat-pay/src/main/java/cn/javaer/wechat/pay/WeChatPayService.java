@@ -43,6 +43,7 @@ import javax.validation.Validator;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Set;
+import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
@@ -56,6 +57,7 @@ public class WeChatPayService {
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
+    private BiConsumer<BasePayRequest, BasePayResponse> httpExecuteHook;
 
     /**
      * Instantiates a new WeChatPayService.
@@ -257,11 +259,19 @@ public class WeChatPayService {
         return ObjectUtils.billResponseFrom(dataStr);
     }
 
+    public void setHttpExecuteHook(final BiConsumer<BasePayRequest, BasePayResponse> httpExecuteHook) {
+        this.httpExecuteHook = httpExecuteHook;
+    }
+
     private <T extends BasePayRequest, R extends BasePayResponse> R call(
             final Function<T, R> fun, final T request) {
         beforeRequest(request);
         final R response = fun.apply(request);
-        afterResponse(response);
+        response.processResponse();
+        if (null != this.httpExecuteHook) {
+            this.httpExecuteHook.accept(request, response);
+        }
+        ObjectUtils.checkSuccessful(response, this.configurator.getMchKey());
         return response;
     }
 
@@ -282,10 +292,5 @@ public class WeChatPayService {
         request.setMchId(this.configurator.getMchId());
         request.setNonceStr(ObjectUtils.uuid32());
         request.setSign(SignUtils.generateSign(request, this.configurator.getMchKey()));
-    }
-
-    private void afterResponse(final BasePayResponse response) {
-        response.processResponse();
-        ObjectUtils.checkSuccessful(response, this.configurator.getMchKey());
     }
 }
