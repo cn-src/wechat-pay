@@ -57,7 +57,7 @@ public class WeChatPayService {
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
-    private BiConsumer<BasePayRequest, BasePayResponse> httpExecuteHook;
+    private BiConsumer<BasePayRequest, BasePayResponse> clientExecuteHook;
 
     /**
      * Instantiates a new WeChatPayService.
@@ -259,8 +259,8 @@ public class WeChatPayService {
         return ObjectUtils.billResponseFrom(dataStr);
     }
 
-    public void setHttpExecuteHook(final BiConsumer<BasePayRequest, BasePayResponse> httpExecuteHook) {
-        this.httpExecuteHook = httpExecuteHook;
+    public void setClientExecuteHook(final BiConsumer<BasePayRequest, BasePayResponse> clientExecuteHook) {
+        this.clientExecuteHook = clientExecuteHook;
     }
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(
@@ -268,8 +268,8 @@ public class WeChatPayService {
         beforeRequest(request);
         final R response = fun.apply(request);
         response.processResponse();
-        if (null != this.httpExecuteHook) {
-            this.httpExecuteHook.accept(request, response);
+        if (null != this.clientExecuteHook) {
+            this.clientExecuteHook.accept(request, response);
         }
         ObjectUtils.checkSuccessful(response, this.configurator.getMchKey());
         return response;

@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.spring.event;
 
+import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 
 /**
@@ -22,9 +23,11 @@ import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
  */
 public class WeChatPayUnifiedOrderEvent {
 
+    private final UnifiedOrderRequest unifiedOrderRequest;
     private final UnifiedOrderResponse unifiedOrderResponse;
 
-    public WeChatPayUnifiedOrderEvent(final UnifiedOrderResponse unifiedOrderResponse) {
+    public WeChatPayUnifiedOrderEvent(final UnifiedOrderRequest unifiedOrderRequest, final UnifiedOrderResponse unifiedOrderResponse) {
+        this.unifiedOrderRequest = unifiedOrderRequest;
         this.unifiedOrderResponse = unifiedOrderResponse;
     }
 
@@ -35,5 +38,9 @@ public class WeChatPayUnifiedOrderEvent {
      */
     public UnifiedOrderResponse getUnifiedOrderResponse() {
         return this.unifiedOrderResponse;
+    }
+
+    public UnifiedOrderRequest getUnifiedOrderRequest() {
+        return this.unifiedOrderRequest;
     }
 }
