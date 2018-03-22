@@ -1,6 +1,6 @@
 {
   "request": {
-    "urlPath": "/public/wechat/pay/notify_result",
+    "urlPath": "/public/wechat/pay/refund_notify",
     "method": "POST"
   },
   "response": {
