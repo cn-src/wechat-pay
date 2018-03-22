@@ -35,15 +35,6 @@ public class WeChatPayController implements ApplicationEventPublisherAware {
 
     private static final String PAYMENT_NOTIFY_PATH = "/public/wechat/pay/payment_notify";
     private static final String REFUND_NOTIFY_PATH = "/public/wechat/pay/refund_notify";
-    /**
-     * 接收支付结果通知 Controller 的 path.
-     */
-    private final String paymentNotifyPath = PAYMENT_NOTIFY_PATH;
-
-    /**
-     * 接收退款结果通知 Controller 的 path.
-     */
-    private final String refundNotifyPath = REFUND_NOTIFY_PATH;
     private final String mchKey;
 
     private ApplicationEventPublisher eventPublisher;
