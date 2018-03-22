@@ -25,6 +25,14 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Setter
 @ConfigurationProperties(prefix = "wechat.pay")
 public class WeChatPayProperties extends WeChatPayConfigurator {
+
+    /**
+     * 接收支付结果通知 Controller 的 path.
+     */
     private String paymentNotifyPath;
+
+    /**
+     * 接收退款结果通知 Controller 的 path.
+     */
     private String refundNotifyPath;
 }
