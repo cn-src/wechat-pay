@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.support;
 
+import cn.javaer.wechat.pay.UncheckedException;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 
 import javax.validation.ConstraintValidator;
@@ -54,7 +55,7 @@ public class OnlyOneNotNullValidator implements ConstraintValidator<OnlyOneNotNu
 
             }
         } catch (final IllegalAccessException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedException(e);
         }
 
         return count == 1;

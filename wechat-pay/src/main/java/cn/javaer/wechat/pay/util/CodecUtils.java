@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.util;
 
+import cn.javaer.wechat.pay.UncheckedException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -81,7 +82,7 @@ public class CodecUtils {
         } catch (final NoSuchAlgorithmException | InvalidKeyException
                 | BadPaddingException | NoSuchPaddingException
                 | IllegalBlockSizeException | UnsupportedEncodingException e) {
-            throw new RuntimeException(e);
+            throw new UncheckedException("Decrypt fail", e);
         }
     }
 
