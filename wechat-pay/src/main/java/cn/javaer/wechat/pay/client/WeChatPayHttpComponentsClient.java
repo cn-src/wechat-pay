@@ -35,6 +35,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.StandardCharsets;
@@ -117,8 +118,11 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
             httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), StandardCharsets.UTF_8));
             final HttpResponse httpResponse = this.httpClient.execute(httpPost);
             return EntityUtils.toByteArray(httpResponse.getEntity());
-        } catch (final URISyntaxException | IOException e) {
-            throw new RuntimeException(e);
+
+        } catch (final IOException e) {
+            throw new UncheckedIOException(e);
+        } catch (final URISyntaxException e) {
+            throw new IllegalArgumentException(e);
         }
     }
 
