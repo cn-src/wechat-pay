@@ -259,11 +259,15 @@ public class WeChatPayService {
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(
             final Function<T, R> fun, final T request) {
+        beforeRequest(request);
+        final R response = fun.apply(request);
+        afterResponse(response);
+        return response;
+    }
+
+    private void beforeRequest(final BasePayRequest request) {
         configureAndSign(request);
         validate(request);
-        final R response = fun.apply(request);
-        processAndCheck(response);
-        return response;
     }
 
     private void validate(final BasePayRequest request) {
@@ -280,7 +284,7 @@ public class WeChatPayService {
         request.setSign(SignUtils.generateSign(request, this.configurator.getMchKey()));
     }
 
-    private void processAndCheck(final BasePayResponse response) {
+    private void afterResponse(final BasePayResponse response) {
         response.processResponse();
         ObjectUtils.checkSuccessful(response, this.configurator.getMchKey());
     }
