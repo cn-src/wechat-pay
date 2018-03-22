@@ -114,7 +114,8 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         checkNotNull(request, "DownloadBillRequest");
         final HttpPost httpPost = new HttpPost();
         try {
-            httpPost.setURI(new URI(ObjectUtils.fullApiUrl(this.basePath, WeChatPayClient.DOWNLOAD_BILL_PATH)));
+            final String apiUrl = ObjectUtils.fullApiUrl(this.basePath, WeChatPayClient.DOWNLOAD_BILL_PATH);
+            httpPost.setURI(new URI(apiUrl));
             httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), StandardCharsets.UTF_8));
             final HttpResponse httpResponse = this.httpClient.execute(httpPost);
             return EntityUtils.toByteArray(httpResponse.getEntity());
@@ -122,7 +123,7 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         } catch (final IOException e) {
             throw new UncheckedIOException(e);
         } catch (final URISyntaxException e) {
-            throw new IllegalArgumentException(e);
+            throw new IllegalArgumentException("Invalid 'url'", e);
         }
     }
 
