@@ -69,8 +69,9 @@ public class WeChatPayAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public WeChatPayController weChatPayController(final ApplicationEventPublisher publisher) {
-        return new WeChatPayController(publisher);
+    public WeChatPayController weChatPayController(
+            final ApplicationEventPublisher publisher, final WeChatPayConfigurator configurator) {
+        return new WeChatPayController(publisher, configurator);
     }
 
     @Bean

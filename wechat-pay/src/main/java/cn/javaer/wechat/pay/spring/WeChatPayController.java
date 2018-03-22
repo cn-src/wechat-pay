@@ -32,10 +32,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class WeChatPayController {
-    private final ApplicationEventPublisher publisher;
 
-    public WeChatPayController(final ApplicationEventPublisher publisher) {
+    private final ApplicationEventPublisher publisher;
+    private final WeChatPayConfigurator configurator;
+
+    public WeChatPayController(final ApplicationEventPublisher publisher, final WeChatPayConfigurator configurator) {
         this.publisher = publisher;
+        this.configurator = configurator;
     }
 
     /**
@@ -44,7 +47,7 @@ public class WeChatPayController {
     @RequestMapping(path = "${wechat.pay.paymentNotifyPath:" + WeChatPayConfigurator.PAYMENT_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResponse notifyResult(@RequestBody final PaymentNotify paymentNotify) {
-        this.publisher.publishEvent(new WeChatPayPaymentNotifyEvent(paymentNotify));
+        this.publisher.publishEvent(new WeChatPayPaymentNotifyEvent(paymentNotify, this.configurator.getMchKey()));
         return NotifyResponse.SUCCESS;
     }
 

@@ -14,6 +14,7 @@
 package cn.javaer.wechat.pay.spring.event;
 
 import cn.javaer.wechat.pay.model.notify.PaymentNotify;
+import cn.javaer.wechat.pay.util.ObjectUtils;
 
 /**
  * 微信支付-支付结果通知事件.
@@ -24,10 +25,12 @@ import cn.javaer.wechat.pay.model.notify.PaymentNotify;
 public class WeChatPayPaymentNotifyEvent {
 
     private final PaymentNotify paymentNotify;
+    private final boolean paymentSuccessful;
 
-    public WeChatPayPaymentNotifyEvent(final PaymentNotify paymentNotify) {
+    public WeChatPayPaymentNotifyEvent(final PaymentNotify paymentNotify, final String mchKey) {
         paymentNotify.processResponse();
         this.paymentNotify = paymentNotify;
+        this.paymentSuccessful = ObjectUtils.isSuccessful(paymentNotify, mchKey);
     }
 
     /**
@@ -37,5 +40,9 @@ public class WeChatPayPaymentNotifyEvent {
      */
     public PaymentNotify getPaymentNotify() {
         return this.paymentNotify;
+    }
+
+    public boolean isPaymentSuccessful() {
+        return this.paymentSuccessful;
     }
 }
