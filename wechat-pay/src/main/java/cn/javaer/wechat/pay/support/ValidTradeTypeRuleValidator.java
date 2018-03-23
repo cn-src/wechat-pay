@@ -40,7 +40,7 @@ public class ValidTradeTypeRuleValidator implements ConstraintValidator<ValidTra
         if (TradeType.JSAPI.equals(value.getTradeType())) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("TradeType is JSAPI, openid must be not null");
-            return null != value.getOpenid();
+            return null != value.getOpenId();
         }
         return false;
     }

@@ -131,7 +131,7 @@ public class WeChatPayService {
     /**
      * 统一下单, 公众号支付(JSAPI).
      *
-     * @param openid openid
+     * @param openId openId
      * @param body 商品简述
      * @param outTradeNo 商户订单号
      * @param totalFee 待支付的金额
@@ -139,7 +139,7 @@ public class WeChatPayService {
      * @return JsParams js 调用所需参数
      */
     public JsParams unifiedOrderWithJsApi(
-            final String outTradeNo, final String body, final int totalFee, final String ip, final String openid) {
+            final String outTradeNo, final String body, final int totalFee, final String ip, final String openId) {
 
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
         request.setTradeType(TradeType.JSAPI);
@@ -148,7 +148,7 @@ public class WeChatPayService {
         request.setBody(body);
         request.setTotalFee(totalFee);
         request.setSpbillCreateIp(ip);
-        request.setOpenid(openid);
+        request.setOpenId(openId);
         final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
         return JsParams.create(response.getPrepayId(), request.getSignType(), request.getAppId(),
                 this.configurator.getMchKey());
