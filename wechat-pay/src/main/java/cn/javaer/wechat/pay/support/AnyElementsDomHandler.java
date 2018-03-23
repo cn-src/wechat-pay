@@ -48,11 +48,13 @@ public class AnyElementsDomHandler implements DomHandler<SortedMap<String, Strin
             final Element element = ((Document) n).getDocumentElement();
             this.otherElements.put(element.getNodeName(), element.getTextContent());
 
-        } else if (n instanceof Element) {
+        }
+        else if (n instanceof Element) {
             final Element element = (Element) n;
             this.otherElements.put(element.getNodeName(), element.getTextContent());
 
-        } else if (n instanceof DocumentFragment) {
+        }
+        else if (n instanceof DocumentFragment) {
             final Element element = (Element) n.getChildNodes().item(0);
             this.otherElements.put(element.getNodeName(), element.getTextContent());
         }

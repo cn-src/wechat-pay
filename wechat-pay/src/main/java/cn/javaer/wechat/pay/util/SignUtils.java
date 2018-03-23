@@ -117,7 +117,8 @@ public class SignUtils {
                 if (null != typeAdapter) {
                     if (LocalDateTimeXmlAdapter.class.equals(typeAdapter.value())) {
                         value = LocalDateTimeXmlAdapter.INSTANCE.marshal((LocalDateTime) value);
-                    } else if (LocalDateXmlAdapter.class.equals(typeAdapter.value())) {
+                    }
+                    else if (LocalDateXmlAdapter.class.equals(typeAdapter.value())) {
                         value = LocalDateXmlAdapter.INSTANCE.marshal((LocalDate) value);
                     }
                 }

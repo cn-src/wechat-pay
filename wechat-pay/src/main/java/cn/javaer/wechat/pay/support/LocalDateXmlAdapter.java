@@ -30,7 +30,8 @@ public class LocalDateXmlAdapter extends XmlAdapter<String, LocalDate> {
     public LocalDate unmarshal(final String value) {
         if (null == value) {
             return null;
-        } else {
+        }
+        else {
             return LocalDate.parse(value, this.dateTimeFormatter);
         }
     }
@@ -39,7 +40,8 @@ public class LocalDateXmlAdapter extends XmlAdapter<String, LocalDate> {
     public String marshal(final LocalDate value) {
         if (null == value) {
             return null;
-        } else {
+        }
+        else {
             return value.format(this.dateTimeFormatter);
         }
     }

@@ -166,7 +166,8 @@ public class CodecUtils {
     public static boolean isCompressed(final byte[] bytes) {
         if ((bytes == null) || (bytes.length < 2)) {
             return false;
-        } else {
+        }
+        else {
             return ((bytes[0] == (byte) (GZIPInputStream.GZIP_MAGIC))
                     && (bytes[1] == (byte) (GZIPInputStream.GZIP_MAGIC >> 8)));
         }
