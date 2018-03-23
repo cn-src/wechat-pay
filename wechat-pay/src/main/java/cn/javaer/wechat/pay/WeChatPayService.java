@@ -57,6 +57,7 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
  * @author zhangpeng
  */
 public class WeChatPayService {
+    private static final String XML_TAG = "<xml>";
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
@@ -268,7 +269,7 @@ public class WeChatPayService {
             data = CodecUtils.unCompress(data);
         }
         final String dataStr = new String(data, StandardCharsets.UTF_8);
-        if (dataStr.startsWith("<xml>")) {
+        if (dataStr.startsWith(XML_TAG)) {
             final DownloadBillResponse response = CodecUtils.unmarshal(dataStr, DownloadBillResponse.class);
             if (null != this.clientExecuteHook) {
                 this.clientExecuteHook.accept(request, response);
