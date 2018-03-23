@@ -120,9 +120,11 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
             final HttpResponse httpResponse = this.httpClient.execute(httpPost);
             return EntityUtils.toByteArray(httpResponse.getEntity());
 
-        } catch (final IOException e) {
+        }
+        catch (final IOException e) {
             throw new UncheckedIOException(e);
-        } catch (final URISyntaxException e) {
+        }
+        catch (final URISyntaxException e) {
             throw new IllegalArgumentException("Invalid 'url'", e);
         }
     }
@@ -136,9 +138,11 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
             httpPost.setURI(new URI(ObjectUtils.fullApiUrl(this.basePath, apiPath)));
             httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), StandardCharsets.UTF_8));
             responseStr = this.httpClient.execute(httpPost, new BasicResponseHandler());
-        } catch (final IOException e) {
+        }
+        catch (final IOException e) {
             throw new UncheckedIOException(e);
-        } catch (final URISyntaxException e) {
+        }
+        catch (final URISyntaxException e) {
             throw new IllegalArgumentException("Invalid 'url'", e);
         }
         return CodecUtils.unmarshal(responseStr, responseClass);

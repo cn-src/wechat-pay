@@ -79,7 +79,8 @@ public class CodecUtils {
             cipher.init(Cipher.DECRYPT_MODE, key);
             final byte[] bytes = cipher.doFinal(decode);
             return new String(bytes, "UTF-8");
-        } catch (final NoSuchAlgorithmException | InvalidKeyException
+        }
+        catch (final NoSuchAlgorithmException | InvalidKeyException
                 | BadPaddingException | NoSuchPaddingException
                 | IllegalBlockSizeException | UnsupportedEncodingException e) {
             throw new UncheckedException("Decrypt fail", e);
@@ -107,7 +108,8 @@ public class CodecUtils {
                 out.write(buffer, 0, n);
             }
             return out.toByteArray();
-        } catch (final IOException e) {
+        }
+        catch (final IOException e) {
             throw new UncheckedIOException(e);
         }
     }
@@ -126,7 +128,8 @@ public class CodecUtils {
             final StringWriter writer = new StringWriter();
             marshaller.marshal(obj, writer);
             return writer.toString();
-        } catch (final JAXBException e) {
+        }
+        catch (final JAXBException e) {
             throw new UncheckedException(e);
         }
     }
@@ -147,7 +150,8 @@ public class CodecUtils {
             final Unmarshaller unmarshaller = context.createUnmarshaller();
             final StringReader reader = new StringReader(xmlStr);
             return (T) unmarshaller.unmarshal(reader);
-        } catch (final JAXBException e) {
+        }
+        catch (final JAXBException e) {
             throw new UncheckedException(e);
         }
     }

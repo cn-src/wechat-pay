@@ -131,7 +131,8 @@ public class SignUtils {
                 }
                 params.put(name, valueStr);
             }
-        } catch (final IllegalAccessException e) {
+        }
+        catch (final IllegalAccessException e) {
             throw new UncheckedException(e);
         }
         return params;
