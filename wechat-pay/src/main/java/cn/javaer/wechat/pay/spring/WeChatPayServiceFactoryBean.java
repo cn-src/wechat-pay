@@ -35,9 +35,13 @@ import javax.validation.Validator;
 import java.util.function.BiConsumer;
 
 /**
+ * WeChatPayService 的 spring FactoryBean.
+ *
  * @author zhangpeng
  */
-public class WeChatPayServiceFactoryBean implements FactoryBean<WeChatPayService>, InitializingBean, ApplicationEventPublisherAware {
+public class WeChatPayServiceFactoryBean implements
+        FactoryBean<WeChatPayService>, InitializingBean, ApplicationEventPublisherAware {
+
     private WeChatPayConfigurator weChatPayConfigurator;
     private WeChatPayService weChatPayService;
     private WeChatPayClient weChatPayClient;

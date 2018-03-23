@@ -26,7 +26,15 @@ public class WeChatPayUnifiedOrderEvent {
     private final UnifiedOrderRequest unifiedOrderRequest;
     private final UnifiedOrderResponse unifiedOrderResponse;
 
-    public WeChatPayUnifiedOrderEvent(final UnifiedOrderRequest unifiedOrderRequest, final UnifiedOrderResponse unifiedOrderResponse) {
+    /**
+     * Instantiates a new WeChatPayUnifiedOrderEvent.
+     *
+     * @param unifiedOrderRequest the unified order request
+     * @param unifiedOrderResponse the unified order response
+     */
+    public WeChatPayUnifiedOrderEvent(
+            final UnifiedOrderRequest unifiedOrderRequest, final UnifiedOrderResponse unifiedOrderResponse) {
+
         this.unifiedOrderRequest = unifiedOrderRequest;
         this.unifiedOrderResponse = unifiedOrderResponse;
     }

@@ -28,6 +28,12 @@ public class WeChatPayRefundNotifyEvent {
     private final boolean refundSuccessful;
 
 
+    /**
+     * Instantiates a new WeChatPayRefundNotifyEvent.
+     *
+     * @param refundNotify the refund notify
+     * @param mchKey the mch key
+     */
     public WeChatPayRefundNotifyEvent(final RefundNotify refundNotify, final String mchKey) {
         refundNotify.processResponse();
         this.refundNotify = refundNotify;

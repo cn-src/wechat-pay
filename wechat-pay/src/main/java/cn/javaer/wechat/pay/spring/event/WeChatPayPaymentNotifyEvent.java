@@ -27,6 +27,12 @@ public class WeChatPayPaymentNotifyEvent {
     private final PaymentNotify paymentNotify;
     private final boolean paymentSuccessful;
 
+    /**
+     * Instantiates a new WeChatPayPaymentNotifyEvent.
+     *
+     * @param paymentNotify the payment notify
+     * @param mchKey the mch key
+     */
     public WeChatPayPaymentNotifyEvent(final PaymentNotify paymentNotify, final String mchKey) {
         paymentNotify.processResponse();
         this.paymentNotify = paymentNotify;
