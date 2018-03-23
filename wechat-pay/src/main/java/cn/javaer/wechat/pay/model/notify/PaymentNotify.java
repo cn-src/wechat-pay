@@ -43,7 +43,7 @@ public class PaymentNotify extends BasePayResponse {
     private String deviceInfo;
 
     @XmlElement(name = "openid")
-    private String openid;
+    private String openId;
 
     @XmlElement(name = "is_subscribe")
     private String isSubscribe;
