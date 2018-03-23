@@ -269,9 +269,17 @@ public class WeChatPayService {
         }
         final String dataStr = new String(data, StandardCharsets.UTF_8);
         if (dataStr.startsWith("<xml>")) {
-            throw new WeChatPayException(dataStr);
+            final DownloadBillResponse response = CodecUtils.unmarshal(dataStr, DownloadBillResponse.class);
+            if (null != this.clientExecuteHook) {
+                this.clientExecuteHook.accept(request, response);
+            }
+            ObjectUtils.checkSuccessful(response);
         }
-        return ObjectUtils.billResponseFrom(dataStr);
+        final DownloadBillResponse response = ObjectUtils.billResponseFrom(dataStr);
+        if (null != this.clientExecuteHook) {
+            this.clientExecuteHook.accept(request, response);
+        }
+        return response;
     }
 
     public void setClientExecuteHook(final BiConsumer<BasePayRequest, BasePayResponse> clientExecuteHook) {
@@ -286,7 +294,8 @@ public class WeChatPayService {
         if (null != this.clientExecuteHook) {
             this.clientExecuteHook.accept(request, response);
         }
-        ObjectUtils.checkSuccessful(response, this.configurator.getMchKey());
+        ObjectUtils.checkSign(response, this.configurator.getMchKey());
+        ObjectUtils.checkSuccessful(response);
         return response;
     }
 
