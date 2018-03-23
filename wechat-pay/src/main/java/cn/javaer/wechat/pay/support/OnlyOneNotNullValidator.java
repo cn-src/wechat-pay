@@ -54,7 +54,8 @@ public class OnlyOneNotNullValidator implements ConstraintValidator<OnlyOneNotNu
                 }
 
             }
-        } catch (final IllegalAccessException e) {
+        }
+        catch (final IllegalAccessException e) {
             throw new UncheckedException(e);
         }
 

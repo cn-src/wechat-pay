@@ -66,7 +66,8 @@ public class HttpClientFactory {
 
             // httpclient
             return HttpClients.custom().setSSLSocketFactory(sslsf).build();
-        } catch (final IOException | NoSuchAlgorithmException | CertificateException
+        }
+        catch (final IOException | NoSuchAlgorithmException | CertificateException
                 | UnrecoverableKeyException | KeyStoreException | KeyManagementException e) {
             throw new UncheckedException("HttpClient build fail", e);
         }
