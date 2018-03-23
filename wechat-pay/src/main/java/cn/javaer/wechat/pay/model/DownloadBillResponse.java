@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.model;
 
+import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.BillItem;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 @Getter
 @Setter
-public class DownloadBillResponse {
+public class DownloadBillResponse extends BasePayResponse {
 
     private List<BillItem> billItems;
     /**
