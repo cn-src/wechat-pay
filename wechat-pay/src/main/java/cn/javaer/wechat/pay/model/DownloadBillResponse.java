@@ -18,6 +18,9 @@ import cn.javaer.wechat.pay.model.base.BillItem;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
@@ -27,6 +30,8 @@ import java.util.List;
  */
 @Getter
 @Setter
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "xml")
 public class DownloadBillResponse extends BasePayResponse {
 
     private List<BillItem> billItems;
