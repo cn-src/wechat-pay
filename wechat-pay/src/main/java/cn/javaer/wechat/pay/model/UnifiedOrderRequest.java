@@ -142,7 +142,7 @@ public class UnifiedOrderRequest extends BasePayRequest {
      */
     @Length(min = 1, max = 128)
     @XmlElement(name = "openid")
-    private String openid;
+    private String openId;
     /**
      * 场景信息.
      */
