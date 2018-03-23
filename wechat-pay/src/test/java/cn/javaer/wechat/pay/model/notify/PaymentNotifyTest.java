@@ -79,7 +79,7 @@ public class PaymentNotifyTest {
                 .hasIsSubscribe("Y")
                 .hasMchId("10000100")
                 .hasNonceStr("5d2b6c2a8db53831f7eda20af46e531c")
-                .hasOpenid("oUpF8uMEb4qRXf22hE3X68TekukE")
+                .hasOpenId("oUpF8uMEb4qRXf22hE3X68TekukE")
                 .hasOutTradeNo("1409811653")
                 .hasResultCode("SUCCESS")
                 .hasReturnCode("SUCCESS")
