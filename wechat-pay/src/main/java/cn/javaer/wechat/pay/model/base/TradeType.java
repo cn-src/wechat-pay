@@ -19,5 +19,14 @@ package cn.javaer.wechat.pay.model.base;
  * @author zhangpeng
  */
 public enum TradeType {
-    JSAPI, NATIVE
+
+    /**
+     * 公众号支付.
+     */
+    JSAPI,
+
+    /**
+     * 扫码支付.
+     */
+    NATIVE
 }
