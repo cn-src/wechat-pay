@@ -15,6 +15,7 @@ package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.Coupon;
+import cn.javaer.wechat.pay.model.base.TradeState;
 import cn.javaer.wechat.pay.support.SignIgnore;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import lombok.Getter;
@@ -55,7 +56,7 @@ public class OrderQueryResponse extends BasePayResponse {
     private String tradeType;
 
     @XmlElement(name = "trade_state")
-    private String tradeState;
+    private TradeState tradeState;
 
     @XmlElement(name = "bank_type")
     private String bankType;
