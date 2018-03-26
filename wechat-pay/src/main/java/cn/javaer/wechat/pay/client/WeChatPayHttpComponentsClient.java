@@ -33,6 +33,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.UncheckedIOException;
@@ -49,7 +51,7 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
  * @author zhangpeng
  */
 public class WeChatPayHttpComponentsClient implements WeChatPayClient {
-
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private final HttpClient httpClient;
     private final String basePath;
 
@@ -136,8 +138,11 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         try {
             final HttpPost httpPost = new HttpPost();
             httpPost.setURI(new URI(ObjectUtils.fullApiUrl(this.basePath, apiPath)));
-            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), StandardCharsets.UTF_8));
+            final String xmlReq = CodecUtils.marshal(request);
+            this.log.debug("WeChat pay request({}):\n{}", apiPath, xmlReq);
+            httpPost.setEntity(new StringEntity(xmlReq, StandardCharsets.UTF_8));
             responseStr = this.httpClient.execute(httpPost, new BasicResponseHandler());
+            this.log.debug("WeChat pay response({}):\n{}", apiPath, responseStr);
         }
         catch (final IOException e) {
             throw new UncheckedIOException(e);
