@@ -40,7 +40,6 @@ import org.apache.http.client.HttpClient;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
-import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.time.LocalDate;
 import java.util.Set;
@@ -292,7 +291,8 @@ public class WeChatPayService {
     private void validate(final BasePayRequest request) {
         final Set<ConstraintViolation<BasePayRequest>> violationSet = this.validator.validate(request);
         if (!violationSet.isEmpty()) {
-            throw new ValidationException(violationSet.iterator().next().getMessage());
+            final ConstraintViolation<BasePayRequest> violation = violationSet.iterator().next();
+            throw new IllegalArgumentException(String.format("'%s' %s", violation.getPropertyPath(), violation.getMessage()));
         }
     }
 
