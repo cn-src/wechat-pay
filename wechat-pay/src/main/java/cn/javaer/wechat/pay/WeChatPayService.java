@@ -232,19 +232,6 @@ public class WeChatPayService {
     }
 
     /**
-     * 查询退款.
-     *
-     * @param outRefundNo 商户退款单号
-     *
-     * @return RefundQueryResponse
-     */
-    public RefundQueryResponse refundQueryWithOutRefundNo(final String outRefundNo) {
-        final RefundQueryRequest request = new RefundQueryRequest();
-        request.setOutRefundNo(outRefundNo);
-        return call(this.client::refundQuery, request);
-    }
-
-    /**
      * 下载对账单.
      *
      * @return DownloadBillResponse
