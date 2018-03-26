@@ -22,7 +22,7 @@ import cn.javaer.wechat.pay.util.ObjectUtils;
  * @author zhangpeng
  */
 
-public class WeChatPayPaymentNotifyEvent {
+public class PaymentNotifyEvent {
 
     private final PaymentNotify paymentNotify;
     private final boolean paymentSuccessful;
@@ -33,7 +33,7 @@ public class WeChatPayPaymentNotifyEvent {
      * @param paymentNotify the payment notify
      * @param mchKey the mch key
      */
-    public WeChatPayPaymentNotifyEvent(final PaymentNotify paymentNotify, final String mchKey) {
+    public PaymentNotifyEvent(final PaymentNotify paymentNotify, final String mchKey) {
         paymentNotify.processResponse();
         this.paymentNotify = paymentNotify;
         this.paymentSuccessful = ObjectUtils.isSuccessful(paymentNotify, mchKey);

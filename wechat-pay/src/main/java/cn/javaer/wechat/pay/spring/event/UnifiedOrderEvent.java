@@ -21,7 +21,7 @@ import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
  *
  * @author zhangpeng
  */
-public class WeChatPayUnifiedOrderEvent {
+public class UnifiedOrderEvent {
 
     private final UnifiedOrderRequest unifiedOrderRequest;
     private final UnifiedOrderResponse unifiedOrderResponse;
@@ -32,7 +32,7 @@ public class WeChatPayUnifiedOrderEvent {
      * @param unifiedOrderRequest the unified order request
      * @param unifiedOrderResponse the unified order response
      */
-    public WeChatPayUnifiedOrderEvent(
+    public UnifiedOrderEvent(
             final UnifiedOrderRequest unifiedOrderRequest, final UnifiedOrderResponse unifiedOrderResponse) {
 
         this.unifiedOrderRequest = unifiedOrderRequest;

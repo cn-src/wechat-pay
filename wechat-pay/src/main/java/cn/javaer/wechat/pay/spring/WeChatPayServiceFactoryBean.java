@@ -21,7 +21,7 @@ import cn.javaer.wechat.pay.client.WeChatPayClient;
 import cn.javaer.wechat.pay.client.WeChatPayHttpComponentsClient;
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
-import cn.javaer.wechat.pay.spring.event.WeChatPayUnifiedOrderEvent;
+import cn.javaer.wechat.pay.spring.event.UnifiedOrderEvent;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import org.apache.http.client.HttpClient;
 import org.springframework.beans.factory.FactoryBean;
@@ -76,7 +76,7 @@ public class WeChatPayServiceFactoryBean implements
             this.clientExecuteHook = (request, response) -> {
                 if (request instanceof UnifiedOrderRequest) {
                     this.applicationEventPublisher.publishEvent(
-                            new WeChatPayUnifiedOrderEvent((UnifiedOrderRequest) request,
+                            new UnifiedOrderEvent((UnifiedOrderRequest) request,
                                     (UnifiedOrderResponse) response));
                 }
             };

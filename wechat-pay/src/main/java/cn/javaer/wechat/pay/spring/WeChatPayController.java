@@ -16,8 +16,8 @@ package cn.javaer.wechat.pay.spring;
 import cn.javaer.wechat.pay.model.notify.NotifyResponse;
 import cn.javaer.wechat.pay.model.notify.PaymentNotify;
 import cn.javaer.wechat.pay.model.notify.RefundNotify;
-import cn.javaer.wechat.pay.spring.event.WeChatPayPaymentNotifyEvent;
-import cn.javaer.wechat.pay.spring.event.WeChatPayRefundNotifyEvent;
+import cn.javaer.wechat.pay.spring.event.PaymentNotifyEvent;
+import cn.javaer.wechat.pay.spring.event.RefundNotifyEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.http.MediaType;
@@ -49,7 +49,7 @@ public class WeChatPayController implements ApplicationEventPublisherAware {
     @RequestMapping(path = "${wechat.pay.paymentNotifyPath:" + PAYMENT_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResponse notifyResult(@RequestBody final PaymentNotify paymentNotify) {
-        this.eventPublisher.publishEvent(new WeChatPayPaymentNotifyEvent(paymentNotify, this.mchKey));
+        this.eventPublisher.publishEvent(new PaymentNotifyEvent(paymentNotify, this.mchKey));
         return NotifyResponse.SUCCESS;
     }
 
@@ -59,7 +59,7 @@ public class WeChatPayController implements ApplicationEventPublisherAware {
     @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + REFUND_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
     public NotifyResponse refundNotifyResult(@RequestBody final RefundNotify payNotifyResult) {
-        this.eventPublisher.publishEvent(new WeChatPayRefundNotifyEvent(payNotifyResult, this.mchKey));
+        this.eventPublisher.publishEvent(new RefundNotifyEvent(payNotifyResult, this.mchKey));
         return NotifyResponse.SUCCESS;
     }
 
