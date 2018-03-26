@@ -18,6 +18,8 @@ import cn.javaer.wechat.pay.model.notify.PaymentNotify;
 import cn.javaer.wechat.pay.model.notify.RefundNotify;
 import cn.javaer.wechat.pay.spring.event.PaymentNotifyEvent;
 import cn.javaer.wechat.pay.spring.event.RefundNotifyEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.ApplicationEventPublisherAware;
 import org.springframework.http.MediaType;
@@ -32,9 +34,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class WeChatPayController implements ApplicationEventPublisherAware {
-
     private static final String PAYMENT_NOTIFY_PATH = "/public/wechat/pay/payment_notify";
     private static final String REFUND_NOTIFY_PATH = "/public/wechat/pay/refund_notify";
+    private final Logger log = LoggerFactory.getLogger(getClass());
     private final String mchKey;
 
     private ApplicationEventPublisher eventPublisher;
@@ -48,7 +50,8 @@ public class WeChatPayController implements ApplicationEventPublisherAware {
      */
     @RequestMapping(path = "${wechat.pay.paymentNotifyPath:" + PAYMENT_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
-    public NotifyResponse notifyResult(@RequestBody final PaymentNotify paymentNotify) {
+    public NotifyResponse paymentNotify(@RequestBody final PaymentNotify paymentNotify) {
+        this.log.info("Received payment notify, outTradeNo is {}", paymentNotify.getOutTradeNo());
         this.eventPublisher.publishEvent(new PaymentNotifyEvent(paymentNotify, this.mchKey));
         return NotifyResponse.SUCCESS;
     }
@@ -58,7 +61,8 @@ public class WeChatPayController implements ApplicationEventPublisherAware {
      */
     @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + REFUND_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
-    public NotifyResponse refundNotifyResult(@RequestBody final RefundNotify payNotifyResult) {
+    public NotifyResponse refundNotify(@RequestBody final RefundNotify payNotifyResult) {
+        this.log.info("Received refund notify, outTradeNo is {}", payNotifyResult.getOutTradeNo());
         this.eventPublisher.publishEvent(new RefundNotifyEvent(payNotifyResult, this.mchKey));
         return NotifyResponse.SUCCESS;
     }
