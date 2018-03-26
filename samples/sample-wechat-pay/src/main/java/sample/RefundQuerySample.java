@@ -21,7 +21,7 @@ import cn.javaer.wechat.pay.model.RefundQueryResponse;
 public class RefundQuerySample {
     public static void main(final String[] args) {
         WeChatPayServiceFactory.init();
-        final RefundQueryResponse response = WeChatPayServiceFactory.weChatPayService().refundQueryWithOutTradeNo("TEST03");
+        final RefundQueryResponse response = WeChatPayServiceFactory.weChatPayService().refundQuery("TEST03");
         System.out.println(response);
     }
 }

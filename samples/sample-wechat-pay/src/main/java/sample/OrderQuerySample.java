@@ -21,7 +21,7 @@ import cn.javaer.wechat.pay.model.OrderQueryResponse;
 public class OrderQuerySample {
     public static void main(final String[] args) {
         WeChatPayServiceFactory.init();
-        final OrderQueryResponse response = WeChatPayServiceFactory.weChatPayService().orderQueryWithOutTradeNo("TEST01");
+        final OrderQueryResponse response = WeChatPayServiceFactory.weChatPayService().orderQuery("TEST01");
         System.out.println(response);
     }
 }

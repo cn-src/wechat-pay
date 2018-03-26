@@ -157,7 +157,7 @@ public class WeChatPayService {
      *
      * @return OrderQueryResponse
      */
-    public OrderQueryResponse orderQueryWithOutTradeNo(final String outTradeNo) {
+    public OrderQueryResponse orderQuery(final String outTradeNo) {
         final OrderQueryRequest request = new OrderQueryRequest();
         request.setOutTradeNo(outTradeNo);
         return call(this.client::orderQuery, request);
@@ -209,7 +209,7 @@ public class WeChatPayService {
      *
      * @return RefundQueryResponse
      */
-    public RefundQueryResponse refundQueryWithOutTradeNo(final String outTradeNo) {
+    public RefundQueryResponse refundQuery(final String outTradeNo) {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.setOutTradeNo(outTradeNo);
         return call(this.client::refundQuery, request);
@@ -224,7 +224,7 @@ public class WeChatPayService {
      *
      * @return RefundQueryResponse
      */
-    public RefundQueryResponse refundQueryWithOutTradeNo(final String outTradeNo, final int offset) {
+    public RefundQueryResponse refundQuery(final String outTradeNo, final int offset) {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.setOutTradeNo(outTradeNo);
         request.setOffset(offset);
