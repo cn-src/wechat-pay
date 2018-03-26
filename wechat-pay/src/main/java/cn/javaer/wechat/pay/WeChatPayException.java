@@ -19,11 +19,7 @@ package cn.javaer.wechat.pay;
  * @author zhangpeng
  */
 public class WeChatPayException extends RuntimeException {
-    public WeChatPayException(String message) {
+    public WeChatPayException(final String message) {
         super(message);
-    }
-
-    public WeChatPayException(Throwable cause) {
-        super(cause);
     }
 }
