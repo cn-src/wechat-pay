@@ -26,11 +26,11 @@ public class SamplePayEvent {
 
     @EventListener
     public void unifiedOrderEvent(final UnifiedOrderEvent event) {
-
+        System.out.println(event);
     }
 
     @EventListener
     public void paymentNotifyEvent(final PaymentNotifyEvent event) {
-
+        System.out.println(event);
     }
 }
