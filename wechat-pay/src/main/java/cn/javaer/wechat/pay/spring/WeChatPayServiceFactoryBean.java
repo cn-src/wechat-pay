@@ -24,6 +24,7 @@ import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.pay.spring.event.UnifiedOrderEvent;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import org.apache.http.client.HttpClient;
+import org.hibernate.validator.HibernateValidator;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationEventPublisher;
@@ -70,7 +71,9 @@ public class WeChatPayServiceFactoryBean implements
             this.weChatPayClient = weChatPayClient();
         }
         if (this.validator == null) {
-            this.validator = Validation.buildDefaultValidatorFactory().getValidator();
+            this.validator = Validation.byProvider(HibernateValidator.class).configure()
+                    .failFast(true)
+                    .buildValidatorFactory().getValidator();
         }
         if (this.clientExecuteHook == null) {
             this.clientExecuteHook = (request, response) -> {
