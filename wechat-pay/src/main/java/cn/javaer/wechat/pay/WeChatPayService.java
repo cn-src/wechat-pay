@@ -34,7 +34,6 @@ import cn.javaer.wechat.pay.model.base.BillType;
 import cn.javaer.wechat.pay.model.base.JsParams;
 import cn.javaer.wechat.pay.model.base.TarType;
 import cn.javaer.wechat.pay.model.base.TradeType;
-import cn.javaer.wechat.pay.util.CodecUtils;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import cn.javaer.wechat.pay.util.SignUtils;
 import org.apache.http.client.HttpClient;
@@ -43,7 +42,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.ValidationException;
 import javax.validation.Validator;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.function.BiConsumer;
@@ -57,7 +55,6 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
  * @author zhangpeng
  */
 public class WeChatPayService {
-    private static final String XML_TAG = "<xml>";
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
@@ -262,24 +259,12 @@ public class WeChatPayService {
         request.setTarType(TarType.GZIP);
         request.setBillDate(queryDate);
         request.setBillType(billType);
-        configureAndSign(request);
-        validate(request);
-        byte[] data = this.client.downloadBill(request);
-        if (CodecUtils.isCompressed(data)) {
-            data = CodecUtils.unCompress(data);
-        }
-        final String dataStr = new String(data, StandardCharsets.UTF_8);
-        if (dataStr.startsWith(XML_TAG)) {
-            final DownloadBillResponse response = CodecUtils.unmarshal(dataStr, DownloadBillResponse.class);
-            if (null != this.clientExecuteHook) {
-                this.clientExecuteHook.accept(request, response);
-            }
-            ObjectUtils.checkSuccessful(response);
-        }
-        final DownloadBillResponse response = ObjectUtils.billResponseFrom(dataStr);
+        beforeRequest(request);
+        final DownloadBillResponse response = this.client.downloadBill(request);
         if (null != this.clientExecuteHook) {
             this.clientExecuteHook.accept(request, response);
         }
+        ObjectUtils.checkSuccessful(response);
         return response;
     }
 

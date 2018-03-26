@@ -16,6 +16,7 @@ package cn.javaer.wechat.pay.client;
 import cn.javaer.wechat.pay.model.CloseOrderRequest;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 import cn.javaer.wechat.pay.model.DownloadBillRequest;
+import cn.javaer.wechat.pay.model.DownloadBillResponse;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.pay.model.RefundQueryRequest;
@@ -51,6 +52,8 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
  * @author zhangpeng
  */
 public class WeChatPayHttpComponentsClient implements WeChatPayClient {
+    private static final String XML_TAG = "<xml>";
+
     private final Logger log = LoggerFactory.getLogger(getClass());
     private final HttpClient httpClient;
     private final String basePath;
@@ -112,7 +115,7 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
     }
 
     @Override
-    public byte[] downloadBill(final DownloadBillRequest request) {
+    public DownloadBillResponse downloadBill(final DownloadBillRequest request) {
         checkNotNull(request, "DownloadBillRequest");
         final HttpPost httpPost = new HttpPost();
         try {
@@ -122,9 +125,18 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
             this.log.debug("WeChat pay request({}):\n{}", WeChatPayClient.DOWNLOAD_BILL_PATH, xmlReq);
             httpPost.setEntity(new StringEntity(xmlReq, StandardCharsets.UTF_8));
             final HttpResponse httpResponse = this.httpClient.execute(httpPost);
-            final byte[] bytesRes = EntityUtils.toByteArray(httpResponse.getEntity());
-            this.log.debug("WeChat pay response({}):\n{}", WeChatPayClient.DOWNLOAD_BILL_PATH, bytesRes);
-            return bytesRes;
+            byte[] responseBytes = EntityUtils.toByteArray(httpResponse.getEntity());
+            if (CodecUtils.isCompressed(responseBytes)) {
+                responseBytes = CodecUtils.unCompress(responseBytes);
+            }
+            final String responseStr = new String(responseBytes, StandardCharsets.UTF_8);
+            this.log.debug("WeChat pay response({}):\n{}", WeChatPayClient.DOWNLOAD_BILL_PATH, responseStr);
+            if (responseStr.startsWith(XML_TAG)) {
+                return CodecUtils.unmarshal(responseStr, DownloadBillResponse.class);
+            }
+            else {
+                return ObjectUtils.billResponseFrom(responseStr);
+            }
         }
         catch (final IOException e) {
             throw new UncheckedIOException(e);

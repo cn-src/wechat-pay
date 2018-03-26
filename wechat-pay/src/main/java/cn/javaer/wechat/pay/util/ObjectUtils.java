@@ -176,6 +176,20 @@ public class ObjectUtils {
     }
 
     /**
+     * 校验响应信息是否为成功.
+     *
+     * @param response DownloadBillResponse
+     *
+     * @throws WeChatPayException 没有响应信息, 响应信息标示不成功时抛出此异常.
+     */
+    public static void checkSuccessful(final DownloadBillResponse response) {
+        if (null != response.getReturnCode()) {
+            throw new WeChatPayException("WeChat pay response 'return_code' is '" + response.getReturnCode()
+                    + "', response:" + response.toString());
+        }
+    }
+
+    /**
      * 判断响应信息是否为成功.
      *
      * @param response BasePayResponse
