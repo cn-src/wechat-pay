@@ -118,10 +118,13 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
         try {
             final String apiUrl = ObjectUtils.fullApiUrl(this.basePath, WeChatPayClient.DOWNLOAD_BILL_PATH);
             httpPost.setURI(new URI(apiUrl));
-            httpPost.setEntity(new StringEntity(CodecUtils.marshal(request), StandardCharsets.UTF_8));
+            final String xmlReq = CodecUtils.marshal(request);
+            this.log.debug("WeChat pay request({}):\n{}", WeChatPayClient.DOWNLOAD_BILL_PATH, xmlReq);
+            httpPost.setEntity(new StringEntity(xmlReq, StandardCharsets.UTF_8));
             final HttpResponse httpResponse = this.httpClient.execute(httpPost);
-            return EntityUtils.toByteArray(httpResponse.getEntity());
-
+            final byte[] bytesRes = EntityUtils.toByteArray(httpResponse.getEntity());
+            this.log.debug("WeChat pay response({}):\n{}", WeChatPayClient.DOWNLOAD_BILL_PATH, bytesRes);
+            return bytesRes;
         }
         catch (final IOException e) {
             throw new UncheckedIOException(e);
