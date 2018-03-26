@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.spring;
 
+import cn.javaer.wechat.pay.CientExecuteHook;
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayService;
 import cn.javaer.wechat.pay.client.HttpClientFactory;
@@ -20,8 +21,6 @@ import cn.javaer.wechat.pay.client.WeChatPayClient;
 import cn.javaer.wechat.pay.client.WeChatPayHttpComponentsClient;
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
-import cn.javaer.wechat.pay.model.base.BasePayRequest;
-import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.spring.event.WeChatPayUnifiedOrderEvent;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import org.apache.http.client.HttpClient;
@@ -32,7 +31,6 @@ import org.springframework.context.ApplicationEventPublisherAware;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
-import java.util.function.BiConsumer;
 
 /**
  * WeChatPayService 的 spring FactoryBean.
@@ -46,7 +44,7 @@ public class WeChatPayServiceFactoryBean implements
     private WeChatPayService weChatPayService;
     private WeChatPayClient weChatPayClient;
     private Validator validator;
-    private BiConsumer<BasePayRequest, BasePayResponse> clientExecuteHook;
+    private CientExecuteHook clientExecuteHook;
     private ApplicationEventPublisher applicationEventPublisher;
 
     @Override
@@ -111,7 +109,7 @@ public class WeChatPayServiceFactoryBean implements
         this.validator = validator;
     }
 
-    public void setClientExecuteHook(final BiConsumer<BasePayRequest, BasePayResponse> clientExecuteHook) {
+    public void setClientExecuteHook(final CientExecuteHook clientExecuteHook) {
         this.clientExecuteHook = clientExecuteHook;
     }
 }

@@ -44,7 +44,6 @@ import javax.validation.ValidationException;
 import javax.validation.Validator;
 import java.time.LocalDate;
 import java.util.Set;
-import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
@@ -58,7 +57,7 @@ public class WeChatPayService {
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
-    private BiConsumer<BasePayRequest, BasePayResponse> clientExecuteHook;
+    private CientExecuteHook clientExecuteHook;
 
     /**
      * Instantiates a new WeChatPayService.
@@ -268,7 +267,7 @@ public class WeChatPayService {
         return response;
     }
 
-    public void setClientExecuteHook(final BiConsumer<BasePayRequest, BasePayResponse> clientExecuteHook) {
+    public void setClientExecuteHook(final CientExecuteHook clientExecuteHook) {
         this.clientExecuteHook = clientExecuteHook;
     }
 
