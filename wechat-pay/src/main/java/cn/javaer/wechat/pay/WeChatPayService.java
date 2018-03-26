@@ -99,6 +99,20 @@ public class WeChatPayService {
         this.validator = validator;
     }
 
+    /**
+     * 统一下单.
+     * <p>
+     * 用户可自由赋值 UnifiedOrderRequest 中的字段来构建统一下单，
+     * 但与 WeChatPayConfigurator 中对应的字段以及 nonce_str 会被强制覆盖.
+     *
+     * @param request UnifiedOrderRequest
+     *
+     * @return UnifiedOrderResponse
+     */
+    public UnifiedOrderResponse unifiedOrder(final UnifiedOrderRequest request) {
+        request.setNotifyUrl(this.configurator.getPaymentNotifyUrl());
+        return call(this.client::unifiedOrder, request);
+    }
 
     /**
      * 统一下单, 扫码支付(NATIVE).
