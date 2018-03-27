@@ -82,7 +82,7 @@ public class WeChatPayHttpComponentsClientTest {
                 .hasSign("7921E432F65EB8ED0CE9755F0E86D72F")
                 .hasResultCode(ResponseStatus.SUCCESS)
                 .hasPrepayId("wx201411101639507cbf6ffd8b0779950874")
-                .hasTradeType("JSAPI")
+                .hasTradeType(TradeType.JSAPI)
         ;
     }
 
