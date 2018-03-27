@@ -15,6 +15,7 @@ package cn.javaer.wechat.pay.client;
 
 import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
+import cn.javaer.wechat.pay.model.base.ResponseStatus;
 import cn.javaer.wechat.pay.model.base.TradeType;
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import org.apache.http.client.HttpClient;
@@ -23,7 +24,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static cn.javaer.wechat.pay.model.base.BasePayResponse.SUCCESS;
 import static cn.javaer.wechat.test.Assertions.assertThat;
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.post;
@@ -74,13 +74,13 @@ public class WeChatPayHttpComponentsClientTest {
         request.setSpbillCreateIp("127.0.0.1");
         final UnifiedOrderResponse response = this.client.unifiedOrder(request);
         assertThat(response)
-                .hasReturnCode(SUCCESS)
+                .hasReturnCode(ResponseStatus.SUCCESS)
                 .hasReturnMsg("OK")
                 .hasAppId("wx2421b1c4370ec43b")
                 .hasMchId("10000100")
                 .hasNonceStr("IITRi8Iabbblz1Jc")
                 .hasSign("7921E432F65EB8ED0CE9755F0E86D72F")
-                .hasResultCode(SUCCESS)
+                .hasResultCode(ResponseStatus.SUCCESS)
                 .hasPrepayId("wx201411101639507cbf6ffd8b0779950874")
                 .hasTradeType("JSAPI")
         ;

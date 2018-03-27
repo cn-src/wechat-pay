@@ -18,6 +18,7 @@ import cn.javaer.wechat.pay.model.DownloadBillResponse;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.BillItem;
 import cn.javaer.wechat.pay.model.base.Coupon;
+import cn.javaer.wechat.pay.model.base.ResponseStatus;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -186,11 +187,11 @@ public class ObjectUtils {
      * @throws WeChatPayException 没有响应信息, 响应信息标示不成功时抛出此异常.
      */
     public static void checkSuccessful(final BasePayResponse response) {
-        if (!BasePayResponse.SUCCESS.equals(response.getReturnCode())) {
+        if (!ResponseStatus.SUCCESS.equals(response.getReturnCode())) {
             throw new WeChatPayException("WeChat pay response 'return_code' is '" + response.getReturnCode()
                     + "', response:" + response.toString());
         }
-        if (!BasePayResponse.SUCCESS.equals(response.getResultCode())) {
+        if (!ResponseStatus.SUCCESS.equals(response.getResultCode())) {
             throw new WeChatPayException("WeChat pay response 'result_code' is '" + response.getResultCode()
                     + "', response:" + response.toString());
         }
@@ -220,8 +221,8 @@ public class ObjectUtils {
     public static boolean isSuccessful(final BasePayResponse response, final String mchKey) {
 
         return response.getSign().equals(SignUtils.generateSign(response, mchKey))
-                && (BasePayResponse.SUCCESS.equals(response.getReturnCode()))
-                && (BasePayResponse.SUCCESS.equals(response.getResultCode()));
+                && (ResponseStatus.SUCCESS.equals(response.getReturnCode()))
+                && (ResponseStatus.SUCCESS.equals(response.getResultCode()));
     }
 
 

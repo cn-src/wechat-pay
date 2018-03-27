@@ -14,6 +14,7 @@
 package cn.javaer.wechat.pay.util;
 
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
+import cn.javaer.wechat.pay.model.base.ResponseStatus;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -30,12 +31,12 @@ public class SignUtilsTest {
     @Test
     public void generateSign() {
         final UnifiedOrderResponse response = new UnifiedOrderResponse();
-        response.setReturnCode("SUCCESS");
+        response.setReturnCode(ResponseStatus.SUCCESS);
         response.setReturnMsg("OK");
         response.setAppId("wx2421b1c4370ec43b");
         response.setMchId("10000100");
         response.setNonceStr("IITRi8Iabbblz1Jc");
-        response.setResultCode("SUCCESS");
+        response.setResultCode(ResponseStatus.SUCCESS);
         response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
         response.setTradeType("JSAPI");
 
@@ -46,12 +47,12 @@ public class SignUtilsTest {
     @Test
     public void generateSign4Cache() throws Exception {
         final UnifiedOrderResponse response = new UnifiedOrderResponse();
-        response.setReturnCode("SUCCESS");
+        response.setReturnCode(ResponseStatus.SUCCESS);
         response.setReturnMsg("OK");
         response.setAppId("wx2421b1c4370ec43b");
         response.setMchId("10000100");
         response.setNonceStr("IITRi8Iabbblz1Jc");
-        response.setResultCode("SUCCESS");
+        response.setResultCode(ResponseStatus.SUCCESS);
         response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
         response.setTradeType("JSAPI");
 

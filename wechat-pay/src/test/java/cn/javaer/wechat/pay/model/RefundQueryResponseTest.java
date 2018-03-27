@@ -13,6 +13,7 @@
 
 package cn.javaer.wechat.pay.model;
 
+import cn.javaer.wechat.pay.model.base.ResponseStatus;
 import cn.javaer.wechat.pay.util.CodecUtils;
 import cn.javaer.wechat.pay.util.SignUtils;
 import org.junit.Test;
@@ -72,8 +73,8 @@ public class RefundQueryResponseTest {
         final RefundQueryResponse response = CodecUtils.unmarshal(this.testData, RefundQueryResponse.class);
 
         assertThat(response)
-                .hasReturnCode("SUCCESS")
-                .hasResultCode("SUCCESS")
+                .hasReturnCode(ResponseStatus.SUCCESS)
+                .hasResultCode(ResponseStatus.SUCCESS)
                 .hasAppId("appid")
                 .hasMchId("mch_id")
                 .hasNonceStr("4EDCA0A0220F466D95C524FA3FE3C100")

@@ -34,13 +34,12 @@ import java.util.SortedMap;
 @Setter
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class BasePayResponse {
-    public static final String SUCCESS = "SUCCESS";
     @XmlAnyElement(AnyElementsDomHandler.class)
     @Setter(AccessLevel.PACKAGE)
     @SignIgnore
     protected SortedMap<String, String> otherParams;
     @XmlElement(name = "return_code")
-    private String returnCode;
+    private ResponseStatus returnCode;
     @XmlElement(name = "return_msg")
     private String returnMsg;
     @XmlElement(name = "appid")
@@ -59,7 +58,7 @@ public abstract class BasePayResponse {
     @XmlElement(name = "sign_type")
     private SignType signType;
     @XmlElement(name = "result_code")
-    private String resultCode;
+    private ResponseStatus resultCode;
     @XmlElement(name = "err_code")
     private String errCode;
     @XmlElement(name = "err_code_des")

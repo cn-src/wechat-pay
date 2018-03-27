@@ -14,6 +14,7 @@
 package cn.javaer.wechat.pay.model.notify;
 
 import cn.javaer.wechat.pay.model.base.Coupon;
+import cn.javaer.wechat.pay.model.base.ResponseStatus;
 import cn.javaer.wechat.pay.util.CodecUtils;
 import org.junit.Test;
 
@@ -81,8 +82,8 @@ public class PaymentNotifyTest {
                 .hasNonceStr("5d2b6c2a8db53831f7eda20af46e531c")
                 .hasOpenId("oUpF8uMEb4qRXf22hE3X68TekukE")
                 .hasOutTradeNo("1409811653")
-                .hasResultCode("SUCCESS")
-                .hasReturnCode("SUCCESS")
+                .hasResultCode(ResponseStatus.SUCCESS)
+                .hasReturnCode(ResponseStatus.SUCCESS)
                 .hasSign("B552ED6B279343CB493C5DD0D78AB241")
                 .hasSubMchId("10000100")
                 .hasTimeEnd("20140903131540")
