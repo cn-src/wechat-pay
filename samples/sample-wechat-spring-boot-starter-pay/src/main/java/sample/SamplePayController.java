@@ -14,6 +14,7 @@
 package sample;
 
 import cn.javaer.wechat.pay.WeChatPayService;
+import cn.javaer.wechat.pay.model.base.JsParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,4 +37,10 @@ public class SamplePayController {
     public String unifiedOrderWithNative(final String outTradeNo, final HttpServletRequest request) {
         return this.weChatPayService.unifiedOrderWithNative(outTradeNo, "TEST", 1, request.getRemoteAddr());
     }
+
+    @RequestMapping("/unifiedOrderWithJsApi")
+    public JsParams unifiedOrderWithJsApi(final String outTradeNo, final HttpServletRequest request) {
+        return this.weChatPayService.unifiedOrderWithJsApi(outTradeNo, "TEST", 1, request.getRemoteAddr(), System.getenv("openid"));
+    }
+
 }
