@@ -13,8 +13,13 @@
 
 package cn.javaer.wechat.pay.util;
 
+import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
+import cn.javaer.wechat.pay.model.base.SignType;
 import org.junit.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 /**
  * @author zhangpeng
@@ -25,5 +30,12 @@ public class CodecUtilsTest {
     public void unmarshal() {
         final OrderQueryResponse response = CodecUtils.unmarshal("<xml><openid>openid</openid><trade_state>unknown</trade_state></xml>", OrderQueryResponse.class);
         System.out.println(response.getTradeState());
+    }
+
+    @Test
+    public void marshal() {
+        final OrderQueryRequest request = new OrderQueryRequest();
+        request.setSignType(SignType.HMAC_SHA256);
+        assertThat(CodecUtils.marshal(request)).contains("<sign_type>HMAC-SHA256</sign_type>");
     }
 }
