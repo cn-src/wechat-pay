@@ -77,6 +77,27 @@ public class ObjectUtils {
         }
     }
 
+    /**
+     * 从 otherParams 中取出相应的值转换为对应的枚举.
+     *
+     * @param <E> the Enum type parameter
+     * @param key the key
+     * @param clazz the Enum clazz
+     * @param otherParams the other params
+     *
+     * @return the Enum
+     */
+    public static <E extends Enum<E>> E enumOf(final String key, final Class<E> clazz, final SortedMap<String, String> otherParams) {
+        if (null != otherParams) {
+            try {
+                return Enum.valueOf(clazz, otherParams.get(key));
+            }
+            catch (final Exception e) {
+                return null;
+            }
+        }
+        return null;
+    }
 
     /**
      * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.

@@ -55,7 +55,6 @@ public class OrderQueryResponse extends BasePayResponse {
     @XmlElement(name = "trade_type")
     private String tradeType;
 
-    @XmlElement(name = "trade_state")
     private TradeState tradeState;
 
     @XmlElement(name = "bank_type")
@@ -111,8 +110,11 @@ public class OrderQueryResponse extends BasePayResponse {
 
     @Override
     public void processResponse() {
-        if (null == this.coupons && null != this.otherParams) {
-            this.coupons = ObjectUtils.couponsFrom(this.otherParams);
+        if (null != this.otherParams) {
+            if (null == this.coupons) {
+                this.coupons = ObjectUtils.couponsFrom(this.otherParams);
+            }
         }
+        this.tradeState = ObjectUtils.enumOf("trade_state", TradeState.class, this.otherParams);
     }
 }
