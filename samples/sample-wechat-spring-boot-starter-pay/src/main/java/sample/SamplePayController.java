@@ -14,7 +14,12 @@
 package sample;
 
 import cn.javaer.wechat.pay.WeChatPayService;
+import cn.javaer.wechat.pay.model.CloseOrderResponse;
+import cn.javaer.wechat.pay.model.DownloadBillResponse;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
+import cn.javaer.wechat.pay.model.RefundQueryResponse;
+import cn.javaer.wechat.pay.model.RefundResponse;
+import cn.javaer.wechat.pay.model.base.BillType;
 import cn.javaer.wechat.pay.model.base.JsParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -23,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * @author zhangpeng
@@ -49,6 +56,30 @@ public class SamplePayController {
     @RequestMapping(value = "/orderQuery", produces = MediaType.APPLICATION_JSON_VALUE)
     public OrderQueryResponse orderQuery(final String outTradeNo) {
         return this.weChatPayService.orderQuery(outTradeNo);
+    }
+
+    @RequestMapping(value = "/closeOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    public CloseOrderResponse closeOrder(final String outTradeNo) {
+        return this.weChatPayService.closeOrder(outTradeNo);
+    }
+
+    @RequestMapping(value = "/closeOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    public RefundResponse refund(
+            @RequestParam("outTradeNo") final String outTradeNo,
+            @RequestParam("outRefundNo") final String outRefundNo) {
+        return this.weChatPayService.refund(outTradeNo, outRefundNo, 1, 1, "商品退款");
+    }
+
+    @RequestMapping(value = "/refundQuery", produces = MediaType.APPLICATION_JSON_VALUE)
+    public RefundQueryResponse refundQuery(
+            @RequestParam("outTradeNo") final String outTradeNo) {
+        return this.weChatPayService.refundQuery(outTradeNo);
+    }
+
+    @RequestMapping(value = "/downloadBill", produces = MediaType.APPLICATION_JSON_VALUE)
+    public DownloadBillResponse downloadBill(
+            @RequestParam("queryDate") final String queryDate) {
+        return this.weChatPayService.downloadBill(LocalDate.from(DateTimeFormatter.ofPattern("yyyyMMdd").parse(queryDate)), BillType.ALL);
     }
 
 }

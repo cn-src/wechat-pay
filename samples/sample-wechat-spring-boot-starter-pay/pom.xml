@@ -25,6 +25,15 @@
     <groupId>cn.javaer.wechat</groupId>
     <artifactId>sample-wechat-spring-boot-starter-pay</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>cn.javaer.wechat</groupId>
