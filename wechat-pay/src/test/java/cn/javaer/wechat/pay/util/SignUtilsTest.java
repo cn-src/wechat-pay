@@ -15,6 +15,7 @@ package cn.javaer.wechat.pay.util;
 
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.pay.model.base.ResponseStatus;
+import cn.javaer.wechat.pay.model.base.TradeType;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -38,7 +39,7 @@ public class SignUtilsTest {
         response.setNonceStr("IITRi8Iabbblz1Jc");
         response.setResultCode(ResponseStatus.SUCCESS);
         response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
-        response.setTradeType("JSAPI");
+        response.setTradeType(TradeType.JSAPI);
 
         assertEquals("BC884153761883FE608EA956BD05A6F5", SignUtils.generateSign(response, "key"));
     }
@@ -54,7 +55,7 @@ public class SignUtilsTest {
         response.setNonceStr("IITRi8Iabbblz1Jc");
         response.setResultCode(ResponseStatus.SUCCESS);
         response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
-        response.setTradeType("JSAPI");
+        response.setTradeType(TradeType.JSAPI);
 
         // 2次调用测试缓存
         SignUtils.generateSign(response, "key");
