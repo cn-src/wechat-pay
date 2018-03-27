@@ -14,6 +14,8 @@
 package cn.javaer.wechat.pay.model;
 
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
+import cn.javaer.wechat.pay.model.base.TradeType;
+import cn.javaer.wechat.pay.util.ObjectUtils;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -38,12 +40,16 @@ public class UnifiedOrderResponse extends BasePayResponse {
     @XmlElement(name = "device_info")
     private String deviceInfo;
 
-    @XmlElement(name = "trade_type")
-    private String tradeType;
+    private TradeType tradeType;
 
     @XmlElement(name = "prepay_id")
     private String prepayId;
 
     @XmlElement(name = "code_url")
     private String codeUrl;
+
+    @Override
+    protected void subProcessResponse() {
+        this.tradeType = ObjectUtils.enumOf("trade_type", TradeType.class, this.otherParams);
+    }
 }
