@@ -16,9 +16,10 @@ package cn.javaer.wechat.pay.util;
 import cn.javaer.wechat.pay.model.OrderQueryRequest;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.pay.model.base.SignType;
+import cn.javaer.wechat.pay.model.base.TradeState;
 import org.junit.Test;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static cn.javaer.wechat.test.Assertions.assertThat;
 
 
 /**
@@ -28,8 +29,17 @@ public class CodecUtilsTest {
 
     @Test
     public void unmarshal() {
+        final OrderQueryResponse response = CodecUtils.unmarshal("<xml><openid>openid</openid><trade_state>SUCCESS</trade_state></xml>", OrderQueryResponse.class);
+        assertThat(response).hasTradeState(TradeState.SUCCESS);
+    }
+
+    @Test
+    public void unmarshalUnknown() {
         final OrderQueryResponse response = CodecUtils.unmarshal("<xml><openid>openid</openid><trade_state>unknown</trade_state></xml>", OrderQueryResponse.class);
-        System.out.println(response.getTradeState());
+        assertThat(response).hasTradeState(null);
+        assertThat(response.getOtherParams()).containsKey("trade_state").containsValue("unknown");
+        final String sign = SignUtils.generateSign(response, "key");
+        assertThat(sign).isEqualTo("0EDD82E066154AD999BEAD0A90A4F205");
     }
 
     @Test
