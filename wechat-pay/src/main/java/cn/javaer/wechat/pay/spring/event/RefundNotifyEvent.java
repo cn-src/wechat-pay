@@ -35,7 +35,6 @@ public class RefundNotifyEvent {
      * @param mchKey the mch key
      */
     public RefundNotifyEvent(final RefundNotify refundNotify, final String mchKey) {
-        refundNotify.processResponse();
         this.refundNotify = refundNotify;
         this.refundSuccessful = ObjectUtils.isSuccessful(refundNotify, mchKey);
     }

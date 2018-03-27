@@ -11,32 +11,19 @@
  * limitations under the License.
  */
 
-package cn.javaer.wechat.pay.support;
+package cn.javaer.wechat.pay.util;
 
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
-import cn.javaer.wechat.pay.model.base.Coupon;
-import cn.javaer.wechat.pay.util.CodecUtils;
 import org.junit.Test;
-
-import java.util.List;
-
-import static cn.javaer.wechat.test.Assertions.assertThat;
 
 /**
  * @author zhangpeng
  */
-public class AnyElementsDomHandlerTest {
+public class CodecUtilsTest {
 
     @Test
-    public void elementsToMap() {
-
-        final OrderQueryResponse response = CodecUtils.unmarshal(
-                "<xml><sign>d</sign><nonce_str>nonce_str_value</nonce_str><coupon_type_0>CASH</coupon_type_0></xml>",
-                OrderQueryResponse.class);
-
-        final List<Coupon> coupons = response.getCoupons();
-        assertThat(coupons)
-                .hasSize(1);
-        assertThat(coupons.get(0)).hasType(Coupon.Type.CASH);
+    public void unmarshal() {
+        final OrderQueryResponse response = CodecUtils.unmarshal("<xml><openid>openid</openid><trade_state>unknown</trade_state></xml>", OrderQueryResponse.class);
+        System.out.println(response.getTradeState());
     }
 }

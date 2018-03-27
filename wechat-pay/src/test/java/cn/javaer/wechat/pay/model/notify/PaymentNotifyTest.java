@@ -92,8 +92,6 @@ public class PaymentNotifyTest {
                 .hasTradeType("JSAPI")
                 .hasTransactionId("1004400740201409030005092168");
 
-        notifyResult.processResponse();
-
         assertThat(notifyResult.getCoupons())
                 .hasSize(5)
                 .extracting("id", "type", "fee")

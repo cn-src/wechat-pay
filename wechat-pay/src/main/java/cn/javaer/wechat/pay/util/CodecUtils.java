@@ -14,6 +14,7 @@
 package cn.javaer.wechat.pay.util;
 
 import cn.javaer.wechat.pay.UncheckedException;
+import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
@@ -144,12 +145,14 @@ public class CodecUtils {
      * @return the pojo
      */
     @SuppressWarnings("unchecked")
-    public static <T> T unmarshal(final String xmlStr, final Class<T> clazz) {
+    public static <T extends BasePayResponse> T unmarshal(final String xmlStr, final Class<T> clazz) {
         try {
             final JAXBContext context = JAXBContext.newInstance(clazz);
             final Unmarshaller unmarshaller = context.createUnmarshaller();
             final StringReader reader = new StringReader(xmlStr);
-            return (T) unmarshaller.unmarshal(reader);
+            final T response = (T) unmarshaller.unmarshal(reader);
+            response.processResponse();
+            return response;
         }
         catch (final JAXBException e) {
             throw new UncheckedException(e);

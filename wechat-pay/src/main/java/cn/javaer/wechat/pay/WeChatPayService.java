@@ -275,7 +275,6 @@ public class WeChatPayService {
             final Function<T, R> fun, final T request) {
         beforeRequest(request);
         final R response = fun.apply(request);
-        response.processResponse();
         if (null != this.clientExecuteHook) {
             this.clientExecuteHook.accept(request, response);
         }

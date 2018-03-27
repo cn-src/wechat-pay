@@ -34,7 +34,6 @@ public class PaymentNotifyEvent {
      * @param mchKey the mch key
      */
     public PaymentNotifyEvent(final PaymentNotify paymentNotify, final String mchKey) {
-        paymentNotify.processResponse();
         this.paymentNotify = paymentNotify;
         this.paymentSuccessful = ObjectUtils.isSuccessful(paymentNotify, mchKey);
     }

@@ -18,7 +18,6 @@ import cn.javaer.wechat.pay.util.SignUtils;
 import org.junit.Test;
 
 import static cn.javaer.wechat.test.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author zhangpeng
@@ -84,8 +83,6 @@ public class RefundQueryResponseTest {
                 .hasTotalFee(100)
                 .hasCashFee(90)
                 .hasRefundCount(21);
-
-        response.processResponse();
 
         assertThat(response.getOtherParams())
                 .containsEntry("out_refund_no_0", "out_refund_no_0")
