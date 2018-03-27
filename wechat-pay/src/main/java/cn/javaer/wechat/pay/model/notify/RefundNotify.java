@@ -51,7 +51,7 @@ public class RefundNotify extends BasePayResponse {
     private ReqInfo reqInfo;
 
 
-    public void processResponse(final String mchKey) {
+    public void decrypt(final String mchKey) {
         // 解密字段
         this.reqInfo = CodecUtils.unmarshal(CodecUtils.decrypt(this.reqInfoText, mchKey), ReqInfo.class);
     }

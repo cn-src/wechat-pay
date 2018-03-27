@@ -13,8 +13,8 @@
 
 package cn.javaer.wechat.pay.spring.event;
 
+import cn.javaer.wechat.pay.model.base.ResponseStatus;
 import cn.javaer.wechat.pay.model.notify.RefundNotify;
-import cn.javaer.wechat.pay.util.ObjectUtils;
 
 /**
  * 微信支付-退款结果通知事件.
@@ -35,8 +35,9 @@ public class RefundNotifyEvent {
      * @param mchKey the mch key
      */
     public RefundNotifyEvent(final RefundNotify refundNotify, final String mchKey) {
+        refundNotify.decrypt(mchKey);
         this.refundNotify = refundNotify;
-        this.refundSuccessful = ObjectUtils.isSuccessful(refundNotify, mchKey);
+        this.refundSuccessful = ResponseStatus.SUCCESS.equals(refundNotify.getReturnCode());
     }
 
     public RefundNotify getRefundNotify() {
