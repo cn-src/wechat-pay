@@ -16,6 +16,7 @@ package cn.javaer.wechat.pay.model;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.Coupon;
 import cn.javaer.wechat.pay.model.base.Refund;
+import cn.javaer.wechat.pay.model.base.RefundStatus;
 import cn.javaer.wechat.pay.support.SignIgnore;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import lombok.Getter;
@@ -110,7 +111,8 @@ public class RefundQueryResponse extends BasePayResponse {
                 (val, coupon) -> coupon.setSettlementRefundFee(Integer.valueOf(val)));
         refundMapping.put("coupon_refund_fee_", (val, coupon) -> coupon.setCouponRefundFee(Integer.valueOf(val)));
         refundMapping.put("coupon_refund_count_", (val, coupon) -> coupon.setCouponRefundCount(Integer.valueOf(val)));
-        refundMapping.put("refund_status_", (val, coupon) -> coupon.setRefundStatus(val));
+        refundMapping.put("refund_status_", (val, coupon) ->
+                coupon.setRefundStatus(ObjectUtils.enumOf(val, RefundStatus.class)));
         refundMapping.put("refund_account_", (val, coupon) -> coupon.setRefundAccount(val));
         refundMapping.put("refund_recv_accout_", (val, coupon) -> coupon.setRefundRecvAccout(val));
         refundMapping.put("refund_success_time_", (val, coupon) -> coupon.setRefundSuccessTime(val));

@@ -101,6 +101,29 @@ public class ObjectUtils {
     }
 
     /**
+     * 转换枚举，忽略转换异常.
+     *
+     * @param value Enum value
+     * @param clazz Enum class
+     * @param <E> Enum Type
+     *
+     * @return Enum
+     */
+    public static <E extends Enum<E>> E enumOf(final String value, final Class<E> clazz) {
+        if (value == null) {
+            return null;
+        }
+        else {
+            try {
+                return Enum.valueOf(clazz, value);
+            }
+            catch (final Exception e) {
+                return null;
+            }
+        }
+    }
+
+    /**
      * Gets all fields of the given class and its parents (if any) that are annotated with the given annotation.
      *
      * @param clazz the {@link Class} to query

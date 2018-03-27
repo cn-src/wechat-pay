@@ -63,7 +63,7 @@ public class Refund {
     /**
      * 退款状态.
      */
-    private String refundStatus;
+    private RefundStatus refundStatus;
 
     /**
      * 退款资金来源.
