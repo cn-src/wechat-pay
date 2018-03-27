@@ -32,7 +32,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -156,7 +155,7 @@ public class WeChatPayHttpComponentsClient implements WeChatPayClient {
             final String xmlReq = CodecUtils.marshal(request);
             this.log.debug("WeChat pay request({}):\n{}", apiPath, xmlReq);
             httpPost.setEntity(new StringEntity(xmlReq, StandardCharsets.UTF_8));
-            responseStr = this.httpClient.execute(httpPost, new BasicResponseHandler());
+            responseStr = EntityUtils.toString(this.httpClient.execute(httpPost).getEntity(), StandardCharsets.UTF_8);
             this.log.debug("WeChat pay response({}):\n{}", apiPath, responseStr);
         }
         catch (final IOException e) {
