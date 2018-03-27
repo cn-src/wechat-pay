@@ -278,8 +278,7 @@ public class WeChatPayService {
         if (null != this.clientExecuteHook) {
             this.clientExecuteHook.accept(request, response);
         }
-        ObjectUtils.checkSign(response, this.configurator.getMchKey());
-        ObjectUtils.checkSuccessful(response);
+        ObjectUtils.checkSuccessful(response, this.configurator.getMchKey());
         return response;
     }
 

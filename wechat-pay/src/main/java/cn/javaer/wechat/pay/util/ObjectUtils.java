@@ -166,27 +166,16 @@ public class ObjectUtils {
     }
 
     /**
-     * 校验签名是否正确.
-     *
-     * @param response BasePayResponse
-     *
-     * @throws WeChatPayException 没有响应信息, 响应信息标示不成功时抛出此异常.
-     */
-    public static void checkSign(final BasePayResponse response, final String mchKey) {
-        if (!response.getSign().equals(SignUtils.generateSign(response, mchKey))) {
-            throw new WeChatPayException("WeChat pay response 'sign' error, response:" + response.toString());
-        }
-
-    }
-
-    /**
      * 校验响应信息是否为成功.
      *
      * @param response BasePayResponse
      *
      * @throws WeChatPayException 没有响应信息, 响应信息标示不成功时抛出此异常.
      */
-    public static void checkSuccessful(final BasePayResponse response) {
+    public static void checkSuccessful(final BasePayResponse response, final String mchKey) {
+        if (!response.getSign().equals(SignUtils.generateSign(response, mchKey))) {
+            throw new WeChatPayException("WeChat pay response 'sign' error, response:" + response.toString());
+        }
         if (!ResponseStatus.SUCCESS.equals(response.getReturnCode())) {
             throw new WeChatPayException("WeChat pay response 'return_code' is '" + response.getReturnCode()
                     + "', response:" + response.toString());
