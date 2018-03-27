@@ -109,7 +109,7 @@ public class OrderQueryResponse extends BasePayResponse {
     private List<Coupon> coupons;
 
     @Override
-    public void processResponse() {
+    public void subProcessResponse() {
         if (null != this.otherParams) {
             if (null == this.coupons) {
                 this.coupons = ObjectUtils.couponsFrom(this.otherParams);
