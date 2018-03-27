@@ -19,21 +19,35 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-<form id="mainForm">
-    <input type="text" name="outTradeNo"/>
-    <input type="submit" value="提交" id="submitBtn">
-</form>
+<input type="text" name="outTradeNo" id="outTradeNo"/>
+<input type="submit" value="提交" id="submitBtn">
 <script>
+
     $("#submitBtn").on("click", function () {
         $.post('/unifiedOrderWithJsApi',
-            $('#mainForm').serialize(),
+            {
+                outTradeNo: $('#outTradeNo').val()
+            },
             function (data) {
-                WeixinJSBridge.invoke(
-                    'getBrandWCPayRequest', data,
-                    function (res) {
-                        alert(res.err_msg)
+                function onBridgeReady() {
+                    WeixinJSBridge.invoke(
+                        'getBrandWCPayRequest', data,
+                        function (res) {
+                            alert(res.err_msg)
+                        }
+                    );
+                }
+
+                if (typeof WeixinJSBridge == "undefined") {
+                    if (document.addEventListener) {
+                        document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+                    } else if (document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                        document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
                     }
-                );
+                } else {
+                    onBridgeReady();
+                }
             }
         )
     });
