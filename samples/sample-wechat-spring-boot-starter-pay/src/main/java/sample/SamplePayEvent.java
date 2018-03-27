@@ -14,7 +14,7 @@
 package sample;
 
 import cn.javaer.wechat.pay.spring.event.PaymentNotifyEvent;
-import cn.javaer.wechat.pay.spring.event.UnifiedOrderEvent;
+import cn.javaer.wechat.pay.spring.event.RefundNotifyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 public class SamplePayEvent {
 
     @EventListener
-    public void unifiedOrderEvent(final UnifiedOrderEvent event) {
+    public void refundNotifyEvent(final RefundNotifyEvent event) {
         System.out.println(event);
     }
 
