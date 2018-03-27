@@ -15,7 +15,6 @@ package cn.javaer.wechat.pay.util;
 
 import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 import cn.javaer.wechat.pay.model.base.ResponseStatus;
-import cn.javaer.wechat.pay.model.base.TradeType;
 import org.junit.Test;
 
 import java.lang.reflect.Field;
@@ -39,9 +38,8 @@ public class SignUtilsTest {
         response.setNonceStr("IITRi8Iabbblz1Jc");
         response.setResultCode(ResponseStatus.SUCCESS);
         response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
-        response.setTradeType(TradeType.JSAPI);
 
-        assertEquals("BC884153761883FE608EA956BD05A6F5", SignUtils.generateSign(response, "key"));
+        assertEquals("A1BEA583D7519373D44343ADF19D73AD", SignUtils.generateSign(response, "key"));
     }
 
     @SuppressWarnings("unchecked")
@@ -55,12 +53,11 @@ public class SignUtilsTest {
         response.setNonceStr("IITRi8Iabbblz1Jc");
         response.setResultCode(ResponseStatus.SUCCESS);
         response.setPrepayId("wx201411101639507cbf6ffd8b0779950874");
-        response.setTradeType(TradeType.JSAPI);
 
         // 2次调用测试缓存
         SignUtils.generateSign(response, "key");
 
-        assertEquals("BC884153761883FE608EA956BD05A6F5", SignUtils.generateSign(response, "key"));
+        assertEquals("A1BEA583D7519373D44343ADF19D73AD", SignUtils.generateSign(response, "key"));
         final Field field = SignUtils.class.getDeclaredField("CACHE_FOR_SIGN");
         field.setAccessible(true);
         final Map<Class, List<Field>> cache = (Map<Class, List<Field>>) field.get(null);
