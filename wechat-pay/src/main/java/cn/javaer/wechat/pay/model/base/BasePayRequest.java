@@ -14,7 +14,6 @@
 package cn.javaer.wechat.pay.model.base;
 
 import cn.javaer.wechat.pay.support.SignIgnore;
-import cn.javaer.wechat.pay.support.SignType;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;

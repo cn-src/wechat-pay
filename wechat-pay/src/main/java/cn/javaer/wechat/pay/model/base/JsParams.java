@@ -13,7 +13,6 @@
 
 package cn.javaer.wechat.pay.model.base;
 
-import cn.javaer.wechat.pay.support.SignType;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import cn.javaer.wechat.pay.util.SignUtils;
 import com.fasterxml.jackson.annotation.JsonProperty;
