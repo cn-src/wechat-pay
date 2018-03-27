@@ -19,28 +19,23 @@
     <script src="http://cdn.static.runoob.com/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
-<form method="post" id="mainForm">
+<form id="mainForm">
     <input type="text" name="outTradeNo"/>
     <input type="submit" value="提交" id="submitBtn">
 </form>
 <script>
     $("#submitBtn").on("click", function () {
-        $('#mainForm').ajaxSubmit(      //ajax方式提交表单
-            {
-                url: '/unifiedOrderWithJsApi',
-                type: 'post',
-                dataType: 'json',
-                success: function (data) {
-                    WeixinJSBridge.invoke(
-                        'getBrandWCPayRequest', data,
-                        function (res) {
-                            alert(res.err_msg)
-                        }
-                    );
-                },
-                clearForm: false,
-                resetForm: false
-            });
+        $.post('/unifiedOrderWithJsApi',
+            $('#mainForm').serialize(),
+            function (data) {
+                WeixinJSBridge.invoke(
+                    'getBrandWCPayRequest', data,
+                    function (res) {
+                        alert(res.err_msg)
+                    }
+                );
+            }
+        )
     });
 
 </script>
