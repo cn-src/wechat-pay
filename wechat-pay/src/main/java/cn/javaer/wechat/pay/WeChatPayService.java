@@ -56,7 +56,6 @@ public class WeChatPayService {
     private final WeChatPayClient client;
     private final WeChatPayConfigurator configurator;
     private final Validator validator;
-    private CientExecuteHook clientExecuteHook;
 
     /**
      * Instantiates a new WeChatPayService.
@@ -260,24 +259,14 @@ public class WeChatPayService {
         request.setBillType(billType);
         beforeRequest(request);
         final DownloadBillResponse response = this.client.downloadBill(request);
-        if (null != this.clientExecuteHook) {
-            this.clientExecuteHook.accept(request, response);
-        }
         ObjectUtils.checkSuccessful(response);
         return response;
-    }
-
-    public void setClientExecuteHook(final CientExecuteHook clientExecuteHook) {
-        this.clientExecuteHook = clientExecuteHook;
     }
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(
             final Function<T, R> fun, final T request) {
         beforeRequest(request);
         final R response = fun.apply(request);
-        if (null != this.clientExecuteHook) {
-            this.clientExecuteHook.accept(request, response);
-        }
         ObjectUtils.checkSuccessful(response, this.configurator.getMchKey());
         return response;
     }

@@ -13,15 +13,11 @@
 
 package cn.javaer.wechat.pay.spring;
 
-import cn.javaer.wechat.pay.CientExecuteHook;
 import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayService;
 import cn.javaer.wechat.pay.client.HttpClientFactory;
 import cn.javaer.wechat.pay.client.WeChatPayClient;
 import cn.javaer.wechat.pay.client.WeChatPayHttpComponentsClient;
-import cn.javaer.wechat.pay.model.UnifiedOrderRequest;
-import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
-import cn.javaer.wechat.pay.spring.event.UnifiedOrderEvent;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import org.apache.http.client.HttpClient;
 import org.hibernate.validator.HibernateValidator;
@@ -45,7 +41,6 @@ public class WeChatPayServiceFactoryBean implements
     private WeChatPayService weChatPayService;
     private WeChatPayClient weChatPayClient;
     private Validator validator;
-    private CientExecuteHook clientExecuteHook;
     private ApplicationEventPublisher applicationEventPublisher;
 
     @Override
@@ -75,17 +70,7 @@ public class WeChatPayServiceFactoryBean implements
                     .failFast(true)
                     .buildValidatorFactory().getValidator();
         }
-        if (this.clientExecuteHook == null) {
-            this.clientExecuteHook = (request, response) -> {
-                if (request instanceof UnifiedOrderRequest) {
-                    this.applicationEventPublisher.publishEvent(
-                            new UnifiedOrderEvent((UnifiedOrderRequest) request,
-                                    (UnifiedOrderResponse) response));
-                }
-            };
-        }
         this.weChatPayService = new WeChatPayService(this.weChatPayClient, this.weChatPayConfigurator, this.validator);
-        this.weChatPayService.setClientExecuteHook(this.clientExecuteHook);
     }
 
     private WeChatPayClient weChatPayClient() {
@@ -110,9 +95,5 @@ public class WeChatPayServiceFactoryBean implements
 
     public void setValidator(final Validator validator) {
         this.validator = validator;
-    }
-
-    public void setClientExecuteHook(final CientExecuteHook clientExecuteHook) {
-        this.clientExecuteHook = clientExecuteHook;
     }
 }
