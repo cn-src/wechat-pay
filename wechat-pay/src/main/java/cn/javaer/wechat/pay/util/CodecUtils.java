@@ -145,13 +145,15 @@ public class CodecUtils {
      * @return the pojo
      */
     @SuppressWarnings("unchecked")
-    public static <T extends BasePayResponse> T unmarshal(final String xmlStr, final Class<T> clazz) {
+    public static <T> T unmarshal(final String xmlStr, final Class<T> clazz) {
         try {
             final JAXBContext context = JAXBContext.newInstance(clazz);
             final Unmarshaller unmarshaller = context.createUnmarshaller();
             final StringReader reader = new StringReader(xmlStr);
             final T response = (T) unmarshaller.unmarshal(reader);
-            response.processResponse();
+            if (response instanceof BasePayResponse) {
+                ((BasePayResponse) response).processResponse();
+            }
             return response;
         }
         catch (final JAXBException e) {
