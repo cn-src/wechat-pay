@@ -16,6 +16,7 @@ package cn.javaer.wechat.pay.model;
 import cn.javaer.wechat.pay.model.base.BasePayResponse;
 import cn.javaer.wechat.pay.model.base.Coupon;
 import cn.javaer.wechat.pay.model.base.TradeState;
+import cn.javaer.wechat.pay.model.base.TradeType;
 import cn.javaer.wechat.pay.support.SignIgnore;
 import cn.javaer.wechat.pay.util.ObjectUtils;
 import lombok.Getter;
@@ -40,38 +41,31 @@ import java.util.List;
 @XmlRootElement(name = "xml")
 public class OrderQueryResponse extends BasePayResponse {
 
+    @XmlElement(name = "device_info")
+    private String deviceInfo;
+
     @XmlElement(name = "openid")
     private String openId;
 
     @XmlElement(name = "is_subscribe")
     private String isSubscribe;
 
-    @XmlElement(name = "sub_openid")
-    private String subOpenid;
-
-    @XmlElement(name = "sub_is_subscribe")
-    private String subIsSubscribe;
-
-    @XmlElement(name = "trade_type")
-    private String tradeType;
+    private TradeType tradeType;
 
     private TradeState tradeState;
 
     @XmlElement(name = "bank_type")
     private String bankType;
 
-    @XmlElement(name = "detail")
-    private String detail;
-
     @XmlElement(name = "total_fee")
     private Integer totalFee;
-
-    @XmlElement(name = "fee_type")
-    private String feeType;
 
     @XmlElement(name = "settlement_total_fee")
     private Integer settlementTotalFee;
 
+    @XmlElement(name = "fee_type")
+    private String feeType;
+    
     @XmlElement(name = "cash_fee")
     private Integer cashFee;
 
@@ -89,9 +83,6 @@ public class OrderQueryResponse extends BasePayResponse {
 
     @XmlElement(name = "out_trade_no")
     private String outTradeNo;
-
-    @XmlElement(name = "device_info")
-    private String deviceInfo;
 
     @XmlElement(name = "attach")
     private String attach;
@@ -115,6 +106,7 @@ public class OrderQueryResponse extends BasePayResponse {
                 this.coupons = ObjectUtils.couponsFrom(this.otherParams);
             }
         }
+        this.tradeType = ObjectUtils.enumOf("trade_type", TradeType.class, this.otherParams);
         this.tradeState = ObjectUtils.enumOf("trade_state", TradeState.class, this.otherParams);
     }
 }
