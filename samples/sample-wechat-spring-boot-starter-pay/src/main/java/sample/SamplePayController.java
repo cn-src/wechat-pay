@@ -17,6 +17,7 @@ import cn.javaer.wechat.pay.WeChatPayService;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 import cn.javaer.wechat.pay.model.base.JsParams;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,7 +46,7 @@ public class SamplePayController {
         return this.weChatPayService.unifiedOrderWithJsApi(outTradeNo, "TEST", 1, request.getRemoteAddr(), System.getenv("openid"));
     }
 
-    @RequestMapping("/orderQuery")
+    @RequestMapping(value = "/orderQuery", produces = MediaType.APPLICATION_JSON_VALUE)
     public OrderQueryResponse orderQuery(final String outTradeNo) {
         return this.weChatPayService.orderQuery(outTradeNo);
     }
