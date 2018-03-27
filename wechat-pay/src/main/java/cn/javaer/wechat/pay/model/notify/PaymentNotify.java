@@ -94,7 +94,7 @@ public class PaymentNotify extends BasePayResponse {
     private List<Coupon> coupons;
 
     @Override
-    public void processResponse() {
+    public void subProcessResponse() {
         if (null == this.coupons && null != this.otherParams) {
             this.coupons = ObjectUtils.couponsFrom(this.otherParams);
         }
