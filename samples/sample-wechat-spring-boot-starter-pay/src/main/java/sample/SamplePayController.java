@@ -63,7 +63,7 @@ public class SamplePayController {
         return this.weChatPayService.closeOrder(outTradeNo);
     }
 
-    @RequestMapping(value = "/closeOrder", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/refund", produces = MediaType.APPLICATION_JSON_VALUE)
     public RefundResponse refund(
             @RequestParam("outTradeNo") final String outTradeNo,
             @RequestParam("outRefundNo") final String outRefundNo) {
