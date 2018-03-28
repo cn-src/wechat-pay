@@ -17,8 +17,9 @@
 # 使用说明
 1. 参数名已尽可能保持与官方文档一致，因此可直接参照官方文档说明使用
 2. 提供了最小化参数集的接口，无需关心过多的参数
-3. 使用 spring 事件机制封装了微信支付通知，以简化使用方式
-4. wiremock 是一个 web mock server, 感兴趣的可以去官网了解 http://wiremock.org/, 配置中可配置微信 API 的 basePath, 所以你可以使用 wiremock 构建一个完全的仿真环境
+3. 兼容微信支付API变动带来的未知响应字段以及枚举值
+5. 使用 spring 事件机制封装了微信支付通知，以简化使用方式
+6. wiremock 是一个 web mock server, 感兴趣的可以去官网了解 http://wiremock.org/, 配置中可配置微信 API 的 basePath, 所以你可以使用 wiremock 构建一个完全的仿真环境
 
 # 使用前提
 1. 申请微信公众号以及微信商户号
