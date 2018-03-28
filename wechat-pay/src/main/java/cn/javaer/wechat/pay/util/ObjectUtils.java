@@ -219,8 +219,7 @@ public class ObjectUtils {
      */
     public static void checkSuccessful(final DownloadBillResponse response) {
         if (null != response.getReturnCode()) {
-            throw new WeChatPayException("WeChat pay response 'return_code' is '" + response.getReturnCode()
-                    + "', response:" + response.toString());
+            throw new WeChatPayException("WeChat pay response 'return_msg' is '" + response.getReturnMsg() + "'");
         }
     }
 
