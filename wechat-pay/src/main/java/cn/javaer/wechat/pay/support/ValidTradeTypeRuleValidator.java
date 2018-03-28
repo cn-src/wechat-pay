@@ -34,12 +34,14 @@ public class ValidTradeTypeRuleValidator implements ConstraintValidator<ValidTra
     public boolean isValid(final UnifiedOrderRequest value, final ConstraintValidatorContext context) {
         if (TradeType.NATIVE.equals(value.getTradeType())) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("TradeType is NATIVE, productId must be not null");
+            context.buildConstraintViolationWithTemplate("TradeType is NATIVE, productId must be not null")
+                    .addPropertyNode("productId").addConstraintViolation();
             return null != value.getProductId();
         }
         if (TradeType.JSAPI.equals(value.getTradeType())) {
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("TradeType is JSAPI, openid must be not null");
+            context.buildConstraintViolationWithTemplate("TradeType is JSAPI, openId must be not null")
+                    .addPropertyNode("openId").addConstraintViolation();
             return null != value.getOpenId();
         }
         return false;

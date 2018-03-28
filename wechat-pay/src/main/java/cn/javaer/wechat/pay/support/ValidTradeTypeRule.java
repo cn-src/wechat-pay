@@ -38,7 +38,7 @@ public @interface ValidTradeTypeRule {
      *
      * @return message string
      */
-    String message() default "#default";
+    String message() default "{cn.javaer.wechat.pay.support.ValidTradeTypeRule.message}";
 
     /**
      * 校验组.
