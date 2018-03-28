@@ -20,9 +20,9 @@ import cn.javaer.wechat.pay.WeChatPayService;
  * @author zhangpeng
  */
 public class WeChatPayServiceFactory {
-    private static WeChatPayService weChatPayService;
+    private static final WeChatPayService weChatPayService;
 
-    public static void init() {
+    static {
         final WeChatPayConfigurator configurator = new WeChatPayConfigurator();
         configurator.setAppId(System.getenv("wechat.pay.appId"));
         configurator.setMchId(System.getenv("wechat.pay.mchId"));

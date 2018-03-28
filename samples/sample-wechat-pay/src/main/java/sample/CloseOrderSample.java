@@ -20,9 +20,6 @@ import cn.javaer.wechat.pay.model.CloseOrderResponse;
  */
 public class CloseOrderSample {
     public static void main(final String[] args) throws Exception {
-        UnifiedOrderSample.main(args);
-        Thread.sleep(3000);
-        WeChatPayServiceFactory.init();
         final CloseOrderResponse response = WeChatPayServiceFactory.weChatPayService().closeOrder("TEST01");
         System.out.println(response);
     }

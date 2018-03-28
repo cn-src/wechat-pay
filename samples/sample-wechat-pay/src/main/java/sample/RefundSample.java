@@ -20,7 +20,6 @@ import cn.javaer.wechat.pay.model.RefundResponse;
  */
 public class RefundSample {
     public static void main(final String[] args) {
-        WeChatPayServiceFactory.init();
         final RefundResponse response = WeChatPayServiceFactory.weChatPayService().refund("TEST03", "T_TEST03", 1, 1, "for test");
         System.out.println(response);
     }
