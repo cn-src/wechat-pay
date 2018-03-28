@@ -53,18 +53,10 @@ WeChatPayService weChatPayService = new WeChatPayService(configurator);
 // weChatPayService 调用相关方法
 ```
 
-# spring 集成
+# spring & spring boot 集成
 
-1. 配置 `WeChatPayController`, `WeChatPayServiceFactoryBean`, 可参照 wechat-spring-boot-starter-pay 中的自动配置.
-2. 使用样例
-
-```
-@Autowired
-private WeChatPayService weChatPayService
-```
-
-## spring boot 集成
-1. 配置
+* 【spring集成】配置 `WeChatPayController`, `WeChatPayServiceFactoryBean`, 可参照 wechat-spring-boot-starter-pay 中的自动配置.
+* 【spring boot 集成】配置
 ```
 wechat.pay.appId=
 wechat.pay.mchId=
@@ -72,9 +64,38 @@ wechat.pay.mchKey=
 wechat.pay.paymentNotifyUrl=http://your_host/public/wechat/pay/payment_notify
 wechat.pay.certificatePath=
 ```
+* 使用样例
 
-2. 使用样例
-```
+```java
+// 调用接口
 @Autowired
 private WeChatPayService weChatPayService
+```
+
+```java
+// 接收结果通知
+@Component
+public class SamplePayEvent {
+
+    /**
+     * 付款结果通知.
+     *
+     * @param event PaymentNotifyEvent
+     */
+    @EventListener
+    public void paymentNotifyEvent(final PaymentNotifyEvent event) {
+        System.out.println(event);
+    }
+
+    /**
+     * 退款结果通知.
+     *
+     * @param event RefundNotifyEvent
+     */
+    @EventListener
+    public void refundNotifyEvent(final RefundNotifyEvent event) {
+        System.out.println(event);
+    }
+}
+
 ```

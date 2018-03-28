@@ -24,13 +24,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class SamplePayEvent {
 
+    /**
+     * 付款结果通知.
+     *
+     * @param event PaymentNotifyEvent
+     */
     @EventListener
-    public void refundNotifyEvent(final RefundNotifyEvent event) {
+    public void paymentNotifyEvent(final PaymentNotifyEvent event) {
         System.out.println(event);
     }
 
+    /**
+     * 退款结果通知.
+     *
+     * @param event RefundNotifyEvent
+     */
     @EventListener
-    public void paymentNotifyEvent(final PaymentNotifyEvent event) {
+    public void refundNotifyEvent(final RefundNotifyEvent event) {
         System.out.println(event);
     }
 }
