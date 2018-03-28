@@ -42,6 +42,20 @@ public class SignUtilsTest {
         assertEquals("A1BEA583D7519373D44343ADF19D73AD", SignUtils.generateSign(response, "key"));
     }
 
+    @Test
+    public void generateSign2() {
+        // 签名需要兼容空值以及未知字段
+        final String xmlStr = "<xml>\n" +
+                "    <device_info>device_info</device_info>\n" +
+                "    <prepay_id></prepay_id>\n" +
+                "    <unknown></unknown>\n" +
+                "    <unknown2>unknown2</unknown2>\n" +
+                "</xml>";
+        final UnifiedOrderResponse response = CodecUtils.unmarshal(xmlStr, UnifiedOrderResponse.class);
+
+        assertEquals("8A6F076B5D945D5109A1B600908F41A7", SignUtils.generateSign(response, "key"));
+    }
+
     @SuppressWarnings("unchecked")
     @Test
     public void generateSign4Cache() throws Exception {
