@@ -32,10 +32,8 @@ public class RefundNotifyEvent {
      * Instantiates a new WeChatPayRefundNotifyEvent.
      *
      * @param refundNotify the refund notify
-     * @param mchKey the mch key
      */
-    public RefundNotifyEvent(final RefundNotify refundNotify, final String mchKey) {
-        refundNotify.decrypt(mchKey);
+    public RefundNotifyEvent(final RefundNotify refundNotify) {
         this.refundNotify = refundNotify;
         this.refundSuccessful = ResponseStatus.SUCCESS.equals(refundNotify.getReturnCode());
     }
