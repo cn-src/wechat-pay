@@ -44,21 +44,21 @@ public class AnyElementsDomHandler implements DomHandler<SortedMap<String, Strin
     public SortedMap<String, String> getElement(final DOMResult rt) {
 
         final Node n = rt.getNode();
+        Element element = null;
         if (n instanceof Document) {
-            final Element element = ((Document) n).getDocumentElement();
-            this.otherElements.put(element.getNodeName(), element.getTextContent());
-
+            element = ((Document) n).getDocumentElement();
         }
         else if (n instanceof Element) {
-            final Element element = (Element) n;
-            this.otherElements.put(element.getNodeName(), element.getTextContent());
-
+            element = (Element) n;
         }
         else if (n instanceof DocumentFragment) {
-            final Element element = (Element) n.getChildNodes().item(0);
+            element = (Element) n.getChildNodes().item(0);
+        }
+        if (null != element
+                && null != element.getNodeName() && !"".equals(element.getNodeName())
+                && null != element.getTextContent() && !"".equals(element.getTextContent())) {
             this.otherElements.put(element.getNodeName(), element.getTextContent());
         }
-
         return this.otherElements;
     }
 
