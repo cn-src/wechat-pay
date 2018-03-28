@@ -26,6 +26,7 @@
 4. 登录商户号设置：【产品中心】-【开发配置】, 配置支付目录
 5. 登录商户号设置：【交易中心】-【退款配置】, 配置通知 url(推荐样例: http://your_host/public/wechat/pay/refund_notify)
 6. 如果你处于开发测试阶段，可能需要一个内网穿透工具以及ICP备案域名，推荐使用: https://natapp.cn/
+7. samples 目录下有相关使用样例，类似 `System.getenv("wechat.pay.appId")` 的参数获取是为了从 jvm 系统变量中获取私密配置信息，你可以根据相关的开发工具等从外部配置好即可无需修改样例代码运行样例了，对于使用 IDEA 开发工具的推荐插件 https://github.com/Ashald/EnvFile 从外部配置私密信息
 
 # maven 坐标
 ```xml
