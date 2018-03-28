@@ -197,15 +197,16 @@ public class ObjectUtils {
      */
     public static void checkSuccessful(final BasePayResponse response, final String mchKey) {
         if (!response.getSign().equals(SignUtils.generateSign(response, mchKey))) {
-            throw new WeChatPayException("WeChat pay response 'sign' error, response:" + response.toString());
+            throw new WeChatPayException("WeChat pay response 'sign' error");
         }
         if (!ResponseStatus.SUCCESS.equals(response.getReturnCode())) {
-            throw new WeChatPayException("WeChat pay response 'return_code' is '" + response.getReturnCode()
-                    + "', response:" + response.toString());
+            throw new WeChatPayException("WeChat pay response 'return_msg' is '" + response.getReturnMsg() + "'");
         }
         if (!ResponseStatus.SUCCESS.equals(response.getResultCode())) {
-            throw new WeChatPayException("WeChat pay response 'result_code' is '" + response.getResultCode()
-                    + "', response:" + response.toString());
+            throw new WeChatPayException(
+                    String.format("WeChat pay response 'err_code' is '%s', 'err_code_des' is '%s'",
+                            response.getErrCode(),
+                            response.getErrCodeDes()));
         }
     }
 
