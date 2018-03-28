@@ -12,14 +12,19 @@
 [![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=ncloc)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
 
 # wechat-pay
-微信支付
+微信支付-简单易用
+
+# 使用说明
+1. 参数名已尽可能保持与官方文档一致，因此可直接参照官方文档说明使用
+2. 提供了最小化参数集的接口，无需关心过多的参数
+3. 使用 spring 事件机制封装了微信支付通知，以简化使用方式
 
 # 使用前提
-1. 申请微信商户号
+1. 申请微信公众号以及微信商户号
 2. 获取到 公众号 ID(appid), 商户号(mchId)
 3. 登录商户号设置：【账户中心】-【API安全】, 设置 API 秘钥(mchKey)，下载 API 证书(退款需要)
 4. 登录商户号设置：【产品中心】-【开发配置】, 配置支付目录
-5. 登录商户号设置：【交易中心】-【退款配置】, 配置通知 url(推荐: http://your_host/public/wechat/pay/refund_notify)
+5. 登录商户号设置：【交易中心】-【退款配置】, 配置通知 url(推荐样例: http://your_host/public/wechat/pay/refund_notify)
 
 # maven 坐标
 ```xml
