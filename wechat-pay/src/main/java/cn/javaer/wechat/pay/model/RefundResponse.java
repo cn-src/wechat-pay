@@ -54,6 +54,12 @@ public class RefundResponse extends BasePayResponse {
     @XmlElement(name = "refund_id")
     private String refundId;
 
+    /**
+     * 官方文档中没有，但实际存在的字段，返回值为空.
+     */
+    @XmlElement(name = "refund_channel")
+    private String refundChannel;
+
     @XmlElement(name = "refund_fee")
     private Integer refundFee;
 
