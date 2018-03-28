@@ -23,8 +23,6 @@ import org.apache.http.client.HttpClient;
 import org.hibernate.validator.HibernateValidator;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -35,13 +33,12 @@ import javax.validation.Validator;
  * @author zhangpeng
  */
 public class WeChatPayServiceFactoryBean implements
-        FactoryBean<WeChatPayService>, InitializingBean, ApplicationEventPublisherAware {
+        FactoryBean<WeChatPayService>, InitializingBean {
 
     private WeChatPayConfigurator weChatPayConfigurator;
     private WeChatPayService weChatPayService;
     private WeChatPayClient weChatPayClient;
     private Validator validator;
-    private ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public WeChatPayService getObject() throws Exception {
@@ -78,11 +75,6 @@ public class WeChatPayServiceFactoryBean implements
         final HttpClient httpClient = new HttpClientFactory(
                 this.weChatPayConfigurator.getMchId(), this.weChatPayConfigurator.getCertificatePath()).build();
         return new WeChatPayHttpComponentsClient(this.weChatPayConfigurator.getBasePath(), httpClient);
-    }
-
-    @Override
-    public void setApplicationEventPublisher(final ApplicationEventPublisher applicationEventPublisher) {
-        this.applicationEventPublisher = applicationEventPublisher;
     }
 
     public void setWeChatPayConfigurator(final WeChatPayConfigurator weChatPayConfigurator) {
