@@ -94,7 +94,10 @@ public class SignUtils {
         final StringBuilder sb = new StringBuilder();
 
         for (final Map.Entry<String, String> entry : params.entrySet()) {
-            sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
+            if (null != entry.getKey() && !"".equals(entry.getKey())
+                    && null != entry.getValue() && !"".equals(entry.getValue())) {
+                sb.append(entry.getKey()).append('=').append(entry.getValue()).append('&');
+            }
         }
         sb.append("key").append('=').append(mchKey);
         return DigestUtils.md5Hex(sb.toString()).toUpperCase(Locale.ENGLISH);

@@ -54,9 +54,7 @@ public class AnyElementsDomHandler implements DomHandler<SortedMap<String, Strin
         else if (n instanceof DocumentFragment) {
             element = (Element) n.getChildNodes().item(0);
         }
-        if (null != element
-                && null != element.getNodeName() && !"".equals(element.getNodeName())
-                && null != element.getTextContent() && !"".equals(element.getTextContent())) {
+        if (null != element) {
             this.otherElements.put(element.getNodeName(), element.getTextContent());
         }
         return this.otherElements;
