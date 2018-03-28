@@ -61,9 +61,9 @@ public class WeChatPayController implements ApplicationEventPublisherAware {
      */
     @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + REFUND_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
-    public NotifyResponse refundNotify(@RequestBody final RefundNotify payNotifyResult) {
-        this.log.info("Received refund notify, outTradeNo is '{}'", payNotifyResult.getOutTradeNo());
-        this.eventPublisher.publishEvent(new RefundNotifyEvent(payNotifyResult, this.mchKey));
+    public NotifyResponse refundNotify(@RequestBody final RefundNotify refundNotify) {
+        this.log.info("Received refund notify, outTradeNo is '{}'", refundNotify.getOutTradeNo());
+        this.eventPublisher.publishEvent(new RefundNotifyEvent(refundNotify, this.mchKey));
         return NotifyResponse.SUCCESS;
     }
 
