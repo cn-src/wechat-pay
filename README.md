@@ -25,6 +25,7 @@
 3. 登录商户号设置：【账户中心】-【API安全】, 设置 API 秘钥(mchKey)，下载 API 证书(退款需要)
 4. 登录商户号设置：【产品中心】-【开发配置】, 配置支付目录
 5. 登录商户号设置：【交易中心】-【退款配置】, 配置通知 url(推荐样例: http://your_host/public/wechat/pay/refund_notify)
+6. 如果你处于开发测试阶段，可能需要一个内网穿透工具以及ICP备案域名，推荐使用: https://natapp.cn/
 
 # maven 坐标
 ```xml
