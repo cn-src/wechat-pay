@@ -35,13 +35,13 @@
 <dependency>
     <groupId>cn.javaer.wechat</groupId>
     <artifactId>wechat-pay</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-rc1</version>
 </dependency>
 
 <dependency>
     <groupId>cn.javaer.wechat</groupId>
     <artifactId>wechat-spring-boot-starter-pay</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0-rc1</version>
 </dependency>
 ```
 
