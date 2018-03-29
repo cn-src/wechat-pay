@@ -5,7 +5,7 @@
     <groupId>cn.javaer.wechat</groupId>
     <artifactId>wechat-pay-parent</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-BATE</version>
+    <version>1.0.1-SNAPSHOT</version>
     <modules>
         <module>wechat-pay</module>
         <module>wechat-spring-boot-starter-pay</module>
@@ -24,7 +24,7 @@
         <url>https://github.com/cn-src/wechat-pay.git</url>
         <connection>scm:git:ssh://github.com/cn-src/wechat-pay.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/cn-src/wechat-pay.git</developerConnection>
-        <tag>1.0.0-BATE</tag>
+        <tag>HEAD</tag>
     </scm>
     <developers>
         <developer>
