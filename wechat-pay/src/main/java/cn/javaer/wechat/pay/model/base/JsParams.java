@@ -43,7 +43,8 @@ public class JsParams {
      *
      * @param prepayId the prepay id
      * @param signType the sign type, signType 必须与下单的一致
-     * @param appId the app id
+     * @param appId 公众号 ID
+     * @param mchKey 商户秘钥
      *
      * @return the js params
      */
