@@ -100,8 +100,8 @@ public class WeChatPayService {
 
     /**
      * 统一下单.
-     * <p>
-     * 用户可自由赋值 UnifiedOrderRequest 中的字段来构建统一下单，
+     *
+     * <p>用户可自由赋值 UnifiedOrderRequest 中的字段来构建统一下单，
      * 但与 WeChatPayConfigurator 中对应的字段以及 nonce_str 会被强制覆盖.
      *
      * @param request UnifiedOrderRequest
@@ -280,7 +280,8 @@ public class WeChatPayService {
         final Set<ConstraintViolation<BasePayRequest>> violationSet = this.validator.validate(request);
         if (!violationSet.isEmpty()) {
             final ConstraintViolation<BasePayRequest> violation = violationSet.iterator().next();
-            throw new IllegalArgumentException(String.format("'%s' %s", violation.getPropertyPath(), violation.getMessage()));
+            throw new IllegalArgumentException(
+                    String.format("'%s' %s", violation.getPropertyPath(), violation.getMessage()));
         }
     }
 

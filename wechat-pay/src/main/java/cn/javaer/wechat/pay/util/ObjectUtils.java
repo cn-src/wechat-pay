@@ -88,7 +88,9 @@ public class ObjectUtils {
      *
      * @return the Enum
      */
-    public static <E extends Enum<E>> E enumOf(final String key, final Class<E> clazz, final SortedMap<String, String> otherParams) {
+    public static <E extends Enum<E>> E enumOf(
+            final String key, final Class<E> clazz, final SortedMap<String, String> otherParams) {
+
         if (null != otherParams) {
             try {
                 return Enum.valueOf(clazz, otherParams.get(key));
