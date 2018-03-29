@@ -119,6 +119,7 @@ public class WeChatPayService {
      * @param body 商品简述
      * @param outTradeNo 商户订单号
      * @param totalFee 待支付的金额
+     * @param ip 服务器 ip
      *
      * @return 二维码链接
      */
@@ -144,6 +145,7 @@ public class WeChatPayService {
      * @param body 商品简述
      * @param outTradeNo 商户订单号
      * @param totalFee 待支付的金额
+     * @param ip 客户端 ip
      *
      * @return JsParams js 调用所需参数
      */
@@ -247,7 +249,10 @@ public class WeChatPayService {
     /**
      * 下载对账单.
      *
-     * @return DownloadBillResponse
+     * @param queryDate 查询日期
+     * @param billType 账单类型
+     *
+     * @return DownloadBillResponse download bill response
      */
     public DownloadBillResponse downloadBill(final LocalDate queryDate, final BillType billType) {
         if (LocalDate.now().equals(queryDate)) {

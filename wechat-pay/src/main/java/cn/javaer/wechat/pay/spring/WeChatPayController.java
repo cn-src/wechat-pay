@@ -47,6 +47,10 @@ public class WeChatPayController implements ApplicationEventPublisherAware {
 
     /**
      * 接收支付结果通知, 将其发布为事件.
+     *
+     * @param paymentNotify 付款通知
+     *
+     * @return the notify response
      */
     @RequestMapping(path = "${wechat.pay.paymentNotifyPath:" + PAYMENT_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
@@ -58,6 +62,10 @@ public class WeChatPayController implements ApplicationEventPublisherAware {
 
     /**
      * 接收退款结果通知, 将其发布为事件.
+     *
+     * @param refundNotify 退款通知
+     *
+     * @return the notify response
      */
     @RequestMapping(path = "${wechat.pay.refundNotifyPath:" + REFUND_NOTIFY_PATH + "}",
             consumes = MediaType.TEXT_XML_VALUE, produces = MediaType.TEXT_XML_VALUE)
