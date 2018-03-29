@@ -177,6 +177,7 @@ public class ObjectUtils {
     /**
      * 获取完整的 api url.
      *
+     * @param basePath 微信 api basePath
      * @param apiPath 微信 api path
      *
      * @return 拼接后的 url.
@@ -194,6 +195,7 @@ public class ObjectUtils {
      * 校验响应信息是否为成功.
      *
      * @param response BasePayResponse
+     * @param mchKey 商户秘钥
      *
      * @throws WeChatPayException 没有响应信息, 响应信息标示不成功时抛出此异常.
      */
@@ -229,6 +231,7 @@ public class ObjectUtils {
      * 判断响应信息是否为成功.
      *
      * @param response BasePayResponse
+     * @param mchKey 商户秘钥
      *
      * @return 有响应信息, 并且完全成功返回 true
      */

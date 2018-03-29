@@ -67,6 +67,7 @@ public class CodecUtils {
      * </ul>
      *
      * @param str 待解密的密文
+     * @param mchKey 商户秘钥
      *
      * @return 解密后的明文
      */
