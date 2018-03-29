@@ -251,9 +251,9 @@ public class ObjectUtils {
      * <h3>样例:</h3>
      * <pre>
      * final Map&lt;String, BiConsumer&lt;String, Coupon&gt;&gt; mapping = new HashMap&lt;&gt;();
-     * mapping.put("coupon_id_", (val, coupon) -> coupon.setId(val));
-     * mapping.put("coupon_type_", (val, coupon) -> coupon.setType(val));
-     * mapping.put("coupon_fee_", (val, coupon) -> coupon.setFee(Integer.valueOf(val)));
+     * mapping.put("coupon_id_", (val, coupon) -&gt; coupon.setId(val));
+     * mapping.put("coupon_type_", (val, coupon) -&gt; coupon.setType(val));
+     * mapping.put("coupon_fee_", (val, coupon) -&gt; coupon.setFee(Integer.valueOf(val)));
      * ObjectUtils.beansMapFrom(this.otherParams, mapping, Coupon::new);
      * </pre>
      *
