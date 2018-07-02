@@ -28,7 +28,7 @@ import java.util.TreeMap;
 /**
  * 处理接收微信动态字段以及 api 变更产生的未知字段.
  *
- * @author zhangpeng
+ * @author cn-src
  * @see javax.xml.bind.annotation.W3CDomHandler
  */
 public class AnyElementsDomHandler implements DomHandler<SortedMap<String, String>, DOMResult> {

@@ -48,7 +48,7 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
 /**
  * 微信支付客户端-RestTemplate实现.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public class WeChatPayHttpComponentsClient implements WeChatPayClient {
     private static final String XML_TAG = "<xml>";

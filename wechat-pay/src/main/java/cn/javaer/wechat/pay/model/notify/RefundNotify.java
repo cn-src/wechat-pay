@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 使用该功能需要在商户平台-交易中心-退款配置中配置notify_url
  * </p>
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @ToString(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)

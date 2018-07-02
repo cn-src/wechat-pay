@@ -23,7 +23,7 @@ import static cn.javaer.wechat.test.Assertions.assertThat;
 
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class CodecUtilsTest {
 

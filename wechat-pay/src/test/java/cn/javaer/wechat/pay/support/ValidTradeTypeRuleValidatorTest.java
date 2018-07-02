@@ -25,7 +25,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class ValidTradeTypeRuleValidatorTest {
 

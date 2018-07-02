@@ -19,7 +19,7 @@ import lombok.Setter;
 /**
  * 微信支付-下载对账单-请求.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Getter
 @Setter

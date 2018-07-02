@@ -36,7 +36,7 @@ import java.util.function.BiConsumer;
 /**
  * 微信支付-查询退款-响应.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Getter
 @Setter

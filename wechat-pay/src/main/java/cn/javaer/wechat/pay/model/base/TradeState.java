@@ -16,7 +16,7 @@ package cn.javaer.wechat.pay.model.base;
 /**
  * 交易状态.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public enum TradeState {
 

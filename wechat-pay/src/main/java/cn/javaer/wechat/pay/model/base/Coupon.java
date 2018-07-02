@@ -18,7 +18,7 @@ import lombok.Data;
 /**
  * 代金券.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Data
 public class Coupon {

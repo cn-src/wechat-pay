@@ -27,7 +27,7 @@ import static cn.javaer.wechat.test.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class ObjectUtilsTest {
 

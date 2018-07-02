@@ -16,7 +16,7 @@ package sample;
 import cn.javaer.wechat.pay.model.RefundResponse;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class RefundSample {
     public static void main(final String[] args) {

@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * 微信支付-统一下单-响应.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Getter
 @Setter

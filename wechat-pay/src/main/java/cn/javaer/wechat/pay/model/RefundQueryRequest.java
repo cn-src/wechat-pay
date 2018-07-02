@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * 微信支付-查询退款-请求.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @OnlyOneNotNull
 @Getter

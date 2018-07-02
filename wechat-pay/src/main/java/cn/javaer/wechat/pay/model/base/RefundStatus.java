@@ -16,7 +16,7 @@ package cn.javaer.wechat.pay.model.base;
 /**
  * 退款状态.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public enum RefundStatus {
 

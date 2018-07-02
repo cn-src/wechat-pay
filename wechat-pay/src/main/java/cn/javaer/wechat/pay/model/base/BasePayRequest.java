@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlElement;
 /**
  * 微信支付-基本请求信息.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Getter
 @Setter

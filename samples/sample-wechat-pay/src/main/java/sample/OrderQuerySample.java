@@ -16,7 +16,7 @@ package sample;
 import cn.javaer.wechat.pay.model.OrderQueryResponse;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class OrderQuerySample {
     public static void main(final String[] args) {

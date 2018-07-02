@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * 微信支付-交易保障-请求.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Getter
 @ToString(callSuper = true)

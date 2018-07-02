@@ -33,7 +33,7 @@ import java.security.cert.CertificateException;
 /**
  * HttpClient 创建工厂.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public class HttpClientFactory {
     private final String key;

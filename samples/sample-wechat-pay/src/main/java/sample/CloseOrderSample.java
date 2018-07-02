@@ -16,7 +16,7 @@ package sample;
 import cn.javaer.wechat.pay.model.CloseOrderResponse;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class CloseOrderSample {
     public static void main(final String[] args) throws Exception {

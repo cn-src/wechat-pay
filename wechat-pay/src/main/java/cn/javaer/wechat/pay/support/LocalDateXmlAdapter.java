@@ -20,7 +20,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * The type LocalDateTimeXmlAdapter.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public class LocalDateXmlAdapter extends XmlAdapter<String, LocalDate> {
     public static final LocalDateXmlAdapter INSTANCE = new LocalDateXmlAdapter();

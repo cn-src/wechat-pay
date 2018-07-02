@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * 微信支付-关闭订单-请求.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Getter
 @Setter

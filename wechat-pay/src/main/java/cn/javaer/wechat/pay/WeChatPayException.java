@@ -16,7 +16,7 @@ package cn.javaer.wechat.pay;
 /**
  * 微信支付异常.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public class WeChatPayException extends RuntimeException {
     public WeChatPayException(final String message) {

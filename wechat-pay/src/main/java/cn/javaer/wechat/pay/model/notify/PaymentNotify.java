@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * 微信支付-支付结果通知.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Getter
 @Setter

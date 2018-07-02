@@ -21,7 +21,7 @@ import org.junit.Test;
 import static cn.javaer.wechat.test.Assertions.assertThat;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class RefundQueryResponseTest {
     //language=xml

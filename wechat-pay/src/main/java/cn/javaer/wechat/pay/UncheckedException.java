@@ -16,7 +16,7 @@ package cn.javaer.wechat.pay;
 /**
  * 包装受检查异常.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public class UncheckedException extends RuntimeException {
     public UncheckedException(final Throwable cause) {

@@ -29,7 +29,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 微信支付自动配置.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Configuration
 @ConditionalOnClass(WeChatPayClient.class)

@@ -25,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * 微信支付-支付通知结果-返回给微信服务的响应.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Data
 @NoArgsConstructor

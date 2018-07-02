@@ -22,7 +22,7 @@ import static cn.javaer.wechat.test.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class PaymentNotifyTest {
 

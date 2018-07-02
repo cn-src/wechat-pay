@@ -45,7 +45,7 @@ import java.util.zip.GZIPInputStream;
 /**
  * 微信支付工具类.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public class CodecUtils {
 

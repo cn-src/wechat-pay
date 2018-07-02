@@ -26,7 +26,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * 自定义 Validator 校验, 检查被 {@link OnlyOne}标注的多个属性只能一个有值.
  *
- * @author zhangpeng
+ * @author cn-src
  * @see OnlyOne
  */
 @Target({TYPE, ANNOTATION_TYPE})

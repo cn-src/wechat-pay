@@ -38,7 +38,7 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotEmpty;
 /**
  * 签名工具.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public class SignUtils {
     private static final Map<Class, List<Field>> CACHE_FOR_SIGN = new ConcurrentHashMap<>();

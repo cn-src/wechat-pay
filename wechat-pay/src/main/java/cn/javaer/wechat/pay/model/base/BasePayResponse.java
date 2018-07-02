@@ -28,7 +28,7 @@ import java.util.SortedMap;
 /**
  * 微信支付-基本响应信息.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Getter
 @Setter

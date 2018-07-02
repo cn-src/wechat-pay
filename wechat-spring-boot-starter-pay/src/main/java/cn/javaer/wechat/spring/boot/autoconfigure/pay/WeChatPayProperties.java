@@ -21,7 +21,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 /**
  * 微信支付-配置.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Getter
 @Setter

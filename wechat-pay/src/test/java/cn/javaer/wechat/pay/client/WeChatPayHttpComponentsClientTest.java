@@ -32,7 +32,7 @@ import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class WeChatPayHttpComponentsClientTest {
     @Rule

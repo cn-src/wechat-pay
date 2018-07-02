@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 退款信息.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Data
 public class Refund {

@@ -16,7 +16,7 @@ package cn.javaer.wechat.pay.model.base;
 /**
  * 支付类型.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public enum TradeType {
 

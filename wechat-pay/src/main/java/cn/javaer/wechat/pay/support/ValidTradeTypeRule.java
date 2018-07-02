@@ -26,7 +26,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * 支付类型的下单参数规则.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Target({TYPE, ANNOTATION_TYPE})
 @Retention(RUNTIME)

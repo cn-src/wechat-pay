@@ -19,7 +19,7 @@ import cn.javaer.wechat.pay.util.ObjectUtils;
 /**
  * 微信支付-支付结果通知事件.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 
 public class PaymentNotifyEvent {

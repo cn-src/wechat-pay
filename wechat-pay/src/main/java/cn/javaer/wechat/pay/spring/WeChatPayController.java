@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * 微信支付 Controller.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @RestController
 public class WeChatPayController implements ApplicationEventPublisherAware {

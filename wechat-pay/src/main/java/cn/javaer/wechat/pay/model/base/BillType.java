@@ -16,7 +16,7 @@ package cn.javaer.wechat.pay.model.base;
 /**
  * 账单类型.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public enum BillType {
 

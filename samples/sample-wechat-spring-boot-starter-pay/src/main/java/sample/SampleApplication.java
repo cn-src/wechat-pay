@@ -17,7 +17,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 @SpringBootApplication
 public class SampleApplication {

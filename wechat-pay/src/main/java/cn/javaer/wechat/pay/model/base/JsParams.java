@@ -24,7 +24,7 @@ import java.util.TreeMap;
 /**
  * JSAPI 支付需要的参数.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Data
 public class JsParams {

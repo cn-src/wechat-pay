@@ -29,7 +29,7 @@ import cn.javaer.wechat.pay.model.UnifiedOrderResponse;
 /**
  * 微信支付客户端接口.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public interface WeChatPayClient {
 

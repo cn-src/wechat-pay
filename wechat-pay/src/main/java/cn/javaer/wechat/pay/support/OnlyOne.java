@@ -23,7 +23,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 /**
  * 标注 javabean 多个属性只能有一个有值.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Target({FIELD})
 @Retention(RUNTIME)

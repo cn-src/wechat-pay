@@ -19,7 +19,7 @@ import cn.javaer.wechat.pay.model.base.BillType;
 import java.time.LocalDate;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class DownloadBillSample {
     public static void main(final String[] args) throws Exception {

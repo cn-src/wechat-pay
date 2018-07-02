@@ -17,7 +17,7 @@ import cn.javaer.wechat.pay.WeChatPayConfigurator;
 import cn.javaer.wechat.pay.WeChatPayService;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 public class WeChatPayServiceFactory {
     private static final WeChatPayService weChatPayService;

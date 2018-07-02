@@ -19,7 +19,7 @@ import cn.javaer.wechat.pay.model.notify.RefundNotify;
 /**
  * 微信支付-退款结果通知事件.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 
 public class RefundNotifyEvent {

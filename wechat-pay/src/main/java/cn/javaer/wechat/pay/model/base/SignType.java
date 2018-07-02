@@ -20,7 +20,7 @@ import javax.xml.bind.annotation.XmlType;
 /**
  * 签名类型.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @XmlType
 @XmlEnum

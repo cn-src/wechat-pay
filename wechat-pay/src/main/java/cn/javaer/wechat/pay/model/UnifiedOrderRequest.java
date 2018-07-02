@@ -36,7 +36,7 @@ import java.time.LocalDateTime;
 /**
  * 微信支付-统一下单-请求.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @ValidTradeTypeRule
 @EqualsAndHashCode(callSuper = true)

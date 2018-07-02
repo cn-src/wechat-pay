@@ -30,7 +30,7 @@ import javax.validation.Validator;
 /**
  * WeChatPayService 的 spring FactoryBean.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public class WeChatPayServiceFactoryBean implements
         FactoryBean<WeChatPayService>, InitializingBean {

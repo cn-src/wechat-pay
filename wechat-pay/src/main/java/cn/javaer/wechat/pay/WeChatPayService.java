@@ -50,7 +50,7 @@ import static cn.javaer.wechat.pay.util.ObjectUtils.checkNotNull;
 /**
  * 微信支付服务.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 public class WeChatPayService {
     private final WeChatPayClient client;

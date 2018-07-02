@@ -19,7 +19,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
 /**
- * @author zhangpeng
+ * @author cn-src
  */
 @Component
 public class SamplePayEvent {

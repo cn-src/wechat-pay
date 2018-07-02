@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 /**
  * 标注不参与签名计算的字段.
  *
- * @author zhangpeng
+ * @author cn-src
  */
 @Target({ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
