@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
-![Maven Central](https://img.shields.io/maven-central/v/cn.javaer.wechat/wechat-pay.svg)
+[![Maven Central](https://img.shields.io/maven-central/v/cn.javaer.wechat/wechat-pay.svg)](https://search.maven.org/search?q=g:cn.javaer.wechat)
 [![Build Status](https://travis-ci.org/cn-src/wechat-pay.svg?branch=master)](https://travis-ci.org/cn-src/wechat-pay)
 
 # wechat-pay
