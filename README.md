@@ -1,15 +1,6 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 ![Maven Central](https://img.shields.io/maven-central/v/cn.javaer.wechat/wechat-pay.svg)
 [![Build Status](https://travis-ci.org/cn-src/wechat-pay.svg?branch=master)](https://travis-ci.org/cn-src/wechat-pay)
-[![Libraries.io for GitHub](https://img.shields.io/librariesio/github/cn-src/wechat-pay.svg)](https://libraries.io/github/cn-src/wechat-pay)
-
-[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
-[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
-[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=coverage)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
-[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=bugs)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
-[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=code_smells)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
-[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
-[![Sonar Cloud](https://sonarcloud.io/api/project_badges/measure?project=cn.javaer.wechat%3Awechat-pay-parent&metric=ncloc)](https://sonarcloud.io/dashboard?id=cn.javaer.wechat%3Awechat-pay-parent)
 
 # wechat-pay
 微信支付-简单易用
@@ -35,13 +26,13 @@
 <dependency>
     <groupId>cn.javaer.wechat</groupId>
     <artifactId>wechat-pay</artifactId>
-    <version>1.0.0-rc1</version>
+    <version>LATEST</version>
 </dependency>
 
 <dependency>
     <groupId>cn.javaer.wechat</groupId>
     <artifactId>wechat-spring-boot-starter-pay</artifactId>
-    <version>1.0.0-rc1</version>
+    <version>LATEST</version>
 </dependency>
 ```
 
