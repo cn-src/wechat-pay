@@ -27,13 +27,15 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UncheckedIOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -80,11 +82,11 @@ public class CodecUtils {
             final Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding");
             cipher.init(Cipher.DECRYPT_MODE, key);
             final byte[] bytes = cipher.doFinal(decode);
-            return new String(bytes, "UTF-8");
+            return new String(bytes, StandardCharsets.UTF_8);
         }
         catch (final NoSuchAlgorithmException | InvalidKeyException
                 | BadPaddingException | NoSuchPaddingException
-                | IllegalBlockSizeException | UnsupportedEncodingException e) {
+                | IllegalBlockSizeException e) {
             throw new UncheckedException("Decrypt fail", e);
         }
     }
@@ -127,6 +129,8 @@ public class CodecUtils {
         try {
             final JAXBContext context = JAXBContext.newInstance(obj.getClass());
             final Marshaller marshaller = context.createMarshaller();
+            marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+
             final StringWriter writer = new StringWriter();
             marshaller.marshal(obj, writer);
             return writer.toString();
@@ -149,17 +153,22 @@ public class CodecUtils {
     public static <T> T unmarshal(final String xmlStr, final Class<T> clazz) {
         try {
             final JAXBContext context = JAXBContext.newInstance(clazz);
+            final XMLInputFactory xif = XMLInputFactory.newFactory();
+            xif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            xif.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+            final XMLStreamReader xsr = xif.createXMLStreamReader(new StringReader(xmlStr));
+
             final Unmarshaller unmarshaller = context.createUnmarshaller();
-            final StringReader reader = new StringReader(xmlStr);
-            final T response = (T) unmarshaller.unmarshal(reader);
+            final T response = (T) unmarshaller.unmarshal(xsr);
             if (response instanceof BasePayResponse) {
                 ((BasePayResponse) response).processResponse();
             }
             return response;
         }
-        catch (final JAXBException e) {
+        catch (final JAXBException | XMLStreamException e) {
             throw new UncheckedException(e);
         }
+
     }
 
     /**
