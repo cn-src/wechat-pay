@@ -200,11 +200,11 @@ public class ObjectUtils {
      * @throws WeChatPayException 没有响应信息, 响应信息标示不成功时抛出此异常.
      */
     public static void checkSuccessful(final BasePayResponse response, final String mchKey) {
+        if (response.getReturnCode() == ResponseStatus.FAIL) {
+            throw new WeChatPayException("WeChat pay response 'return_msg' is '" + response.getReturnMsg() + "'");
+        }
         if (!response.getSign().equals(SignUtils.generateSign(response, mchKey))) {
             throw new WeChatPayException("WeChat pay response 'sign' error");
-        }
-        if (!ResponseStatus.SUCCESS.equals(response.getReturnCode())) {
-            throw new WeChatPayException("WeChat pay response 'return_msg' is '" + response.getReturnMsg() + "'");
         }
         if (!ResponseStatus.SUCCESS.equals(response.getResultCode())) {
             throw new WeChatPayException(
@@ -241,7 +241,6 @@ public class ObjectUtils {
                 && (ResponseStatus.SUCCESS.equals(response.getReturnCode()))
                 && (ResponseStatus.SUCCESS.equals(response.getResultCode()));
     }
-
 
     /**
      * 动态数据的映射转换.
@@ -286,7 +285,6 @@ public class ObjectUtils {
                     mappingEntry.getValue().accept(value, t);
                 }
             }
-
         }
 
         return rtMap;
@@ -444,5 +442,4 @@ public class ObjectUtils {
             default:
         }
     }
-
 }
