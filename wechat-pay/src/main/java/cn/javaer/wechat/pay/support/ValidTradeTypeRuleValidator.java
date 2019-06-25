@@ -44,6 +44,6 @@ public class ValidTradeTypeRuleValidator implements ConstraintValidator<ValidTra
                     .addPropertyNode("openId").addConstraintViolation();
             return null != value.getOpenId();
         }
-        return false;
+        return true;
     }
 }

@@ -63,7 +63,7 @@ public class WeChatPayService {
      * @param configurator WeChatPayConfigurator
      */
     public WeChatPayService(final WeChatPayConfigurator configurator) {
-        this.client = weChatPayClient(configurator);
+        this.client = this.weChatPayClient(configurator);
         this.configurator = configurator;
         this.validator = Validation.buildDefaultValidatorFactory().getValidator();
     }
@@ -110,7 +110,7 @@ public class WeChatPayService {
      */
     public UnifiedOrderResponse unifiedOrder(final UnifiedOrderRequest request) {
         request.setNotifyUrl(this.configurator.getPaymentNotifyUrl());
-        return call(this.client::unifiedOrder, request);
+        return this.call(this.client::unifiedOrder, request);
     }
 
     /**
@@ -134,7 +134,7 @@ public class WeChatPayService {
         request.setBody(body);
         request.setTotalFee(totalFee);
         request.setSpbillCreateIp(ip);
-        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
+        final UnifiedOrderResponse response = this.call(this.client::unifiedOrder, request);
         return response.getCodeUrl();
     }
 
@@ -160,9 +160,35 @@ public class WeChatPayService {
         request.setTotalFee(totalFee);
         request.setSpbillCreateIp(ip);
         request.setOpenId(openId);
-        final UnifiedOrderResponse response = call(this.client::unifiedOrder, request);
+        final UnifiedOrderResponse response = this.call(this.client::unifiedOrder, request);
         return JsParams.create(response.getPrepayId(), request.getSignType(), request.getAppId(),
                 this.configurator.getMchKey());
+    }
+
+    /**
+     * 统一下单, H5支付(MWEB).
+     *
+     * @param body 商品简述
+     * @param outTradeNo 商户订单号
+     * @param totalFee 待支付的金额
+     * @param ip 服务器 ip
+     *
+     * @return 支付跳转链接
+     *         <p> mweb_url为拉起微信支付收银台的中间页面，可通过访问该url来拉起微信客户端，完成支付,mweb_url的有效期为5分钟。
+     */
+    public String unifiedOrderWithMweb(
+            final String outTradeNo, final String body, final int totalFee, final String ip) {
+
+        final UnifiedOrderRequest request = new UnifiedOrderRequest();
+        request.setProductId(ObjectUtils.uuid32());
+        request.setTradeType(TradeType.MWEB);
+        request.setNotifyUrl(this.configurator.getPaymentNotifyUrl());
+        request.setOutTradeNo(outTradeNo);
+        request.setBody(body);
+        request.setTotalFee(totalFee);
+        request.setSpbillCreateIp(ip);
+        final UnifiedOrderResponse response = this.call(this.client::unifiedOrder, request);
+        return response.getMwebUrl();
     }
 
     /**
@@ -175,7 +201,7 @@ public class WeChatPayService {
     public OrderQueryResponse orderQuery(final String outTradeNo) {
         final OrderQueryRequest request = new OrderQueryRequest();
         request.setOutTradeNo(outTradeNo);
-        return call(this.client::orderQuery, request);
+        return this.call(this.client::orderQuery, request);
     }
 
     /**
@@ -188,7 +214,7 @@ public class WeChatPayService {
     public CloseOrderResponse closeOrder(final String outTradeNo) {
         final CloseOrderRequest request = new CloseOrderRequest();
         request.setOutTradeNo(outTradeNo);
-        return call(this.client::closeOrder, request);
+        return this.call(this.client::closeOrder, request);
     }
 
     /**
@@ -214,7 +240,7 @@ public class WeChatPayService {
         request.setTotalFee(totalFee);
         request.setRefundFee(refundFee);
         request.setRefundDesc(refundDesc);
-        return call(this.client::refund, request);
+        return this.call(this.client::refund, request);
     }
 
     /**
@@ -227,7 +253,7 @@ public class WeChatPayService {
     public RefundQueryResponse refundQuery(final String outTradeNo) {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.setOutTradeNo(outTradeNo);
-        return call(this.client::refundQuery, request);
+        return this.call(this.client::refundQuery, request);
     }
 
     /**
@@ -243,7 +269,7 @@ public class WeChatPayService {
         final RefundQueryRequest request = new RefundQueryRequest();
         request.setOutTradeNo(outTradeNo);
         request.setOffset(offset);
-        return call(this.client::refundQuery, request);
+        return this.call(this.client::refundQuery, request);
     }
 
     /**
@@ -262,7 +288,7 @@ public class WeChatPayService {
         request.setTarType(TarType.GZIP);
         request.setBillDate(queryDate);
         request.setBillType(billType);
-        beforeRequest(request);
+        this.beforeRequest(request);
         final DownloadBillResponse response = this.client.downloadBill(request);
         ObjectUtils.checkSuccessful(response);
         return response;
@@ -270,15 +296,15 @@ public class WeChatPayService {
 
     private <T extends BasePayRequest, R extends BasePayResponse> R call(
             final Function<T, R> fun, final T request) {
-        beforeRequest(request);
+        this.beforeRequest(request);
         final R response = fun.apply(request);
         ObjectUtils.checkSuccessful(response, this.configurator.getMchKey());
         return response;
     }
 
     private void beforeRequest(final BasePayRequest request) {
-        configureAndSign(request);
-        validate(request);
+        this.configureAndSign(request);
+        this.validate(request);
     }
 
     private void validate(final BasePayRequest request) {

@@ -48,6 +48,9 @@ public class UnifiedOrderResponse extends BasePayResponse {
     @XmlElement(name = "code_url")
     private String codeUrl;
 
+    @XmlElement(name = "mweb_url")
+    private String mwebUrl;
+
     @Override
     protected void subProcessResponse() {
         this.tradeType = ObjectUtils.enumOf("trade_type", TradeType.class, this.otherParams);

@@ -28,5 +28,10 @@ public enum TradeType {
     /**
      * 扫码支付.
      */
-    NATIVE
+    NATIVE,
+
+    /**
+     * H5支付.
+     */
+    MWEB
 }
