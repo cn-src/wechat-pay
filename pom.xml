@@ -72,7 +72,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.0</version>
+                <version>0.8.4</version>
                 <executions>
                     <execution>
                         <id>prepare-agent</id>
@@ -103,83 +103,6 @@
                     <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>3.0.5</version>
-                <configuration>
-                    <effort>Max</effort>
-                    <threshold>Low</threshold>
-                    <failOnError>false</failOnError>
-                    <findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>xml-maven-plugin</artifactId>
-                <version>1.0.2</version>
-                <configuration>
-                    <transformationSets>
-                        <transformationSet>
-                            <!-- Configures the source directory of XML files. -->
-                            <dir>${project.build.directory}/findbugs</dir>
-                            <!-- Configures the directory in which the FindBugs report is written.-->
-                            <outputDir>${project.build.directory}/findbugs</outputDir>
-                            <!-- Selects the used stylesheet. -->
-                            <!-- <stylesheet>fancy-hist.xsl</stylesheet> -->
-                            <stylesheet>default.xsl</stylesheet>
-                            <!--<stylesheet>default.xsl</stylesheet>-->
-                            <!--<stylesheet>plain.xsl</stylesheet>-->
-                            <!--<stylesheet>fancy.xsl</stylesheet>-->
-                            <!--<stylesheet>summary.xsl</stylesheet>-->
-                            <fileMappers>
-                                <!-- Configures the file extension of the output files. -->
-                                <fileMapper
-                                        implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-                                    <targetExtension>.html</targetExtension>
-                                </fileMapper>
-                            </fileMappers>
-                        </transformationSet>
-                    </transformationSets>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.google.code.findbugs</groupId>
-                        <artifactId>findbugs</artifactId>
-                        <version>3.0.1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <plugin>
-                <groupId>com.github.bordertech.buildtools</groupId>
-                <artifactId>badger</artifactId>
-                <version>1.0.0</version>
-                <configuration>
-                    <outputDir>target/badges</outputDir>
-                    <inputFiles>
-                        <inputFile>target/findbugs/findbugsXml.xml</inputFile>
-                    </inputFiles>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.8</version>
-                <configuration>
-                    <target>
-                        <copy todir="${maven.multiModuleProjectDirectory}/report/${project.artifactId}/findbugs">
-                            <fileset dir="${project.build.directory}/findbugs">
-                                <include name="*"/>
-                            </fileset>
-                        </copy>
-                        <copy todir="${maven.multiModuleProjectDirectory}/report/${project.artifactId}/badges">
-                            <fileset dir="${project.build.directory}/badges">
-                                <include name="*"/>
-                            </fileset>
-                        </copy>
-                    </target>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -189,7 +112,7 @@
                 <plugins>
                     <plugin>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>3.0.1</version>
+                        <version>3.1.0</version>
                         <configuration>
                             <attach>true</attach>
                         </configuration>
@@ -205,7 +128,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.10.4</version>
+                        <version>3.1.0</version>
                         <executions>
                             <execution>
                                 <id>attach-javadocs</id>
