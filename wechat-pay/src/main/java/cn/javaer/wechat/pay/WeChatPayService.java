@@ -180,7 +180,6 @@ public class WeChatPayService {
             final String outTradeNo, final String body, final int totalFee, final String ip) {
 
         final UnifiedOrderRequest request = new UnifiedOrderRequest();
-        request.setProductId(ObjectUtils.uuid32());
         request.setTradeType(TradeType.MWEB);
         request.setNotifyUrl(this.configurator.getPaymentNotifyUrl());
         request.setOutTradeNo(outTradeNo);
